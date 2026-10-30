@@ -102,7 +102,7 @@ Mỗi bước có một lệnh trong `lib/` (chi tiết định dạng ở `lib/
 - **Chữ dày (luật 4):** gần như mỗi câu một khối, có chữ ngay từ giây 0,1.
 - **Cấm theo luật:**
   - Chỉ dùng preset người dùng đã duyệt (luật 20, `lib/presets-duyet.json`; `lib/plan.mjs` chặn preset "không dùng"). Trước đây agent tự suy ra `chuong-moi`, `popRand`, `scatter` vi phạm luật 7 nên cấm; buổi duyệt 30/10/2026 người dùng đã xem clip và cho dùng.
-  - Không vạch gạch hai bên chữ dẫn (luật 9). Preset có trang trí `rules` (`b-number`, `b-location`, `d-counter`) phải tắt phần trang trí đó hoặc chọn preset khác.
+  - Không vạch gạch hai bên chữ (luật 9). Trang trí `rules` đã gỡ khỏi `b-number`, `b-location`, `d-counter` (30/10/2026).
   - Không xén mép chữ nghiêng (luật 12).
 - **Màu (luật 6):** chữ chính ưu tiên gradient. Màu nhấn lấy từ `brand.json`.
 - **Đọc được (luật 15):** đo nền sau từng khối bằng `scripts/bg-sample.py` và `contrastPlan`. Chữ chính phải đạt tương phản ≥ 3:1, chữ dẫn trắng ≥ 4,5:1. Phủ tối tối đa mà vẫn chưa đủ thì thêm viền tối sát chữ.

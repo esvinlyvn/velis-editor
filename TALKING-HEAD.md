@@ -20,7 +20,7 @@ Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là d�
 | 6 | Màu chữ ưu tiên gradient | Thực hành 2 |
 | 7 | Không dùng hiệu ứng hiện ký tự ngẫu nhiên hay vụn (nhìn như lỗi). Preset nào vi phạm thì người dùng xem clip rồi quyết (luật 20), agent không tự suy ra để cấm: `chuong-moi`, `tung-chu`, `dia-danh` và các preset dùng `popRand` / `scatter` đã được xem và duyệt dùng | Thực hành 2; duyệt preset 30/10/2026 |
 | 8 | Không "spam" một hiệu ứng: mỗi loại thông tin một preset | Thực hành 3 |
-| 9 | Chữ dẫn đủ to, không vạch gạch 2 bên | Thực hành 3 |
+| 9 | Chữ dẫn đủ to, không vạch gạch 2 bên (preset nào có vạch thì bỏ vạch; `b-number`, `b-location`, `d-counter` đã gỡ vạch) | Thực hành 3; xác nhận 30/10/2026 |
 | 10 | SFX: mỗi khối chữ một tiếng, không tiếng nào trùng loại; không để quá ít, không lặp một tiếng | Thực hành 3 + 4 |
 | 11 | Chữ nằm sau đối tượng: chỉ sau NGƯỜI; chỗ nào bị che mất chữ thì không lồng | Thực hành 3 |
 | 12 | Chữ nghiêng không được xén mép | Thực hành 4 |
