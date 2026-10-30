@@ -242,7 +242,7 @@ export const PRESETS = [
   // ===== Bộ C · "Đậm trẻ" — Montserrat 900 + Be Vietnam Pro (từ #6, #10, #11, #18, #40) =====
   { id: "c-hook", fam: "C", name: "C1 · Hook hai tông + câu phụ", use: "Câu hỏi gây chú ý ở 3 giây đầu",
     lines: [{ t: "CẮT LỖ?", f: "f-black", s: 190, key: true, split: true, a: "blur", fx: [{ k: "splitIn", d: .5 }] },
-      { t: "Sự thật về cổ phiếu", f: "f-sans-m", s: 64, fill: W, glow: GL.white, gw: .3, mt: -4, a: "type", d: .55 }] },
+      { t: "Sự thật về cổ phiếu", f: "f-sans-m", s: 64, fill: W, glow: GL.white, gw: .3, mt: -8, a: "type", d: .55 }] },
   { id: "c-marker", fam: "C", name: "C2 · Câu có từ được tô bút dạ", use: "Câu ngắn có 1 cụm cần nhấn",
     lines: [{ t: "Chỉ cần", f: "f-sans-m", s: 76, fill: W, glow: GL.white, gw: .3, a: "type" },
       { t: "24% VỐN", f: "f-black", s: 150, fill: W, mt: 10, a: "pop", d: .3, deco: [{ k: "marker", color: "theme" }] }] },
@@ -378,13 +378,19 @@ export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale =
   const nhans = {};
   p.lines.forEach((l, k) => { if (!l.nhan || texts[k] === null) return; const t = (texts[k] ?? l.t).normalize("NFC");
     (nhans[l.on] ??= []).push(`<span class="tp-nhan st${k}" data-at="${l.nhan}" style="font-size:${l.s ?? 48}px">${esc(t)}</span>`); });
-  const lines = p.lines.map((l, k) => {
-    if (texts[k] === null || l.nhan) return ""; // null: bỏ dòng này · nhan: đã gắn vào dòng đích
+  // Chồng dòng (mt âm) chỉ khi dòng ngay trên không có dấu dưới (dấu nặng) hay nét móc xuống (g, j, p, q, y…);
+  // có thì dòng dưới đứng sát ngay dưới, không đè (người dùng duyệt 30/10/2026)
+  const shown = p.lines.map((l, k) => (texts[k] === null || l.nhan ? null : (texts[k] ?? l.t ?? l.pill ?? "").normalize("NFC")));
+  const hangs = (t) => /[gjpqyQ,;]|\u0323/.test(t.normalize("NFD"));
+  const lines = p.lines.map((l0, k) => {
+    if (texts[k] === null || l0.nhan) return ""; // null: bỏ dòng này · nhan: đã gắn vào dòng đích
+    let up = k - 1; while (up >= 0 && shown[up] == null) up--;
+    const l = l0.mt < 0 && up >= 0 && hangs(shown[up]) ? { ...l0, mt: 0 } : l0;
     const t = (texts[k] ?? l.t ?? "").normalize("NFC");
     const glow = lineGlow(l, th, recolor);
     // hand: chữ ký Great Vibes → Dancing Script 700 (móc ư/ơ rõ, nét dày; chữ x cao hơn nên cỡ × 0,74)
     const sw = hand && l.f === "f-script";
-    const cls = ["tp-line", `L${k}`, sw ? "f-hand" : l.f ?? "", l.box ? "boxed" : "", l.outlined ? "outlined" : "", l.tag ? "tagged" : "", l.a === "caret" ? "caret-line" : ""].join(" ").replace(/\s+/g, " ").trim();
+    const cls = ["tp-line", `L${k}`, sw ? "f-hand" : l.f ?? "", l.box ? "boxed" : "", l.outlined ? "outlined" : "", l.tag ? "tagged" : "", l.a === "caret" ? "caret-line" : "", l.key ? "key-line" : ""].join(" ").replace(/\s+/g, " ").trim();
     const tf = [l.dx ? `translateX(${l.dx}px)` : "", l.sx ? `scaleX(${l.sx})` : ""].filter(Boolean).join(" ");
     const style = [`font-size:${Math.round((l.s ?? 60) * (sw ? 0.74 : 1))}px`, fillVars(l, th, recolor), `--glow:${l.box || l.tag ? "transparent" : glow ?? "transparent"}`, `--gw:${l.gw ?? 1}`,
       l.mt ? `margin-top:${l.mt}px` : "", tf ? `transform:${tf}` : "", l.z ? `--z:${l.z}` : "", l.ls ? `letter-spacing:${l.ls}` : "",
@@ -449,7 +455,8 @@ function lay(){
     var best=null, bw=0;
     pos.querySelectorAll(".tp-line .in").forEach(function(inn){ if(inn.scrollWidth>bw){ bw=inn.scrollWidth; best=inn; } });
     // chỉ xuống dòng chính dòng rộng nhất (dòng gõ có con trỏ thì không: con trỏ chạy theo một hàng)
-    if(!best || best.closest(".caret-line") || !best.querySelector(".ch.sp")) return;
+    // dòng key (chữ nhấn) giữ một hàng: không ngắt, để bước sau thu nhỏ cả khối (người dùng duyệt 30/10/2026)
+    if(!best || best.closest(".caret-line") || best.closest(".key-line") || !best.querySelector(".ch.sp")) return;
     var mid=best.scrollWidth/2, pick=null, d=1e9;
     best.querySelectorAll(".ch.sp").forEach(function(sp){ if(sp.closest(".hl")) return; var dd=Math.abs(sp.offsetLeft-mid); if(dd<d){ d=dd; pick=sp; } });
     if(!pick) return;

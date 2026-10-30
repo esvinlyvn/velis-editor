@@ -16,7 +16,7 @@
 /* kim-loai */
 .bds-kim-loai { font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: 1; align-items: center; position: relative; }
 .bds-kim-loai .m { padding: .12em .06em .04em; letter-spacing: -.035em; }
-.bds-kim-loai .s { font-family: var(--script, "Dancing Script", cursive); text-transform: none; font-weight: 400; font-size: .62em; color: #fff;
+.bds-kim-loai .s { font-family: var(--script, "Lobster", cursive); text-transform: none; font-weight: 400; font-size: .62em; color: #fff;
   align-self: flex-end; margin-top: -.5em; margin-right: .05em; padding: .1em .15em; }
 
 /* so-khong-lo */
@@ -27,7 +27,7 @@
 .bds-so-khong-lo .u { font-family: var(--display); font-weight: 900; font-size: .8em; margin-left: .1em;
   background: linear-gradient(180deg, var(--k1) 0%, var(--k2) 32%, var(--k3) 50%, var(--k4) 58%, var(--k5) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; padding: .1em .02em .02em; }
 .bds-so-khong-lo .u.nho { font-family: var(--sans); font-weight: 700; font-size: .3em; background: none; color: #fff; }
-.bds-so-khong-lo .s { font-family: var(--script, "Dancing Script", cursive); font-weight: 400; font-size: .48em; color: #fff; margin-top: -.15em; padding: .05em .2em; }
+.bds-so-khong-lo .s { font-family: var(--script, "Lobster", cursive); font-weight: 400; font-size: .48em; color: #fff; margin-top: -.15em; padding: .05em .2em; }
 
 /* so-dem */
 .bds-so-dem { font-family: var(--display); font-weight: 900; line-height: 1.02; align-items: flex-start; }
@@ -53,7 +53,7 @@
 /* khối nổi (dùng ở noi-khoi, phoi-canh noi:true) */
 .bds .ex { display: inline-grid; } .bds .ex > span { grid-area: 1 / 1; padding: .1em .05em .06em; }
 .bds-noi-khoi { font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: 1; align-items: center; letter-spacing: -.03em; }
-.bds-noi-khoi .s { font-family: var(--script, "Dancing Script", cursive); text-transform: none; font-weight: 700; font-size: .45em; color: #fff; margin-top: -.05em; }
+.bds-noi-khoi .s { font-family: var(--script, "Lobster", cursive); text-transform: none; font-weight: 700; font-size: .45em; color: #fff; margin-top: -.05em; }
 
 /* so-chen */
 .bds-so-chen { font-family: var(--sans); font-weight: 700; line-height: 1; }
@@ -86,7 +86,7 @@
 .bds-logo-ghep .lg > * { grid-area: 1 / 1; }
 .bds-logo-ghep .lg-m { font-family: var(--display); font-weight: 900; padding: .05em .05em .1em; align-self: start; }
 .bds-logo-ghep .lg-m .ch { background: linear-gradient(180deg, #ffffff 30%, #bff1ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.bds-logo-ghep .lg-s { font-family: var(--script, "Dancing Script", cursive); font-weight: 400; font-size: .8em; color: #fff; align-self: end; margin-bottom: -.25em; padding: 0 .15em; }
+.bds-logo-ghep .lg-s { font-family: var(--script, "Lobster", cursive); font-weight: 400; font-size: .8em; color: #fff; align-self: end; margin-bottom: -.25em; padding: 0 .15em; }
 .bds-logo-ghep .lg-so { font-family: var(--display); font-weight: 900; font-size: 1em; color: #ffd23f; justify-self: end; align-self: end; margin-right: -.55em; margin-bottom: -.7em; }
 .bds-logo-ghep .sub { font-family: var(--display); font-weight: 800; font-size: .32em; color: #7ef0c8; margin-top: .5em; }
 
@@ -103,7 +103,7 @@
 .bds-so-thu-tu .col { display: flex; flex-direction: column; align-items: flex-start; }
 .bds-so-thu-tu .nho { font-family: var(--sans); font-weight: 600; font-size: .26em; color: #fff; }
 .bds-so-thu-tu .lon { font-size: .62em; text-transform: uppercase; padding: .08em .02em .02em; letter-spacing: -.035em; }
-.bds-so-thu-tu .lon.viet { font-family: var(--script, "Dancing Script", cursive); font-weight: 400; text-transform: none; color: #fff; }
+.bds-so-thu-tu .lon.viet { font-family: var(--script, "Lobster", cursive); font-weight: 400; text-transform: none; color: #fff; }
 
 /* khung-sdt */
 .bds-khung-sdt { font-family: var(--display); font-weight: 900; align-items: center; }

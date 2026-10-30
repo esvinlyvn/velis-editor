@@ -165,6 +165,7 @@
 
   P["ky-thuat"] = {
     vi: "Thuật ngữ", use: "Từ chuyên môn kèm một dòng giải thích: THÔNG THỦY / đo từ mép trong tường.", from: "Soft Motion · Future Digital",
+    snugSub: true,
     sample: { m: "thông thủy", sub: "đo từ mép trong tường", c: "#4ea8ff", c2: "#a7e0ff" },
     build(r, o) { return { m: line(r, "m grad", o.m), sub: o.sub ? line(r, "sub", o.sub) : null }; },
     in(tl, x, at, o, fs) {
@@ -348,6 +349,7 @@
 
   P["top-list"] = {
     vi: "Danh sách TOP", use: "Mở một danh sách: TOP / 5 KHU / đáng sống.", from: "The essential 10",
+    snugSub: true,
     sample: { k: "TOP", m: "5 KHU", sub: "đáng sống", c: "#ff4f6d" },
     build(r, o) { return { k: line(r, "k", o.k), m: line(r, "m", o.m), sub: o.sub ? line(r, "sub", o.sub) : null }; },
     in(tl, x, at, o, fs) {
@@ -506,12 +508,17 @@
   }
   function snug(h) {
     const k = h.parts.k?.l ?? h.parts.kl, m = k?.nextElementSibling; // kl: chữ dẫn giải mã của chuong-moi
-    if (!CTX || !m || h.o.snug === false) return;
-    k.style.marginBottom = ""; // đo lại từ giãn cách gốc của CSS
+    if (!CTX || h.o.snug === false || (!m && !(h.p.snugSub && (h.parts.sub || h.parts.s)))) return;
+    if (k) k.style.marginBottom = ""; // đo lại từ giãn cách gốc của CSS
     // Đo lại sau khi timeline đã đặt transform (y, scale…) thì gỡ tạm transform, đo xong trả lại
     const els = [h.r, ...h.r.querySelectorAll("*")], saved = els.map((e) => e.style.transform);
     els.forEach((e) => (e.style.transform = "none"));
-    try { measure(h, k, m); } finally { els.forEach((e, i) => (e.style.transform = saved[i])); }
+    try {
+      if (k && m) measure(h, k, m);
+      // dòng phụ dưới cụm chính (preset có snugSub): kéo sát lên nhưng không chạm dấu / nét móc của dòng trên
+      const sub = (h.parts.sub ?? h.parts.s)?.l, up = sub?.previousElementSibling;
+      if (h.p.snugSub && up && h.o.snugSub !== false) { up.style.marginBottom = ""; measure(h, up, sub); }
+    } finally { els.forEach((e, i) => (e.style.transform = saved[i])); }
   }
   function measure(h, k, m) {
     const sc = h.r.getBoundingClientRect().width / (h.r.offsetWidth || 1) || 1; // bù scale của khung cha (.stage…)
@@ -553,7 +560,7 @@
     // Weight của preset chỉ bắt đầu tải khi khối chữ được tạo, nên document.fonts.ready lúc trước chưa tính nó:
     // chưa nạp thì tải rồi đo lại (renderer HyperFrames chờ fonts.ready trước khi chụp).
     const fonts = [...new Set([r, ...r.querySelectorAll(".ln")].map((e) => { const cs = getComputedStyle(e); return `${cs.fontStyle} ${cs.fontWeight} 1em ${cs.fontFamily}`; }))];
-    if ((h.parts.k || h.parts.kl) && fonts.some((f) => !document.fonts.check(f))) Promise.all(fonts.map((f) => document.fonts.load(f))).then(() => snug(h));
+    if ((h.parts.k || h.parts.kl || (p.snugSub && (h.parts.sub || h.parts.s))) && fonts.some((f) => !document.fonts.check(f))) Promise.all(fonts.map((f) => document.fonts.load(f))).then(() => snug(h));
     return h;
   }
   function enter(tl, h, at) {

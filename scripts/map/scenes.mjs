@@ -14,7 +14,11 @@ export const W = 1080, H = 1920;
 export const SAFE = { x0: 60, x1: 1020, y0: 200, y1: 1320 };
 const FOCUS_Y = 760;
 const FIT_H = SAFE.y1 - SAFE.y0; // fit vùng vào dải 1120 px quanh tâm điểm nhìn
-export const LABEL_PRESET = "e-label";
+// Repo có danh sách preset người dùng đã duyệt (lib/presets-duyet.json, như velis-editor) thì nhãn chỉ dùng preset được duyệt;
+// mặc định e-label bị duyệt "không dùng" thì đổi sang b-location. Repo không có file này: giữ nguyên như cũ.
+const DUYET_F = new URL("../../lib/presets-duyet.json", import.meta.url);
+const KHONG = new Set(fs.existsSync(DUYET_F) ? JSON.parse(fs.readFileSync(DUYET_F, "utf8")).chung.khong : []);
+export const LABEL_PRESET = KHONG.has("e-label") ? "b-location" : "e-label";
 
 const r3 = (n) => +(+n).toFixed(3);
 
@@ -51,6 +55,7 @@ export function buildPlan(file, root) {
   if (cfg.camera) plan.views[0].camera = cfg.camera.map((k) => ({ ...k, t: at(k.t), center: pt(k.center) }));
   for (const v of plan.views) addDips(v);
   for (const l of plan.labels) if (!PRESET[l.preset]) throw new Error(`Không có text preset "${l.preset}"`);
+  for (const l of plan.labels) if (KHONG.has(l.preset)) throw new Error(`Nhãn dùng preset "${l.preset}" mà người dùng đã duyệt "không dùng" (lib/presets-duyet.json)`);
   plan.views.forEach((v) => v.camera.sort((a, b) => a.t - b.t));
   return plan;
 }

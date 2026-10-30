@@ -1,12 +1,12 @@
 # Preset chữ BĐS
 
-18 preset chữ chốt cho video bất động sản, dựng lại từ việc phân tích từng khung của video mẫu "PRESET CAPTION · Kéo thả là sử dụng" (35 preset kiểu CapCut). Chạy bằng GSAP trong HyperFrames, theo đúng luật TOOLKIT và TALKING-HEAD.
+22 preset chữ chốt cho video bất động sản, dựng lại từ việc phân tích từng khung của video mẫu "PRESET CAPTION · Kéo thả là sử dụng" (35 preset kiểu CapCut). Chạy bằng GSAP trong HyperFrames, theo đúng luật TOOLKIT và TALKING-HEAD.
 
 | File | Nội dung |
 |---|---|
 | `bds-presets.css` | Kiểu chữ của 22 preset. Màu và font đi qua biến CSS |
 | `bds-presets.js` | Hàm dựng và animation (`window.BDS`) |
-| `gallery.html` | Bảng xem thử cả 18 preset chạy lặp. Mở trực tiếp trong trình duyệt |
+| `gallery.html` | Bảng xem thử các preset chạy lặp. Mở trực tiếp trong trình duyệt |
 | `gallery-preview.mp4` | Bản quay bảng xem thử |
 
 ## 1. Phân tích video mẫu (đọc từng khung, 30 fps)
@@ -102,12 +102,11 @@ Các tham số dùng chung: `k` (chữ dẫn), `m` (chữ chính), `m2` (vế th
 
 - **Khi nào dùng bộ này (người dùng chốt):** cho video có nội dung quy hoạch, có người thật hoặc cảnh quay thật do người dùng cung cấp.
 
-Cách chọn preset cho từng chữ chốt (cùng với bộ 60 preset và thẻ bám lời) nằm ở `text-presets/QUY-TAC-CHU.md`. Các luật dưới đây chỉ riêng cho bộ này.
+Cách chọn preset cho từng chữ chốt (cùng với bộ chung 67 preset và thẻ bám lời) nằm ở `text-presets/QUY-TAC-CHU.md`. Các luật dưới đây chỉ riêng cho bộ này.
 
 - **Hai tầng chữ phải ôm sát nhau.** Chữ dẫn (`k`) nằm sát dòng dưới, không chừa khoảng hở làm vụn ý. Hai dòng được lấn vào khoảng trống của nhau, miễn không đè nét hay dấu: dưới chữ dẫn không có dấu (Chỉ với / **0 Đ**ỒNG) thì chữ dẫn xuống sát đầu chữ; dưới chữ dẫn có dấu (CHỒNG CHO THÊM / 26 t**ỷ**) thì dừng ngay trên dấu. `BDS.make` tự làm việc này: đo viền mực thật của từng ký tự (chỉ xét ký tự dòng dưới nằm ngay dưới chữ dẫn) rồi chỉnh `margin-bottom` của chữ dẫn, khe chừa mặc định max(12% cỡ chữ dẫn, 5% cỡ dòng dưới). Đổi khe bằng `gap` (px), tắt bằng `snug: false`. Weight chưa nạp thì nó tự tải rồi đo lại.
 - **Clip quay thật BĐS (TALKING-HEAD.md):** mỗi loại thông tin một preset (5–7 preset mỗi video), để không lặp một hiệu ứng.
   - Preset chính mỗi video phải khác video trước (bảng mục 4c của TALKING-HEAD.md).
-  - Không dùng `tung-chu`, `dia-danh` trên clip quay thật: ký tự hiện ngẫu nhiên hoặc vụn, người dùng chê nhìn như lỗi.
 - **Màu chữ ưu tiên gradient** (người dùng chốt): chữ khóa tô gradient dọc sáng trên → đậm dưới (`c` là màu giữa, `c2` là màu đáy, mặc định `c` pha 30% đen), chữ thường trắng → bạc. `khoi-noi`, `quay-vong`, `gia-chot` đã tô gradient sẵn. Chữ cắt nền thì đặt bóng bằng `filter: drop-shadow` trên cả dòng, không dùng `text-shadow` (bóng lộ qua lòng chữ).
 - **Màu theo nghĩa:** đỏ = sai, mất tiền; xanh lá = đúng, ổn; vàng = tiền. Các màu khác lấy từ bảng màu của video qua `c` và `c2`.
 - **Font theo cặp font của video:** truyền `display` và `sans`, hoặc đặt biến `--display`, `--sans` trên `:root`. Font phải có subset tiếng Việt.

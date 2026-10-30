@@ -15,7 +15,7 @@ Luật gốc nằm ở bảng **luật đã chốt** của `TALKING-HEAD.md` (lu
    - `family`: bộ font của bộ 60 nếu cặp font video trùng một bộ A–E; không trùng thì ghi `rieng`.
 3. Chạy `node text-presets/pick-text.mjs projects/<video>/text-plan.json`. Ở `mode: "bds"` script:
    - **giữ cố định preset theo vai** trong cả video (luật 8);
-   - loại `chuong-moi` (luật 7);
+   - loại preset người dùng đã duyệt "không dùng" (`lib/presets-duyet.json` nếu repo có, luật 20 của velis-editor);
    - trừ điểm preset có vạch gạch hai bên (luật 9);
    - so lịch sử **chỉ với video trước của cùng khách**;
    - không có ứng viên hợp vai thì dùng preset chính.

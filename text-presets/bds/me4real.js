@@ -60,6 +60,7 @@
   P["so-khong-lo"] = {
     vi: "Số khổng lồ", use: "Con số là cả câu (200 triệu, 10 năm trước, 800 m², 35 triệu, 25%): số rất lớn chất vàng, nhãn nhỏ phía trên, đơn vị trượt ra từ sau số, chữ viết tay bên dưới. Hợp chữ sau người (behind).", from: ME,
     // đo: nhãn vào trước 0,15 s · đếm 42→800 trong 0,75 s (chậm dần) hoặc đập vào 0,12 s (dem:false) · đơn vị trượt +0,15 s · viết tay khi số dừng
+    snugSub: true,
     sample: { k: "TRIỆU ĐỒNG", value: 200, u: "", s: "hợp đồng thuê", dem: true },
     build(r, o) {
       r.classList.add("tone-" + (o.tone || "vang"));

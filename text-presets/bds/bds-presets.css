@@ -49,8 +49,10 @@
 .bds-chuyen-dong .l2 { filter: drop-shadow(0 0 .25em color-mix(in srgb, var(--c) 70%, transparent)); }
 
 /* 8 ky-thuat: thuật ngữ nghiêng + dòng giải thích nhỏ */
-.bds-ky-thuat .m { font-style: italic; filter: drop-shadow(0 0 .22em color-mix(in srgb, var(--c) 70%, transparent)); }
+.bds-ky-thuat .m { font-style: italic; padding-right: .14em; filter: drop-shadow(0 0 .22em color-mix(in srgb, var(--c) 70%, transparent)); }
 .bds-ky-thuat .sub { margin-top: -.25em; color: #fff; font-style: normal; }
+/* chữ nghiêng nhô ra ngoài hộp ký tự: nới vùng tô gradient để nét móc (g, y) và đỉnh nghiêng không bị xén */
+.bds-ky-thuat .grad .ch { padding: .22em .16em .3em .12em; margin: -.22em -.16em -.3em -.12em; }
 
 /* 9 chu-bac: kim loại bạc có vệt sáng quét */
 .bds-chu-bac { align-items: flex-start; }
@@ -81,10 +83,10 @@
 
 /* 14 top-list: TOP nhỏ góc trái, chữ hoa lớn, số nhỏ góc phải */
 .bds-top-list { align-items: flex-start; }
-.bds-top-list .k { font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-size: .36em; color: #fff; margin-bottom: -.42em; margin-left: .2em; }
+.bds-top-list .k { font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 800; font-size: .36em; color: #fff; margin-bottom: -.42em; margin-left: .2em; }
 .bds-top-list .m { letter-spacing: -.02em; }
 .bds-top-list .m .ch { color: var(--c); }
-.bds-top-list .sub { align-self: flex-end; margin-top: -.42em; color: #fff; font-family: Georgia, serif; }
+.bds-top-list .sub { align-self: flex-end; margin-top: -.42em; color: #fff; font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 700; }
 
 /* 15 ky-niem: lệch màu kiểu băng VHS rồi hội tụ */
 .bds-ky-niem .m { color: #fff; text-shadow: 0 0 .15em #fff8, 0 0 .4em #fff4; }
@@ -96,7 +98,7 @@
 .bds-chuong-moi .m .ch { color: var(--c); filter: drop-shadow(0 0 .12em color-mix(in srgb, var(--c) 50%, transparent)); }
 
 /* 17 song: rơi xuống rồi lượn sóng nhẹ */
-.bds-song .m .ch { color: var(--c); text-shadow: 0 0 .08em #fff5, 0 0 .3em var(--c), 0 0 .6em color-mix(in srgb, var(--c) 50%, transparent); }
+.bds-song .m .ch { color: var(--c); text-shadow: 0 0 .06em #fff3, 0 0 .18em color-mix(in srgb, var(--c) 55%, transparent); } /* neon dịu (người dùng duyệt 30/10: "rực quá") */
 
 /* 18 gia-chot: số tiền đếm lên, bóng số lớn phía sau */
 .bds-gia-chot .k { font-size: .3em; color: #fff; letter-spacing: .12em; margin-bottom: -.5em; }
@@ -144,18 +146,18 @@
 .bds-tap-chi .m .w.hl { padding: .26em .24em .1em .12em; margin: -.26em -.24em -.1em -.12em; font-style: italic; font-weight: 700; background-image: linear-gradient(180deg, color-mix(in srgb, var(--c) 35%, #fff) 15%, var(--c) 55%, var(--c2) 100%); }
 
 /* cao-trao: câu cao trào bậc thang. Vai chữ: dem (sans nhỏ) · khoa (đậm hoa) · cam (viết tay) · chot (gradient, nhấp nháy khi vào).
-   Font viết tay qua --script (mặc định Dancing Script). Căn trái, mỗi dòng thụt thêm o.indent em. */
+   Font viết tay qua --script (mặc định Lobster). Căn trái, mỗi dòng thụt thêm o.indent em. */
 .bds-cao-trao { align-items: flex-start; line-height: 1.04; }
 .bds-cao-trao .row { display: block; padding: .1em .08em .04em; white-space: nowrap; }
 .bds-cao-trao .pt { display: inline-block; vertical-align: baseline; }
 .bds-cao-trao .v-dem { font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 700; font-size: .42em; }
 .bds-cao-trao .v-khoa { text-transform: uppercase; }
-.bds-cao-trao .v-cam { font-family: var(--script, "Dancing Script", cursive); font-weight: 400; font-size: .92em; padding: 0 .12em; }
+.bds-cao-trao .v-cam { font-family: var(--script, "Lobster", cursive); font-weight: 400; font-size: .92em; padding: 0 .12em; }
 .bds-cao-trao .v-chot { text-transform: uppercase; }
 .bds-cao-trao.al-giua { align-items: center; } .bds-cao-trao.al-phai { align-items: flex-end; }
 .bds-cao-trao .v-nho { font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 600; font-size: .3em; }
 .bds-cao-trao .v-so { font-size: 1.35em; letter-spacing: -.02em; }
 .bds-cao-trao .v-mong { font-weight: 300; text-transform: none; letter-spacing: -.01em; } /* chữ to nét mảnh ("Mở Ra"), ghép với chữ nhỏ nét đậm */
 .bds-cao-trao .v-muc { font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 800; font-size: .62em; }
-.bds-cao-trao .v-vien { font-family: var(--script, "Dancing Script", cursive); font-weight: 400; font-size: .95em; padding: 0 .12em;
+.bds-cao-trao .v-vien { font-family: var(--script, "Lobster", cursive); font-weight: 400; font-size: .95em; padding: 0 .12em;
   color: transparent; -webkit-text-stroke: .025em #fff; }

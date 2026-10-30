@@ -23,6 +23,9 @@
   background-size: 260px 100%, var(--lw, 100%) 100%;
   background-position: calc(var(--sx, -9999px) - var(--x, 0px)) 0, calc(0px - var(--x, 0px)) 0; }
 .tp-line .ch.sp { width: .26em; }
+/* chữ nghiêng / viết tay nhô ra ngoài hộp ký tự: nới vùng tô gradient hai bên để nét không bị xén */
+.tp-line .f-black-i .ch, .tp-line.f-black-i .ch, .tp-line .f-cond-i .ch, .tp-line.f-cond-i .ch, .tp-line .f-serif-i .ch, .tp-line.f-serif-i .ch {
+  padding-left: .16em; padding-right: .2em; margin-left: -.16em; margin-right: -.2em; }
 .tp-line .ch.nv { display: inline-grid; justify-items: center; }
 .tp-line .nvs { grid-area: 1 / 1; }
 /* gõ chữ có con trỏ */
