@@ -435,22 +435,27 @@
   };
 
   P["cao-trao"] = {
-    vi: "Cao trào bậc thang", use: "Câu cao trào dựng dần thành 3–5 dòng, mỗi dòng vào đúng lúc nói tới, rồi tan cùng lúc. Mỗi dòng 2–5 chữ (luật 1). Vai chữ: dem (đệm, nhỏ) · khoa (từ khóa, đậm) · cam (cảm xúc, chữ viết tay) · chot (chốt, gradient, một lần mỗi cụm).", from: "Kinetic typography BĐS (phong cách ME4REAL, docs/PHONG-CACH-ME4REAL.md C1–C2)",
+    vi: "Cao trào bậc thang", use: "Câu cao trào / khối thông tin / danh sách cộng dồn dựng dần 3–5 dòng, mỗi dòng vào đúng lúc nói tới, rồi tan cùng lúc. Mỗi dòng 2–5 chữ (luật 1). Vai: dem (đệm nhỏ) · nho (rất nhỏ) · muc (mục danh sách) · khoa (đậm hoa) · cam (viết tay) · vien (viết tay rỗng ruột) · so (số gradient lớn) · chot (gradient, một lần mỗi cụm). o.align trai|giua|phai; phần nào cũng nhận c riêng (danh sách nhiều màu).", from: "Kinetic typography BĐS (phong cách ME4REAL, docs/PHONG-CACH-ME4REAL.md C1–C2)",
     sample: { lines: [{ parts: [{ t: "mà còn", v: "dem" }, { t: "mở ra", v: "khoa" }] }, { t: "một cơ hội", v: "dem" }, { t: "sở hữu", v: "khoa" }, { t: "Ven Sông", v: "cam" }, { t: "hiếm có", v: "chot" }], c: "#ffd166", c2: "#e8761a" },
     // o.lines: [{ t, v, at? } | { parts: [{ t, v }], at? }] · at = giây tuyệt đối dòng đó vào (bám lời); thiếu thì cách nhau o.step (0,35 s)
     build(r, o) {
       const rows = (o.lines || []).map((L, i) => {
         const row = el("span", "ln row"); r.appendChild(row);
-        row.style.marginLeft = (i * (o.indent ?? 0.22)) + "em"; // bậc thang: mỗi dòng thụt thêm một nấc
+        const al = o.align ?? "trai";
+        if (al === "trai") row.style.marginLeft = (i * (o.indent ?? 0.22)) + "em"; // bậc thang: mỗi dòng thụt thêm một nấc
+        else if (al === "phai") row.style.marginRight = (i * (o.indent ?? 0)) + "em";
         const parts = (L.parts || [L]).map((p, j) => {
-          const v = p.v || "dem", s = el("span", "pt v-" + v + (v === "chot" ? " grad" : ""));
+          const v = p.v || "dem", s = el("span", "pt v-" + v + (v === "chot" || v === "so" ? " grad" : ""));
+          if (p.hoa === false) s.style.textTransform = "none"; // giữ chữ thường (Cao Cấp)
+          if (p.c) { s.style.setProperty("--c", p.c); s.style.setProperty("--c2", p.c2 ?? p.c); if (v !== "chot" && v !== "so") s.style.color = p.c; }
           row.appendChild(s);
           if (j) s.style.marginLeft = ".22em";
-          if (v === "chot") chars(s, p.t); else s.textContent = p.t;
+          if (v === "chot" || v === "so") chars(s, p.t); else s.textContent = p.t;
           return { s, v };
         });
         return { row, parts, at: L.at };
       });
+      r.classList.add("al-" + (o.align ?? "trai"));
       return { rows };
     },
     in(tl, x, at, o, fs) {
@@ -562,5 +567,6 @@
     tl.to(h.r, { opacity: 0, y: -0.15 * fs, filter: B(6), duration: d, ease: "power2.in" }, at);
     return at + d;
   }
-  g.BDS = { presets: P, make, in: enter, out: exit, list: () => Object.keys(P) };
+  // u: hàm phụ cho bộ preset bổ sung (me4real.js) dùng chung quy ước dựng sẵn từng bước, không onUpdate
+  g.BDS = { presets: P, make, in: enter, out: exit, list: () => Object.keys(P), u: { el, B, chars, line, steps, playSteps, fmtVi } };
 })(typeof window !== "undefined" ? window : globalThis);

@@ -152,3 +152,9 @@
 .bds-cao-trao .v-khoa { text-transform: uppercase; }
 .bds-cao-trao .v-cam { font-family: var(--script, "Dancing Script", cursive); font-weight: 700; font-size: .92em; padding: 0 .12em; }
 .bds-cao-trao .v-chot { text-transform: uppercase; }
+.bds-cao-trao.al-giua { align-items: center; } .bds-cao-trao.al-phai { align-items: flex-end; }
+.bds-cao-trao .v-nho { font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 600; font-size: .3em; }
+.bds-cao-trao .v-so { font-size: 1.35em; letter-spacing: -.02em; }
+.bds-cao-trao .v-muc { font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 800; font-size: .62em; }
+.bds-cao-trao .v-vien { font-family: var(--script, "Dancing Script", cursive); font-weight: 700; font-size: .95em; padding: 0 .12em;
+  color: transparent; -webkit-text-stroke: .025em #fff; }
