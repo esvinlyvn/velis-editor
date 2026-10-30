@@ -29,7 +29,7 @@ Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là d�
 | 15 | Chữ không được chìm vào nền, và không phủ khi không cần: đo nền sau từng khối, độ đậm lớp phủ theo nền (sáng thì đậm, tối thì nhẹ); nền đã đủ tương phản thì không phủ; phủ tối đa chưa đủ thì viền tối đậm hơn | Thực hành 5 |
 | 16 | Chữ có hiệu ứng gõ (`go-chu`) đi với tiếng gõ phím chạy đúng nhịp từng ký tự, không phải một tiếng lẻ | Thực hành 5 |
 | 17 | Dùng kho SFX cho rộng: mỗi khối một loại riêng, thêm lớp tiếng nhỏ cho chuyển động phụ (chữ quay-vong đổi, số chốt, nét gạch, cú chuyển cảnh của clip) | Thực hành 5 |
-| 18 | Chỉ MỘT lớp làm tối và KHÔNG quầng sáng: lớp phủ gradient lo tương phản; chữ không mang quầng nào (bóng tối loang, glow cùng màu, neon, text-shadow đỏ của canh-bao…), chỉ giữ viền tối mảnh 1–2 px để tách nét | Thực hành 5 |
+| 18 | **Đo trước, xử lý sau** (sửa 30/10/2026): đo tương phản chữ với nền sau từng khối; **đủ tương phản thì không thêm gì sau chữ** (không phủ, không viền, không bóng, không tỏa sáng). Thiếu thì chọn cách nhẹ nhất đủ đọc, theo thứ tự: viền mảnh → bóng gọn → (chữ tối trên nền tối) tỏa sáng nhẹ → nền mờ sau chữ + bóng + tối nhẹ (≤ 0,35). Không dùng tỏa sáng / quầng để trang trí; hiệu ứng trang trí bám theo video mẫu (`docs/PHONG-CACH-ME4REAL.md`). `lib/build.mjs` tự chọn và in cột "xử lý" | Thực hành 5; người dùng sửa 30/10/2026 |
 | 19 | Video không được tối đi vì chữ: lớp phủ tối đa 0,6; clip điện thoại nhạt thì pha màu nhẹ (tăng tương phản, độ bão hòa) trước khi phủ chữ | Thực hành 5 |
 
 **Mục tiêu: 40–60 phút một video.** Chỉ render một lần ở cuối. Mỗi lần render clip 90 s mất khoảng 10 phút. Tất cả khâu kiểm khác làm trên snapshot và script, không cần render.

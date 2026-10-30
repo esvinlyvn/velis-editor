@@ -1,20 +1,6 @@
 {
  "video": "me4real",
- "style": {
-  "base": "S1",
-  "display": [
-   "be-vietnam-pro",
-   [
-    900
-   ]
-  ],
-  "sans": [
-   "be-vietnam-pro",
-   [
-    700
-   ]
-  ]
- },
+ "style": "S6",
  "hook_burst": false,
  "media": {
   "footage": "work/me4real/footage.mp4",
@@ -186,7 +172,8 @@
     ]
    },
    "top": 330,
-   "sfx": "auto"
+   "sfx": "auto",
+   "size": 190
   },
   {
    "p": "cao-trao",
@@ -234,7 +221,8 @@
     ]
    },
    "top": 330,
-   "sfx": "auto"
+   "sfx": "auto",
+   "size": 150
   },
   {
    "p": "cao-trao",
@@ -259,7 +247,8 @@
     ]
    },
    "top": 700,
-   "sfx": "auto"
+   "sfx": "auto",
+   "size": 150
   },
   {
    "p": "cao-trao",
@@ -273,7 +262,7 @@
      },
      {
       "t": "Nội Thất",
-      "v": "vien"
+      "v": "cam"
      },
      {
       "t": "liền tường",
@@ -289,7 +278,8 @@
     ]
    },
    "top": 520,
-   "sfx": "auto"
+   "sfx": "auto",
+   "size": 190
   },
   {
    "p": "pill-xep",
@@ -359,7 +349,8 @@
     "m": "TIỆN ÍCH",
     "s": "xa hoa",
     "sub": "CHO CHỦ NHÂN TINH HOA",
-    "c": "#7a5420"
+    "c": "#7a5420",
+    "c2": "#1f2f5c"
    },
    "top": 260,
    "sfx": "auto"
@@ -387,8 +378,47 @@
    "color": "gold"
   },
   {
-   "p": "khung-sdt",
+   "p": "cao-trao",
+   "o": {
+    "lines": [
+     {
+      "parts": [
+       {
+        "t": "mà còn",
+        "v": "dem"
+       },
+       {
+        "t": "Mở Ra",
+        "v": "mong"
+       }
+      ]
+     },
+     {
+      "t": "một cơ hội",
+      "v": "dem"
+     },
+     {
+      "parts": [
+       {
+        "t": "sở hữu",
+        "v": "khoa"
+       },
+       {
+        "t": "một bất động sản",
+        "v": "nho"
+       }
+      ]
+     }
+    ]
+   },
+   "top": 420,
+   "sfx": "auto",
    "at": 52.3,
+   "size": 170
+  },
+  {
+   "p": "khung-sdt",
+   "at": 54.9,
    "o": {
     "m": "0935.991.948"
    },

@@ -39,6 +39,8 @@ Hai chỗ nói khác nhau thì chỗ đứng trên thắng:
 | Nhạc, montage (M5) | ME4REAL: một bài xuyên suốt, montage cắt mỗi ô nhịp | Chỉ khi có nhạc có quyền; ducking −18 đến −24 dB (`lib/music.mjs`); được một đoạn montage theo phách |
 | Chuyển cảnh lớn (M6) | ME4REAL: flash mỗi 1,9 s trong montage | Giữ ~4 lần mỗi 150 s; cả đoạn montage tính 1 lần |
 | Cách dựng | Chép `build.mjs` / `template.html` của một video mẫu | **Thư viện `lib/`**: mỗi video chỉ là `plan.json` + transcript (`lib/README.md`) |
+| Xử lý sau chữ | Luật 18 cũ: luôn có viền tối mảnh, không bao giờ tỏa sáng; luật 13: lớp phủ gradient | **Luật 18 mới**: đo trước; đủ tương phản thì không xử lý; thiếu thì viền → bóng → tỏa sáng (chữ tối) → nền mờ + tối nhẹ. Gradient luật 13 chỉ còn là hình dạng của lớp phủ khi cần phủ, `style.scrim: "gradient-dam"` để phủ tới 0,6 |
+| Font | Font `@fontsource` thay thế gần đúng | Bộ phong cách ME4REAL (S6) dùng Montserrat + font SVN người dùng cung cấp (`fonts/svn/`), chọn bằng cách so từng font với chữ trong video mẫu |
 | Phụ đề | Khung hậu kỳ chuẩn: video ngắn cần phụ đề có hiệu ứng | **Luật 1 thắng: không phụ đề chạy.** Chữ chốt 2–5 chữ có hiệu ứng làm việc của phụ đề (M7) |
 | Proxy | Khung chuẩn: ProRes Proxy / DNxHR để dựng mượt trên timeline | Không có timeline kéo tay: `lib/ingest.mjs` tạo bản dựng H.264 1080×1920 30 fps (đủ nhẹ để dựng, đủ nét để render). Cảnh 4K/6K, 10-bit chỉ đọc một lần lúc tạo proxy |
 | Foley | Khung chuẩn: tự thu lại tiếng đời thực | Lấy tiếng có sẵn trong kho (vai SFX `foley`: bước chân, cửa, giấy tờ…), đặt tay trong `sfx_layer` khớp hành động trên hình |

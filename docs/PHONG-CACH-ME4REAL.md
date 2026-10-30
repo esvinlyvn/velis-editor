@@ -38,6 +38,10 @@ Công thức chung: khung đầu đã chuyển động → giây 0,9–1,2 icon 
 - **C4 Phụ đề:** ME4REAL dùng phụ đề từng chữ; velis-editor **không phụ đề** (luật 1).
 - **C5 Nhãn trên hình:** pill thông số, viền nét đứt quanh lô đất + diện tích, chữ bám mặt tòa nhà (TRINH-BAY mục 2).
 
+**Font (đo bằng cách so từng font với chữ gốc, style S6):** chữ chính sans hình học rất dày, khít (Montserrat 800–900, giãn chữ −0,035 đến −0,04 em) · chữ to nét mảnh ghép chữ nhỏ đậm (Montserrat 300 + 700, vai `mong`) · chữ dẫn Montserrat 600–700 · viết tay nét đơn kiểu chữ ký (SVN-Nickainley Script) · viết tay cọ (SVN-Haptic Script, chữ "xa hoa" màu navy) · serif tương phản cao nét mảnh (SVN-Paris Pro). Dòng phụ của cặp dòng ("Ấn Tượng") là sans đậm vừa, không phải viết tay.
+
+**Xử lý sau chữ:** ME4REAL gần như không làm tối video. Chữ đủ nổi thì để trần; nền sáng thì dùng nền mờ sau chữ, bóng chữ, nét tối trong chất kim loại. Ứng với luật 18 mới.
+
 ## I. Hình
 
 A-roll người dẫn (punch-in khi đổi câu) · drone · bản đồ (ghim rơi, đường phát sáng, sơ đồ nhánh) · lưới ảnh 3×2 đổi theo phách · ảnh báo chí có nguồn · tô sáng (glow) tòa nhà trên render. Video AI (I3, I4): **không dùng**.

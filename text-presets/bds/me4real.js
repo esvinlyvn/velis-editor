@@ -291,6 +291,7 @@
     // đo: serif dâng 0,4 s · viết tay mở dần 0,5 s · dòng chú giãn +0,5 s
     sample: { m: "TIỆN ÍCH", s: "xa hoa", sub: "CHO CHỦ NHÂN TINH HOA" },
     build(r, o) {
+      if (o.c2) r.style.setProperty("--ink2", o.c2); // màu chữ viết tay (gốc: xanh navy)
       const m = line(r, "m", o.m, false);
       const s = o.s ? line(r, "s", o.s, false) : null;
       const sub = o.sub ? line(r, "sub", o.sub, false) : null;

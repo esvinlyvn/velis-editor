@@ -25,9 +25,13 @@
       .scrim { position: absolute; left: 0; right: 0; pointer-events: none; opacity: 0; }
       #scrim { top: 0; height: 900px; } #scrim-low { top: 700px; height: 800px; }
       #blur { top: 0; height: 900px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-      /* MỘT lớp làm tối duy nhất và KHÔNG quầng sáng (luật 18): chữ chỉ giữ viền tối mảnh 1–2 px để tách nét. */
-      .kt-slot { filter: drop-shadow(0 0 1px rgba(0,0,0,.85)) drop-shadow(0 1px 1px rgba(0,0,0,.45)); }
-      .kt-slot.hard { filter: drop-shadow(0 0 1.5px rgba(0,0,0,.95)) drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 1px 2px rgba(0,0,0,.6)); }
+      /* Luật 18 (mới): xử lý sau chữ theo tương phản đo được (lib/build.mjs → c.fx). Đủ tương phản: KHÔNG có gì sau chữ.
+         Thiếu: viền mảnh → bóng gọn → (chữ tối trên nền tối) tỏa sáng nhẹ → lớp phủ #scrim; phủ tối đa vẫn thiếu thì thêm viền đậm. */
+      .kt-slot.fx-vien { filter: drop-shadow(0 0 1px rgba(0,0,0,.85)) drop-shadow(0 1px 1px rgba(0,0,0,.45)); }
+      .kt-slot.fx-bong { filter: drop-shadow(0 3px 5px rgba(0,0,0,.55)); }
+      .kt-slot.fx-sang { filter: drop-shadow(0 0 6px rgba(255,255,255,.75)); }
+      .kt-slot.fx-mo { filter: drop-shadow(0 0 1px rgba(0,0,0,.8)) drop-shadow(0 3px 6px rgba(0,0,0,.5)); }
+      .kt-slot.fx-phu-vien { filter: drop-shadow(0 0 1.5px rgba(0,0,0,.95)) drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 1px 2px rgba(0,0,0,.6)); }
       .kt-slot.behind { filter: drop-shadow(0 .03em .06em rgba(0,0,0,.9)); } /* khối lồng sau người: không dải tối, dùng bóng chữ (TALKING-HEAD 4b.6) */
     </style>
     {{BDS_CSS}}
@@ -77,6 +81,7 @@
         const host = document.getElementById("kt");
         document.documentElement.style.setProperty("--script", q(ST.script));
         document.documentElement.style.setProperty("--serif", q(ST.serif));
+        document.documentElement.style.setProperty("--script2", q(ST.script2));
         let scrimBottom = 0, lowTop = 1e9, lowBottom = 0;
         const fit = (slot, c, o, h) => { // khối rộng quá ô thì dựng lại với cỡ nhỏ hơn
           const Wd = slot.clientWidth * 0.96; // chừa 4% cho đoạn trôi phóng to khi đứng yên
@@ -90,7 +95,7 @@
         KT.forEach((c, i) => {
           const slot = document.createElement("div");
           const low = (c.top ?? 250) >= 900;
-          slot.className = "kt-slot" + (low ? " low" : c.narrow ? " narrow" : "") + ((c.p === "cao-trao" && (c.o.align ?? "trai") === "trai") || c.p === "pill-xep" ? " left" : c.p === "cao-trao" && c.o.align === "phai" ? " right" : "") + (c.hard ? " hard" : "") + (c.objTop != null ? " behind" : "");
+          slot.className = "kt-slot" + (low ? " low" : c.narrow ? " narrow" : "") + ((c.p === "cao-trao" && (c.o.align ?? "trai") === "trai") || c.p === "pill-xep" ? " left" : c.p === "cao-trao" && c.o.align === "phai" ? " right" : "") + " fx-" + (c.fx ?? "khong") + (c.objTop != null ? " behind" : "");
           slot.id = "kt" + i; slot.style.top = (c.top ?? 250) + "px";
           host.appendChild(slot);
           let o = { size: 160, display: q(ST.display), sans: q(ST.sans), ...c.o }, h = BDS.make(c.p, slot, o);
@@ -124,15 +129,14 @@
           sc[z].style.top = geo[z][0] + "px"; sc[z].style.height = geo[z][1] + "px";
           sc[z].style.background = grad(z, (a) => a);
         }
-        if (ST.scrim === "mo") { // nền mờ: cùng hình dạng dải trên, mặt nạ theo cùng đường cong
-          blur.style.height = geo.top[1] + "px";
-          blur.style.webkitMaskImage = blur.style.maskImage = grad("top", (a) => Math.min(1, a / 0.9));
-        } else blur.style.display = "none";
+        // nền mờ (luật 18, bậc cuối): cùng hình dạng dải trên, chỉ bật cho khối được đo là cần (c.blur) hoặc khi style chọn "mo"
+        blur.style.height = geo.top[1] + "px";
+        blur.style.webkitMaskImage = blur.style.maskImage = grad("top", (a) => Math.min(1, a / 0.9));
         const alphaAt = (zone, y) => PROF[zone]((y - geo[zone][0]) / geo[zone][1]);
         // nền đã đủ tương phản (độ phủ cần < 0,08) thì KHÔNG phủ — lớp phủ chỉ dùng khi cần (luật 15)
         for (const zone of ["top", "low"]) {
           const ks = KT.filter((c) => c.zone === zone);
-          const els = zone === "top" && ST.scrim === "mo" ? [sc[zone], blur] : [sc[zone]];
+          const els = [sc[zone]];
           let cur = 0;
           ks.forEach((c, j) => {
             const target = (c.scrim ?? 0) < 0.08 ? 0 : Math.min(1, c.scrim / Math.max(0.2, alphaAt(zone, c.cy)));
@@ -144,6 +148,14 @@
               els.forEach((e) => tl.fromTo(e, { opacity: e === blur ? 1 : cur }, { opacity: 0, duration: 0.6, ease: "sine.inOut", immediateRender: false }, c.out));
               cur = 0;
             }
+          });
+        }
+        { // nền mờ theo khối: khối liền nhau (nghỉ < 1 s) giữ mờ liên tục
+          const bs = KT.filter((c) => c.zone === "top" && (c.blur || (ST.scrim === "mo" && c.scrim > 0)));
+          bs.forEach((c, j) => {
+            const prev = bs[j - 1], next = bs[j + 1];
+            if (!(prev && c.at - prev.out < 1.0)) tl.fromTo(blur, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "sine.inOut", immediateRender: false }, Math.max(0, c.at - 0.45));
+            if (c.out < 900 && !(next && next.at - c.out < 1.0)) tl.fromTo(blur, { opacity: 1 }, { opacity: 0, duration: 0.6, ease: "sine.inOut", immediateRender: false }, c.out);
           });
         }
         // đăng ký timeline SAU khi dựng xong (lint: gsap_timeline_registered_before_async_build)
