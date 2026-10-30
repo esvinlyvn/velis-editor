@@ -2,7 +2,7 @@
 
 File này chỉ có ở velis-editor, không đi theo gói. Người mới đọc `HUONG-DAN.md` trong repo của họ; số bước dưới đây khớp với số bước trong file đó.
 
-- **Repo mẫu:** `esvinlyvn/velis-editor-xuan` (private, bật Template repository). Chỉ chứa gói sạch: không dữ liệu khách, không nối với velis-editor.
+- **Repo mẫu:** `esvinlyvn/velis-editor-master` (private, bật Template repository). Chỉ chứa gói sạch: không dữ liệu khách, không nối với velis-editor.
 - **Người mới** tạo repo riêng từ repo mẫu, chạy trên cloud của Claude bằng tài khoản Claude của chính họ.
 
 ---
@@ -11,7 +11,7 @@ File này chỉ có ở velis-editor, không đi theo gói. Người mới đọ
 
 | # | Việc | Cách làm |
 |---|---|---|
-| A1 | Bật repo mẫu | `velis-editor-xuan` → **Settings → General** → tick **Template repository**. Kiểm repo đang **Private** |
+| A1 | Bật repo mẫu | `velis-editor-master` → **Settings → General** → tick **Template repository**. Kiểm repo đang **Private** |
 | A2 | Kiểm quyền tài nguyên | Đọc `docs/SOURCES.md`. Gói có kho SFX đã mua và thẻ chuyển động video-talkcraft (phi thương mại). Chắc giấy phép cho phép đưa cho người khác trước khi mời ai |
 | A3 | Thử một lượt như người mới | Đã làm (repo thử tạo từ mẫu, chạy được trên cloud) |
 
@@ -75,7 +75,7 @@ Khi velis-editor có luật hay công cụ mới muốn người mới **sau nà
 1. Có khách hay dự án mới kể từ lần trước: thêm tên người, tên dự án, slug vào `phat-hanh/an-danh.json` (các mảng `thay`, `cam`, `dong_4c`). Bỏ qua bước này thì script vẫn chặn được tên đã có trong `cam`, nhưng tên mới thì không.
 2. Mở phiên claude.ai/code trên velis-editor và nói:
    ```
-   Chạy node phat-hanh/goi-sach.mjs. Nếu sạch, cập nhật repo esvinlyvn/velis-editor-xuan: thay toàn bộ nội dung nhánh main
+   Chạy node phat-hanh/goi-sach.mjs. Nếu sạch, cập nhật repo esvinlyvn/velis-editor-master: thay toàn bộ nội dung nhánh main
    bằng thư mục build/goi-sach/bds-editor (giữ lịch sử của repo mẫu, không mang lịch sử velis-editor), commit và push.
    ```
 3. Script báo "Còn N chỗ sót" thì chưa cập nhật gì. Đọc danh sách sót, thêm cặp thay vào `an-danh.json`, chạy lại.

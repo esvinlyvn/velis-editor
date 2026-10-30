@@ -2,7 +2,7 @@
 
 Cách giao cho người mới, ai làm gì: **`GIAO-NGUOI-MOI.md`**. File này chỉ nói gói sạch được tạo thế nào.
 
-`goi-sach.mjs` tạo gói từ các file đã commit ở HEAD của velis-editor, ghi ra `build/goi-sach/bds-editor/` (không lên GitHub). Gói được đẩy lên repo mẫu `esvinlyvn/velis-editor-xuan` (`GIAO-NGUOI-MOI.md` mục E).
+`goi-sach.mjs` tạo gói từ các file đã commit ở HEAD của velis-editor, ghi ra `build/goi-sach/bds-editor/` (không lên GitHub). Gói được đẩy lên repo mẫu `esvinlyvn/velis-editor-master` (`GIAO-NGUOI-MOI.md` mục E).
 
 ```
 node phat-hanh/goi-sach.mjs [thư-mục-ra]
