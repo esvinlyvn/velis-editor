@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Dựng video dọc 1080x1920 bất động sản từ clip quay thật bằng HyperFrames: chữ chốt, SFX, hậu kỳ",
   "scripts": {
+    "demo": "node tests/demo/make-media.mjs && node lib/build.mjs tests/demo --no-render",
+    "new": "node scripts/new-video.mjs",
     "example": "node projects/example/build.mjs",
     "map:data": "node scripts/map/data.mjs",
     "map": "node scripts/map/render.mjs"

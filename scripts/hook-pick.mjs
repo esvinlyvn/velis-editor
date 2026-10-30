@@ -2,7 +2,7 @@
 // hook-pick.mjs — xếp hạng phương án hook 3 giây đầu (docs/TRINH-BAY.md mục 1), trừ điểm lặp theo khách.
 //   node scripts/hook-pick.mjs projects/<video>/hook.json
 //   node scripts/hook-pick.mjs projects/<video>/hook.json --commit [id]
-// hook.json: { "video": "palm-river-2", "client": "tu-phan",
+// hook.json: { "video": "kenh-du-an", "client": "kenh",
 //   "opening": "câu mở", "peak": 1.2, "payoff": 41.5,
 //   "candidates": [ { "id": "number", "content": "3,2 TỶ", "fit": 5, "payoff": 4, "motion": 4, "space": 4 }, ... ] }
 import fs from "node:fs";

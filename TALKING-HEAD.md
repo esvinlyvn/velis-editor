@@ -2,35 +2,35 @@
 
 Áp dụng khi người dùng gửi một clip quay sẵn: sale, môi giới, người nói trước dự án. Việc của mình là giữ nguyên cảnh quay, thêm chữ chốt, SFX, và cắt chỗ hỏng.
 
-Mẫu để chép: **`projects/example/`** (đủ mọi luật dưới đây, đã qua lint, `kt-check` 100%, `motion_check`, `sfx-levels`; đọc `SHOTBOOK.md` của nó).
-- `build.mjs`: hàm `W(i, "chữ")` lấy giờ từng chữ, danh sách khối chữ `KT` (mỗi khối kèm tiếng SFX), lớp tiếng phụ `LAYER`, đo nền `scrimPlan`, chặn SFX lặp loại.
-- `template.html`: lớp tối `#scrim` / `#scrim-low`, ô chữ `kt-slot`, chờ font tiếng Việt, tự co chữ, đăng ký timeline sau khi dựng.
-- Có thêm `hook.json`, `text-plan.json`, `SHOTBOOK.md` làm mẫu cho các bước hook, chọn chữ, kịch bản cú máy.
-- Có chữ nằm sau người thì chép thêm phần `BEHIND` của `projects/palm-river/`.
+Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là dữ liệu `projects/<video>/plan.json` + `transcript.json`, dựng bằng một lệnh `node lib/build.mjs projects/<video>`. Không chép `build.mjs` / `template.html` của video nào: muốn đổi cách dựng thì sửa thư viện (áp cho mọi video sau).
+- `lib/plan.mjs`: mốc theo chữ (`"3:sở"`), màu theo nghĩa, SFX theo vai (không lặp loại trong 30 s), kiểm luật 1, 4, 7, 8, số liệu khớp lời.
+- `lib/template.html`: lớp tối `#scrim` / `#scrim-low` theo nền, nền mờ, ô chữ `kt-slot`, chờ font tiếng Việt, tự co chữ, chữ sau người.
+- Tổ hợp phong cách S1–S5: `lib/styles.json`; công thức khung R1–R7: `lib/recipes.json`; nguồn phương pháp: `docs/PHONG-CACH-ME4REAL.md`.
+- `projects/example/` là bản dựng tay cũ (`build.mjs` riêng), giữ để đối chiếu `SHOTBOOK.md`, `hook.json`, `text-plan.json`; không chép làm mẫu.
 
 ## Luật người dùng đã chốt (đọc trước, các mục sau chi tiết hơn)
 
 | # | Luật | Nguồn |
 | --- | --- | --- |
-| 1 | Không phụ đề chạy; chữ chốt 2–5 chữ, không chép nguyên câu | Quỳnh Quỳnh |
-| 2 | Không để chữ che người; đầu người nằm dưới khối chữ | Quỳnh Quỳnh |
-| 3 | Chữ dẫn ôm sát chữ chính, chỉ chừa đủ để không đè dấu | Quỳnh Quỳnh |
-| 4 | Chữ dày: gần như mỗi câu một khối, có chữ ngay từ 0,1 s | Tú Casa Villa |
-| 5 | Mỗi video một phong cách khác (preset chính + font + cách hiện chữ), không lặp video trước (bảng ở mục 4c) | Tú Casa Villa |
-| 6 | Màu chữ ưu tiên gradient | Tú Casa Villa |
-| 7 | Không dùng hiệu ứng hiện ký tự ngẫu nhiên hay vụn (nhìn như lỗi) | Tú Casa Villa |
-| 8 | Không "spam" một hiệu ứng: mỗi loại thông tin một preset | Palm River |
-| 9 | Chữ dẫn đủ to, không vạch gạch 2 bên | Palm River |
-| 10 | SFX: mỗi khối chữ một tiếng, không tiếng nào trùng loại; không để quá ít, không lặp một tiếng | Palm River + Huy Trần |
-| 11 | Chữ nằm sau đối tượng: chỉ sau NGƯỜI; chỗ nào bị che mất chữ thì không lồng | Palm River |
-| 12 | Chữ nghiêng không được xén mép | Huy Trần |
-| 13 | Lớp tối sau chữ: gradient **từ đỉnh video kéo xuống tới cạnh dưới phần chữ, mờ dần ngay từ mép trên** (đậm nhất ở đỉnh, nhạt liên tục xuống, hết ~160 px dưới chữ; không đậm đều rồi mới nhạt), hình dạng cố định cho cả video; **chỉ hiện khi có chữ**, mờ vào/ra theo đoạn, các khối liền nhau (nghỉ < 1 s) dùng chung một lần phủ. Khối đặt giữa/dưới khung có dải phủ riêng | Huy Trần, Kim Thắm |
-| 14 | Tự kiểm đủ mục 6 rồi mới giao | Tú Casa Villa |
-| 15 | Chữ không được chìm vào nền, và không phủ khi không cần: đo nền sau từng khối, độ đậm lớp phủ theo nền (sáng thì đậm, tối thì nhẹ); nền đã đủ tương phản thì không phủ; phủ tối đa chưa đủ thì viền tối đậm hơn | Kim Thắm |
-| 16 | Chữ có hiệu ứng gõ (`go-chu`) đi với tiếng gõ phím chạy đúng nhịp từng ký tự, không phải một tiếng lẻ | Kim Thắm |
-| 17 | Dùng kho SFX cho rộng: mỗi khối một loại riêng, thêm lớp tiếng nhỏ cho chuyển động phụ (chữ quay-vong đổi, số chốt, nét gạch, cú chuyển cảnh của clip) | Kim Thắm |
-| 18 | Chỉ MỘT lớp làm tối và KHÔNG quầng sáng: lớp phủ gradient lo tương phản; chữ không mang quầng nào (bóng tối loang, glow cùng màu, neon, text-shadow đỏ của canh-bao…), chỉ giữ viền tối mảnh 1–2 px để tách nét | Kim Thắm |
-| 19 | Video không được tối đi vì chữ: lớp phủ tối đa 0,6; clip điện thoại nhạt thì pha màu nhẹ (tăng tương phản, độ bão hòa) trước khi phủ chữ | Kim Thắm |
+| 1 | Không phụ đề chạy; chữ chốt 2–5 chữ, không chép nguyên câu | Thực hành 1 |
+| 2 | Không để chữ che người; đầu người nằm dưới khối chữ | Thực hành 1 |
+| 3 | Chữ dẫn ôm sát chữ chính, chỉ chừa đủ để không đè dấu | Thực hành 1 |
+| 4 | Chữ dày: gần như mỗi câu một khối, có chữ ngay từ 0,1 s | Thực hành 2 |
+| 5 | Mỗi video một phong cách khác (preset chính + font + cách hiện chữ), không lặp video trước (bảng ở mục 4c) | Thực hành 2 |
+| 6 | Màu chữ ưu tiên gradient | Thực hành 2 |
+| 7 | Không dùng hiệu ứng hiện ký tự ngẫu nhiên hay vụn (nhìn như lỗi) | Thực hành 2 |
+| 8 | Không "spam" một hiệu ứng: mỗi loại thông tin một preset | Thực hành 3 |
+| 9 | Chữ dẫn đủ to, không vạch gạch 2 bên | Thực hành 3 |
+| 10 | SFX: mỗi khối chữ một tiếng, không tiếng nào trùng loại; không để quá ít, không lặp một tiếng | Thực hành 3 + 4 |
+| 11 | Chữ nằm sau đối tượng: chỉ sau NGƯỜI; chỗ nào bị che mất chữ thì không lồng | Thực hành 3 |
+| 12 | Chữ nghiêng không được xén mép | Thực hành 4 |
+| 13 | Lớp tối sau chữ: gradient **từ đỉnh video kéo xuống tới cạnh dưới phần chữ, mờ dần ngay từ mép trên** (đậm nhất ở đỉnh, nhạt liên tục xuống, hết ~160 px dưới chữ; không đậm đều rồi mới nhạt), hình dạng cố định cho cả video; **chỉ hiện khi có chữ**, mờ vào/ra theo đoạn, các khối liền nhau (nghỉ < 1 s) dùng chung một lần phủ. Khối đặt giữa/dưới khung có dải phủ riêng | Thực hành 4, 5 |
+| 14 | Tự kiểm đủ mục 6 rồi mới giao | Thực hành 2 |
+| 15 | Chữ không được chìm vào nền, và không phủ khi không cần: đo nền sau từng khối, độ đậm lớp phủ theo nền (sáng thì đậm, tối thì nhẹ); nền đã đủ tương phản thì không phủ; phủ tối đa chưa đủ thì viền tối đậm hơn | Thực hành 5 |
+| 16 | Chữ có hiệu ứng gõ (`go-chu`) đi với tiếng gõ phím chạy đúng nhịp từng ký tự, không phải một tiếng lẻ | Thực hành 5 |
+| 17 | Dùng kho SFX cho rộng: mỗi khối một loại riêng, thêm lớp tiếng nhỏ cho chuyển động phụ (chữ quay-vong đổi, số chốt, nét gạch, cú chuyển cảnh của clip) | Thực hành 5 |
+| 18 | Chỉ MỘT lớp làm tối và KHÔNG quầng sáng: lớp phủ gradient lo tương phản; chữ không mang quầng nào (bóng tối loang, glow cùng màu, neon, text-shadow đỏ của canh-bao…), chỉ giữ viền tối mảnh 1–2 px để tách nét | Thực hành 5 |
+| 19 | Video không được tối đi vì chữ: lớp phủ tối đa 0,6; clip điện thoại nhạt thì pha màu nhẹ (tăng tương phản, độ bão hòa) trước khi phủ chữ | Thực hành 5 |
 
 **Mục tiêu: 40–60 phút một video.** Chỉ render một lần ở cuối. Mỗi lần render clip 90 s mất khoảng 10 phút. Tất cả khâu kiểm khác làm trên snapshot và script, không cần render.
 
@@ -87,7 +87,7 @@ Mẫu để chép: **`projects/example/`** (đủ mọi luật dưới đây, đ
   - Có chữ ngay từ 0,1 s (intro không được trống).
   - Chữ chốt 2–5 chữ, không chép nguyên câu.
 - **Preset:**
-  - Tiêu đề chính dùng preset chính của video (chưa dùng ở video trước, xem bảng 4c), chiếm không quá khoảng 40% số khối.
+  - Tiêu đề chính dùng preset chính của video (chưa dùng ở video trước của kênh, xem mục 4c), chiếm không quá khoảng 40% số khối.
   - Số đo dùng `gia-chot` (200 m², 50 MÉT).
   - Liệt kê dùng `quay-vong`.
   - "Không còn / không có" dùng `canh-bao`.
@@ -108,7 +108,7 @@ Mẫu để chép: **`projects/example/`** (đủ mọi luật dưới đây, đ
   - **Trần độ phủ 0,6** (luật 19): phủ đậm hơn thì cả video tối. Nền quá sáng chưa đạt ngưỡng (trời trắng, tường trắng: thường gặp) thì viền tối đậm hơn 1,5–2 px (class `hard`), không phủ thêm. `build.mjs` in bảng tương phản từng khối để soát.
   - **Không chồng bóng, không quầng** (luật 18): gỡ mọi `drop-shadow` / `text-shadow` loang rộng của CSS preset, cả tối lẫn sáng cùng màu (noi-bat, chuyen-dong, toc-do, quay-vong, gia-chot, khoi-noi, nhan-neon, song, ky-thuat, ky-niem, quầng đỏ của canh-bao). Viền mảnh đặt trên ô `.kt-slot` vì `BDS.in` tween `filter: blur` trên khối và dòng chữ, đặt ở đó sẽ bị ghi đè.
   - **Pha màu clip** (luật 19): `eq=contrast=1.08:saturation=1.12` trước khi phủ chữ, bản pha để ở `work/`; đo nền trên bản đã pha.
-  - Mẫu: `#scrim`, `#scrim-low` trong `projects/example/template.html`.
+  - Đã có trong `lib/template.html` (`#scrim`, `#scrim-low`); chế độ nền mờ: `style.scrim: "mo"`.
 - **Mỗi video một phong cách khác:** đổi preset chính, font, cách hiện chữ.
 - **Khoảng cách dòng:** chữ dẫn ôm sát chữ chính, không đè dấu. Preset tự làm việc này (snug), không chỉnh tay.
 - **Vị trí:**
@@ -122,7 +122,7 @@ Mẫu để chép: **`projects/example/`** (đủ mọi luật dưới đây, đ
 
 ## 4a. SFX: dày theo khối chữ, mỗi tiếng một loại
 
-Đã chỉnh qua 2 lần. Palm River: gắn cùng một tiếng cho mọi khối → "spam, nhức đầu". Huy Trần: 13 tiếng cho 30 khối → "hơi ít". Luật đúng:
+Đã chỉnh qua 2 lần. Thực hành 3: gắn cùng một tiếng cho mọi khối → "spam, nhức đầu". Thực hành 4: 13 tiếng cho 30 khối → "hơi ít". Luật đúng:
 - **Mỗi khối chữ một tiếng**, cộng tiếng cho các khoảnh khắc trên hình (bước vào nhà, chuyển chữ của `quay-vong`).
 - **Không có 2 tiếng cùng loại** (cùng tên gốc) trong một video. Video dài hơn số loại hợp nghĩa thì cho phép lặp, nhưng 2 lần dùng cùng một loại phải cách nhau ít nhất 30 s.
 - **Kho rộng, dùng rộng:** kho có 108 loại (bộ `release` + bộ master-video). Mỗi khối chữ một loại riêng. Thêm lớp tiếng nhỏ cho chuyển động phụ: chữ `quay-vong` đổi, số `gia-chot` chạy xong, nét gạch của `canh-bao`, cú chuyển cảnh trong clip gốc (chỗ không có khối chữ trong ±0,6 s).
@@ -155,12 +155,12 @@ Mẫu để chép: **`projects/example/`** (đủ mọi luật dưới đây, đ
 - **Mức** (`gainDb` 6): `vol` 0,3–0,5 cho đa số; tiếng dài hoặc chói (`type`, `cash`) khoảng 0,3. Sau render chạy `sfx-levels.py`: không tiếng nào NHỎ / TO.
 - Hai tiếng cách nhau ít nhất 0,6 s (`minGap`).
 - **Khối trước tắt trước khối sau 0,35 s** (`out = at khối sau − 0,35`): khối mờ ra mất 0,3 s, tắt muộn hơn thì hai khối cùng hiện trong lúc chuyển. `kt-check` chỉ đo lúc khối đứng yên nên không bắt được lỗi này; soi bằng snapshot lúc chuyển (mục 6 bước 4).
-- `build.mjs` liệt kê thẳng danh sách SFX (mẫu ở `projects/example`), không sinh vòng lặp gắn cùng một tiếng.
+- SFX: `lib/plan.mjs` chọn theo vai (`sfx: "auto"`) hoặc ghi tay `["tên", vol]` trong từng khối; lớp 2 ở `plan.sfx_layer`. Không sinh vòng lặp gắn cùng một tiếng.
 - **SFX không được đè lời:** tiếng rơi đúng lúc nói một từ khóa (tên, số, tiếng nước ngoài) làm từ đó nghe sai. Sau render chạy nhận diện giọng trên `output.mp4`: từ nào đúng ở `voice.wav` mà sai ở bản dựng là bị SFX che, dời tiếng sau từ đó hoặc đổi sang tiếng gọn (click, snap) thay cho whoosh.
 
 ## 4b. Chữ nằm sau đối tượng (hiệu ứng điện ảnh)
 
-Mẫu chép: `projects/palm-river/` (build.mjs có `BEHIND`, `behindFrac`, đọc `behind-ok.json`; template đặt khối theo `objTop`).
+Đã có trong thư viện: `plan.behind` (`{ "intro": [0, 4.8] }`) + `blocks[].behind`, `behindFrac`; mặt nạ ở `work/<video>/matte/`, kết quả kiểm đọc ở `work/<video>/behind-ok.json`; `lib/build.mjs` đặt khối theo đỉnh đầu và phủ lại người sau render.
 
 1. **Chỉ lồng sau NGƯỜI**, lúc máy đứng yên. Tháp / vật thể tách bằng isnet ra viền vỡ, người dùng chê "tách nền tệ" → không dùng.
 2. **Tách nền** `scripts/fx/matte.py`:
@@ -176,15 +176,12 @@ Mẫu chép: `projects/palm-river/` (build.mjs có `BEHIND`, `behindFrac`, đọ
 
 ## 4c. Phong cách đã dùng (video sau chọn khác)
 
-| Video | Preset chính | Font chữ chính / chữ dẫn | Cách hiện chữ | Lớp tối |
-| --- | --- | --- | --- | --- |
-| `qq-casa-villa` (Quỳnh Quỳnh) | `tieu-de-kep` | Be Vietnam Pro | mờ → nét | dải trên |
-| `tu-casa-villa` (Tú) | `khoi-noi` | Big Shoulders Display / Unbounded | lật từng ký tự, nhãn màu | dải trên |
-| `palm-river` (Tú Phan) | `dien-anh` | Archivo / Saira | co chữ từ mờ sang nét, chữ sau người | dải theo khối (đã bỏ, xem luật 13) |
-| `huy-tran-casa-villa` (Huy Trần) | `tap-chi` | Playfair Display nghiêng / Plus Jakarta Sans | từng từ dâng lên, serif kiểu tạp chí | gradient từ mép trên |
-| `casa-villa-kim-tham` (Kim Thắm) | `tang-truong` + 14 preset BĐS theo nghĩa (không dùng bộ 60 CapCut) | Yeseva One / Encode Sans | từng ký tự dâng lên; nhãn khoi-noi cho 4 lý do, số đếm, VHS cho mốc 20/10 | gradient từ mép trên |
+Các tổ hợp đã thử khi thực hành (preset chính, cặp font, cách hiện chữ, lớp tối) nằm ở **`lib/styles.json`** (S1–S5), dùng làm điểm xuất phát. Video mới phải khác video trước **của cùng kênh** ở ≥ 3/5 gen (luật 5, VAN-HANH mục 6): chọn một S rồi đổi tiếp bằng `plan.style` (`{ "base": "S4", "display": [...], "scrim": "mo" }`). Tổ hợp mới người dùng duyệt thì thêm `S6…` vào `lib/styles.json`.
 
-Video sau: chọn preset chính chưa có trong bảng (vd. `chu-bac`, `ky-thuat`, `chuong-moi`, `song`, hoặc thêm preset mới vào `text-presets/bds/`), font chưa dùng, rồi thêm một dòng vào bảng.
+Bảng dưới chỉ ghi video thật đã giao:
+
+| Video | Kênh | Style | Preset chính | Font chữ chính / chữ dẫn | Cách hiện chữ | Lớp tối |
+| --- | --- | --- | --- | --- | --- | --- |
 
 ## 5. Bẫy kỹ thuật (mỗi cái từng tốn hàng giờ)
 
@@ -216,7 +213,7 @@ Video sau: chọn preset chính chưa có trong bảng (vd. `chu-bac`, `ky-thuat
 5. Viết `SHOTBOOK.md` trước template, theo `docs/VAN-HANH.md` mục 3 và phương pháp ở `docs/SHOTS.md`. Render **một lần**, rồi chạy `python3 scripts/qa/motion_check.py build/<v>/output.mp4` (phần 静止 phải PASS) và `python3 -I scripts/qa/sfx-levels.py build/<v> projects/<v>`: đỉnh ≤ -1,5 dBFS, không tiếng NHỎ/TO. Cắt 6 khung từ MP4 để đối chiếu với snapshot.
 6. Nén bản xem trước (`-crf 22 -preset veryfast`), gửi, commit và push.
 
-## 7. Lần đầu (Tú · Casa Villa) mất 4–5 tiếng vì
+## 7. Lần đầu (thực hành 2) mất 4–5 tiếng vì
 
 - Làm trùng việc với một session song song: không `git pull` và không xem project đã có trước khi bắt tay.
 - Không đọc preset BĐS có sẵn, nên người dùng phải nhắc.

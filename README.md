@@ -18,7 +18,8 @@ Cần Node.js 22+, FFmpeg, Python 3.
 
 ```
 npm install
-npm run example          # dựng thử projects/example → build/example/output.mp4
+npm run demo             # kiểm thư viện: dựng tests/demo (media tổng hợp), không render
+npm run example          # dựng thử projects/example (bản dựng tay cũ) → build/example/output.mp4
 ```
 
 ## Dùng
@@ -33,6 +34,8 @@ Mỗi khách có cấu hình riêng ở `clients/<khach>/brand.json`: màu, LUT,
 |---|---|
 | `HUONG-DAN.md` | hướng dẫn chi tiết cho người mới |
 | `CLAUDE.md` | điểm vào cho Claude |
+| `lib/README.md` | thư viện dựng: `plan.json`, phong cách S1–S5, công thức R1–R7 |
+| `docs/PHONG-CACH-ME4REAL.md` | bộ mã phong cách đo từ editor BĐS chuyên nghiệp |
 | `docs/VAN-HANH.md` | quy tắc vận hành, thứ tự ưu tiên, các mâu thuẫn đã gỡ |
 | `TALKING-HEAD.md` | bảng luật người dùng đã chốt, quy trình 40–60 phút |
 | `docs/TRINH-BAY.md` | hook, minh họa, bố cục đồ họa, kiểm phần hình |

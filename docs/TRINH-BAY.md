@@ -26,6 +26,8 @@ Người dùng AI MASTER coi đây là phần quan trọng nhất của video.
 | Đối lập, trước–sau | "thay vì", "khác với", "đừng… hãy" | `versus`: 2 thẻ + VS, bên thua xám kèm dấu X **đỏ**, bên thắng sáng | thuê vs mua · gửi tiết kiệm vs mua đất | bên thắng xuất hiện lại ở kết luận | `pop` lúc VS bật · `thock` lúc chốt bên thắng |
 | Tên dự án, chủ đề lớn, không góc nào ở trên | — | `title`: tên dự án lớn, có thể đặt sau người (luật 11) | CASA VILLA · PALM RIVER | — | theo preset |
 
+**Nhịp bên trong hook (PHONG-CACH-ME4REAL H, áp cho mọi loại hook):** khung 0 đã chuyển động → giây 0,9–1,2 icon hoặc sticker bật (vượt ~110% rồi về) → giây ~1,5 từ khóa đỉnh → cụm cũ tan bằng mờ + nhòe 0,15 s khi sang từ khóa kế. Âm: công thức `bung-mo` (tiếng dâng chạy trước, tiếng chốt đúng `hook_peak` trong `plan.json`), tối đa 4–5 lớp tiếng trong 3 s đầu. Câu mở dạng "10 năm trước…", "ngày xưa…" dùng `title` với chữ dẫn là mốc thời gian.
+
 Với `strike`: theo luật house-rules số 9, **không dùng nét gạch chéo nghiêng**. "Bị loại" thể hiện bằng đổi trạng thái sạch: viền thẻ đổi màu, hiện ô cấm đỏ, chữ mờ đi.
 
 **Quy trình**
@@ -99,6 +101,16 @@ Khách dặn "ít hiệu ứng", "không phụ đề", hoặc video hướng d�
 - chỉ một nhãn nhỏ ở mép trên;
 - chữ chốt vẫn theo luật nhưng thưa hơn.
 
+**Minh họa bổ sung (PHONG-CACH-ME4REAL C5, I):**
+
+| Lời nói | Vẽ gì | Ghi chú |
+| --- | --- | --- |
+| Diện tích lô, khu đất | Viền nét đứt vàng bám quanh lô trên ảnh vệ tinh / drone + nhãn diện tích | Viền vẽ dần 0,6–0,8 s, tiếng `line-draw` |
+| Thông số (tầng, hầm, số căn) | Pill màu xếp dọc cạnh tòa nhà ("31 TẦNG NỔI", "3 TẦNG HẦM") | Mỗi pill một tiếng nhỏ, cách nhau 0,25 s |
+| "Dự án này", chỉ vào công trình trên render | Tô sáng (glow vàng) đúng tòa nhà của dự án | Chỉ trên render / sa bàn, không trên cảnh người |
+| Liệt kê tiện ích có ảnh | Lưới ảnh 3×2 (hoặc 3 ảnh dọc), đổi bộ theo phách nếu có nhạc | Ảnh lấy từ `info/`, có quyền dùng |
+| Dẫn nguồn báo chí, quy hoạch | Ảnh chụp bài báo đặt nghiêng, phóng tới tiêu đề | Ghi nguồn vào `NOTES.md`; không dùng nếu không có trong `info/` |
+
 ## 3. Kiểm bổ sung
 
 Thêm vào TALKING-HEAD mục 6 và VAN-HANH mục 8:
@@ -109,7 +121,7 @@ Thêm vào TALKING-HEAD mục 6 và VAN-HANH mục 8:
 5. **Hook:** có chuyển động ngay khung đầu, đạt phép thử tắt tiếng, bookend (nếu có) lộ đúng lúc nói.
 6. **Mật độ minh họa:** tổng thời lượng có hình minh họa ≥ 70%. Ghi con số này vào NOTES.
 7. **Âm lượng:** `ffmpeg -i output.mp4 -af loudnorm=print_format=summary -f null -` cho −14 LUFS ±0,5, true peak ≤ −1,4 dBTP.
-8. **SFX:** không lặp một file trong 3 giây; không đặt SFX cho chữ thường hay cú cắt; mỗi SFX ghi `why` đúng sự kiện trong `sfx.json`.
+8. **SFX:** mỗi khối chữ một tiếng, mỗi dòng của cụm `cao-trao` một tiếng nhỏ (luật 10, 17; quyết định M1); cú cắt thường trong clip không tiếng, chỉ chuyển cảnh lớn mới có; không lặp loại tiếng trong 30 s; mỗi SFX ghi `why` đúng sự kiện (`build/<video>/blocks.json`).
 
 ## 4. Giao
 

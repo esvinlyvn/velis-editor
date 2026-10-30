@@ -54,10 +54,10 @@ cp /đường/dẫn/voice.wav projects/<ten-video>/voice.wav
 # 1) Khớp lời thoại vào voice
 node scripts/align.mjs projects/<ten-video>/voice.wav projects/<ten-video>/script.txt projects/<ten-video>/transcript.json
 
-# 2) Chép khung mẫu rồi sửa (font, NO_CAP, FORCE, placeholder, nội dung template)
-cp projects/example/{build.mjs,template.html,sfx.json} projects/<ten-video>/
+# 2) Video BĐS: tạo plan.json (không chép video cũ) — lib/README.md
+node scripts/new-video.mjs <ten-video> --recipe R1 --style S1
 
-# 3) Build không render, kiểm tra
+# 3) Build không render, kiểm tra (video BĐS: node lib/build.mjs projects/<ten-video> --no-render)
 node projects/<ten-video>/build.mjs --no-render
 cd build/<ten-video>
 npx hyperframes lint

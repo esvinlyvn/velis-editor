@@ -4,7 +4,7 @@
 
 | File | Nội dung |
 |---|---|
-| `bds-presets.css` | Kiểu chữ của 21 preset. Màu và font đi qua biến CSS |
+| `bds-presets.css` | Kiểu chữ của 22 preset. Màu và font đi qua biến CSS |
 | `bds-presets.js` | Hàm dựng và animation (`window.BDS`) |
 | `gallery.html` | Bảng xem thử cả 18 preset chạy lặp. Mở trực tiếp trong trình duyệt |
 | `gallery-preview.mp4` | Bản quay bảng xem thử |
@@ -26,7 +26,7 @@ Số đo một vài preset:
 - Premium Text: các đốm sáng tụ thành chữ đậm trong khoảng 12 khung.
 - Central Focus: gõ khoảng 2 khung một ký tự, có chấm con trỏ chạy theo.
 
-## 2. 21 preset và lúc dùng
+## 2. 22 preset và lúc dùng
 
 | Preset | Tên | Dùng cho | Lấy ý từ |
 |---|---|---|---|
@@ -51,6 +51,8 @@ Số đo một vài preset:
 | `khoi-noi` | Khối nổi | Chữ chốt mặc định thay `tieu-de-kep`: chữ dẫn trong nhãn màu + cụm chính lớn hiện lần lượt từng ký tự (lật nhẹ từ dưới lên); `hl` tô màu chữ khóa | Minimal Style + nhãn |
 | `dien-anh` | Điện ảnh | Tiêu đề kiểu phim: chữ dẫn to giãn rộng (không vạch gạch 2 bên) + cụm chính rất lớn co chữ từ mờ sang nét, trôi chậm khi đứng (`hold`); hợp với chữ nằm sau đối tượng (`scripts/fx/`) | Cinematic title |
 | `tap-chi` | Tạp chí | Tiêu đề kiểu tạp chí nhà đẹp: chữ dẫn sans giãn rộng + cụm chính serif, chữ khóa (`hl`) NGHIÊNG tô gradient; hiện theo từ (dâng lên lần lượt), thoát rơi xuống (`leave`) | Editorial |
+
+| `cao-trao` | Cao trào bậc thang | Câu đắt nhất dựng thành 3–5 dòng vào theo lời (`lines[].at`), căn trái thụt dần, tan cùng lúc. Vai dòng: `dem` sans nhỏ · `khoa` đậm hoa · `cam` viết tay (`--script`) · `chot` gradient nhấp nháy, một lần mỗi cụm. Mỗi dòng 2–5 chữ (luật 1); tối đa 1 cụm mỗi 10–15 s | Kinetic typography BĐS (`docs/PHONG-CACH-ME4REAL.md` C1–C2) |
 
 Không dựng lại: Subtitles và Simple Type, vì không dùng phụ đề chạy (TALKING-HEAD luật 1); Fully customizable và Colorful text, vì trùng ý với preset khác.
 

@@ -12,10 +12,10 @@ Hai chỗ nói khác nhau thì chỗ đứng trên thắng:
 2. **Bảng luật đã chốt** ở đầu `TALKING-HEAD.md`. Đây là nơi duy nhất ghi luật người dùng chốt qua từng video, có cột nguồn.
 3. `clients/<khach>/brand.json`: lựa chọn riêng của khách (màu, LUT, CTA, logo, lịch sử phong cách).
 4. File này và `docs/TRINH-BAY.md` (phần hình: hook, minh họa, bố cục đồ họa, học từ AI MASTER).
-5. `docs/HAU-KY.md`, `docs/DAC-TA-CHU.md`: đặc tả gốc đo từ video mẫu.
-6. `TOOLKIT.md`, `MAP.md`, `text-presets/README.md`, `text-presets/bds/BDS-PRESETS.md`: cách dùng công cụ.
+5. `docs/HAU-KY.md`, `docs/DAC-TA-CHU.md`: đặc tả gốc đo từ video mẫu; `docs/PHONG-CACH-ME4REAL.md`: bộ mã phong cách đo từ editor BĐS chuyên nghiệp (khung, hook, chữ, chuyển cảnh, âm, CTA).
+6. `lib/README.md`, `TOOLKIT.md`, `MAP.md`, `text-presets/README.md`, `text-presets/bds/BDS-PRESETS.md`: cách dùng công cụ.
 
-**Ghi luật mới:** người dùng chốt thêm điều gì (khen, chê, sửa), thì sau khi giao video thêm một dòng vào bảng của `TALKING-HEAD.md`, cột Nguồn ghi tên video. Luật mới mâu thuẫn với luật cũ thì sửa dòng cũ, không để hai dòng chọi nhau.
+**Ghi luật mới:** người dùng chốt thêm điều gì (khen, chê, sửa), thì sau khi giao video thêm một dòng vào bảng của `TALKING-HEAD.md`, cột Nguồn ghi tên video (video thực hành ghi "Thực hành n"). Luật mới mâu thuẫn với luật cũ thì sửa dòng cũ, không để hai dòng chọi nhau.
 
 ### Mâu thuẫn đã gỡ
 
@@ -26,12 +26,19 @@ Hai chỗ nói khác nhau thì chỗ đứng trên thắng:
 | Lớp tối sau chữ | các cách cũ: dải theo khối… | **Luật 13**: gradient cố định từ mép trên, chỉ hiện khi có chữ, các khối liền nhau (nghỉ dưới 1 s) dùng chung một lần phủ |
 | CTA cuối video | Vis: không CTA chữ | BĐS: **có CTA** theo `brand.json` của khách (HAU-KY quy tắc 10). Không có thông tin thì hỏi |
 | Màu phim | HAU-KY: da ấm, nền tím vàng (phong cách 3 video mẫu) | Chỉ là một gợi ý. Màu theo LUT của khách (mục 7) |
-| Đổi phong cách | Luật 5 (khác video trước) và HAU-KY 7 (không trùng quá 2/5 gen) | Gộp: so với **lịch sử của chính khách đó** (mục 6) và bảng 4c |
+| Đổi phong cách | Luật 5 (khác video trước) và HAU-KY 7 (không trùng quá 2/5 gen) | Gộp: so với **lịch sử của chính khách đó** (mục 6); điểm xuất phát là tổ hợp S1–S5 trong `lib/styles.json` |
 | SHOTBOOK | TALKING-HEAD 6: theo `brand/VIS-SHOTS.md` | Viết `SHOTBOOK.md` theo mục 3 file này, phương pháp ở `docs/SHOTS.md`. Phần chuyển động camera chỉ áp cho cảnh minh họa và đồ họa, không áp cho cảnh người nói |
 | Gạch bỏ | bộ preset có `canh-bao` (gạch ngang), AI MASTER cấm gạch chéo | Gạch **ngang** thẳng cho chữ sai thì được. Không dùng gạch **chéo** trên thẻ, icon. Ý "không nên" thể hiện bằng viền đỏ + ô cấm + chữ mờ (TRINH-BAY mục 2) |
 | Mật độ minh họa | HAU-KY: 45–55% không thấy mặt; AI MASTER: ≥ 70% có minh họa | Cả hai: ≥ 70% thời lượng có hình minh họa (tính cả đồ họa trên cảnh người nói), trong đó 45–55% không thấy rõ mặt |
 | Khung nhấn và chữ dày | luật 4: gần như mỗi câu một khối chữ; AI MASTER: một khung nhấn mỗi 6–10 s | Không chọi nhau: chữ chốt theo luật 4; khung minh họa (thẻ, sơ đồ) theo TRINH-BAY, đặt dưới khối chữ |
 | Nhiều hiệu ứng | bộ quy tắc chọn chữ của Vis: xoay vòng preset, thưởng preset lạ | **Luật 8: mỗi loại thông tin một preset** cố định trong cả video. Xoay vòng là giữa các video, không phải trong một video (mục 4) |
+| Mật độ SFX (M1) | ME4REAL: mọi dòng chữ, mọi cú cắt đều có tiếng; TRINH-BAY 3.8 cũ: không SFX cho cú cắt | Mỗi khối một tiếng (luật 10, 17); mỗi dòng của cụm `cao-trao` một tiếng nhỏ; cú cắt thường không tiếng; hook tối đa 4–5 lớp |
+| Nền sau chữ (M2) | ME4REAL: làm mờ cả nền khi chữ lớn hiện | Gradient luật 13 là mặc định; nền mờ (`style.scrim: "mo"`) là một kiểu lớp tối để xoay vòng giữa các video |
+| Chữ nhiều dòng (M3) | ME4REAL: cụm bậc thang 3–8 dòng gần trọn câu | Luật 1 áp cho từng dòng; preset `cao-trao` 3–5 dòng, tối đa 1 cụm mỗi 10–15 s |
+| Video AI (M4) | ME4REAL: Kling, orbit / dolly AI, ảnh thành drone | **Không dùng** |
+| Nhạc, montage (M5) | ME4REAL: một bài xuyên suốt, montage cắt mỗi ô nhịp | Chỉ khi có nhạc có quyền; ducking −18 đến −24 dB (`lib/music.mjs`); được một đoạn montage theo phách |
+| Chuyển cảnh lớn (M6) | ME4REAL: flash mỗi 1,9 s trong montage | Giữ ~4 lần mỗi 150 s; cả đoạn montage tính 1 lần |
+| Cách dựng | Chép `build.mjs` / `template.html` của một video mẫu | **Thư viện `lib/`**: mỗi video chỉ là `plan.json` + transcript (`lib/README.md`) |
 
 ## 2. Nhận việc
 
@@ -46,15 +53,15 @@ Hai chỗ nói khác nhau thì chỗ đứng trên thắng:
 | Nền tảng đăng | TikTok / Reels / Shorts dọc 1080×1920 |
 | Hạn giao | 40–60 phút một video (TALKING-HEAD) |
 
-Thư mục video: `projects/<khach>-<du-an>/`, chép từ `projects/example/`. Thông tin dự án khách gửi để ở `projects/<video>/info/`.
+Thư mục video: `node scripts/new-video.mjs <khach>-<du-an> --recipe R1 --style S1` tạo `projects/<video>/plan.json` và `work/<video>/`. Không chép video cũ. Thông tin dự án khách gửi để ở `projects/<video>/info/`.
 
-**Không commit clip thô và file render**: chỉ giữ trong `work/` và `build/`, hai thư mục này đã gitignore. Repo chỉ chứa dữ liệu dựng: transcript, template, SHOTBOOK, text-plan, sfx.json, NOTES.
+**Không commit clip thô và file render**: chỉ giữ trong `work/` và `build/`, hai thư mục này đã gitignore. Repo chỉ chứa dữ liệu dựng: `plan.json`, transcript, SHOTBOOK, text-plan, hook.json, NOTES. Clip, giọng, mặt nạ để ở `work/<video>/`.
 
 ## 3. Quy trình
 
 Làm theo `TALKING-HEAD.md` từ mục 0 đến 6. Phần bổ sung và thứ tự gọn:
 
-1. **Chuẩn bị** (2 phút): đọc bảng luật, `brand.json`, mục 4c của TALKING-HEAD (phong cách đã dùng).
+1. **Chuẩn bị** (2 phút): đọc bảng luật, `brand.json`, mục 4c của TALKING-HEAD, chọn công thức (`lib/recipes.json`) và style (`lib/styles.json`).
 2. **Nhận diện voice** (`scripts/asr/`), cho chạy nền.
 3. **Soi clip, cắt** (HAU-KY mục 0 và mục 3):
    - không có quãng im quá khoảng 150 ms;
@@ -100,7 +107,8 @@ Làm theo `TALKING-HEAD.md` từ mục 0 đến 6. Phần bổ sung và thứ t�
   - chữ gõ đi với tiếng gõ phím đúng nhịp từng ký tự (luật 16).
 - **Độ to bản trộn:** SFX dày làm bản trộn to hơn giọng 1–3 dB. Sau render, `scripts/build-video.mjs` tự đo và chuẩn hóa bản trộn về −14 LUFS, đỉnh ≤ −1,5 dBTP (tuyến tính: tỷ lệ SFX / giọng giữ nguyên), in dòng `✔ âm lượng`.
 - **Kiểm âm:** `python3 -I scripts/qa/sfx-levels.py`: đỉnh ≤ −1,5 dBFS, không có tiếng lúc nhỏ lúc to; SFX không vượt đỉnh voice. Rồi chạy nhận diện giọng trên `output.mp4` để chắc SFX không che lời (TALKING-HEAD 4a).
-- **Nhạc nền:** chỉ dùng khi khách gửi hoặc trong `brand.json` có, và phải có quyền sử dụng.
+- **Nhạc nền:** chỉ dùng khi khách gửi hoặc trong `brand.json` có, và phải có quyền sử dụng. `plan.music`: hạ dưới giọng theo giờ lời nói (`bed_db` −6, `duck_db` −20, khoảng −18 đến −24); một đoạn montage theo phách được phép (`montage`, cần `bpm`).
+- **Độ to sau render ở `lib/build.mjs`:** gọi cùng hàm chuẩn hóa bản trộn (`loudnormMix`).
 
 ## 6. Phong cách và lịch sử theo khách
 
@@ -109,7 +117,7 @@ Mỗi khách (sale, kênh, dự án) có `clients/<khach>/brand.json`, mẫu ở
 - LUT, CTA, logo;
 - **lịch sử**: mỗi video ghi lại preset chính, font, cách hiện chữ, lớp tối.
 
-Video mới phải khác video trước **của cùng khách** ở ít nhất 3 trong 5 "gen": preset chính, font chữ chính, font chữ dẫn, cách hiện chữ, kiểu lớp tối. Bảng 4c của TALKING-HEAD vẫn ghi tất cả các video để nhìn toàn cục.
+Video mới phải khác video trước **của cùng khách** ở ít nhất 3 trong 5 "gen": preset chính, font chữ chính, font chữ dẫn, cách hiện chữ, kiểu lớp tối. Bảng 4c của TALKING-HEAD ghi các video thật đã giao để nhìn toàn cục.
 
 ## 7. Màu và LUT
 
@@ -120,6 +128,8 @@ Hiện repo chưa có LUT. Khi thêm, theo các luật sau (chi tiết trong `lu
 4. Chỉ dùng file `.cube` có quyền sử dụng. Ghi nguồn vào `luts/SOURCES.md`.
 
 ## 8. Kiểm bổ sung
+
+- **Mật độ:** `node scripts/qa/density.mjs build/<video>`: không quãng nào quá 3 s mà không có chữ, tiếng hay cú cắt (PHONG-CACH-ME4REAL K).
 
 Ngoài TALKING-HEAD mục 6:
 - **Hình đứng im:** `python3 scripts/qa/motion_check.py build/<video>/output.mp4`, phần 静止 phải PASS. Kiểm nhanh không cần Python: `ffmpeg -i build/<video>/output.mp4 -vf freezedetect=n=0.003:d=0.8 -f null -`.

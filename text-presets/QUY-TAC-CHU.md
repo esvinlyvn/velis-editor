@@ -7,7 +7,7 @@ Luật gốc nằm ở bảng **luật đã chốt** của `TALKING-HEAD.md` (lu
 1. Từ transcript đã cắt, đánh dấu khối chữ. Chữ dày (luật 4): gần như mỗi câu một khối, có chữ ngay từ giây 0,1.
 2. Viết `projects/<video>/text-plan.json`:
    ```json
-   { "video": "palm-river-2", "mode": "bds", "client": "tu-phan", "family": "rieng",
+   { "video": "kenh-du-an", "mode": "bds", "client": "kenh", "family": "rieng",
      "main": "B18:tieu-de-kep",
      "moments": [ { "id": "k1", "role": "ten-du-an", "text": "PALM RIVER", "energy": "cao" } ] }
    ```
@@ -24,14 +24,15 @@ Luật gốc nằm ở bảng **luật đã chốt** của `TALKING-HEAD.md` (lu
 
 ## Bảng vai
 
-Dùng các vai chung trong `pick-text.mjs` (mo-dau, chot-y, con-so-tien, con-so, tang-giam, dia-danh, thuat-ngu, so-sanh, canh-bao, trich-loi, liet-ke, trang-thai, thoi-gian, qua-khu, phan-moi, canh-quan, phan-khuc, cau-hoi), cộng thêm 4 vai riêng cho BĐS:
+Dùng các vai chung trong `pick-text.mjs` (mo-dau, chot-y, con-so-tien, con-so, tang-giam, dia-danh, thuat-ngu, so-sanh, canh-bao, trich-loi, liet-ke, trang-thai, thoi-gian, qua-khu, phan-moi, canh-quan, phan-khuc, cau-hoi), cộng thêm 5 vai riêng cho BĐS (mode `bds` chỉ gợi ý preset bộ BĐS, vì `lib/build.mjs` chỉ dựng bộ này):
 
 | Vai | Khi lời đang… | Ví dụ |
 |---|---|---|
-| `ten-du-an` | gọi tên dự án hay khu | "Palm River", "Casa Villa" |
+| `ten-du-an` | gọi tên dự án hay khu | tên dự án, tên khu |
 | `tien-ich` | kể tiện ích | "hồ bơi tràn", "công viên 2 ha" |
 | `phap-ly` | nói giấy tờ, pháp lý, tiến độ | "sổ hồng riêng", "bàn giao quý 4" |
 | `cta` | kêu gọi cuối video | "Nhắn tin nhận bảng giá" |
+| `cao-trao` | nói câu đắt nhất, cao trào của đoạn | "không chỉ là nơi ở mà còn mở ra một cơ hội hiếm có" → preset `cao-trao`, tối đa 1 cụm mỗi 10–15 s |
 
 ## Khác với kênh Vis
 
