@@ -8,9 +8,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PRESET } from "../../text-presets/presets.mjs";
+import { DUYET } from "../../text-presets/duyet.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.resolve(HERE, "../..");
-const DUYET = JSON.parse(fs.readFileSync(path.join(ROOT, "lib/presets-duyet.json"), "utf8"));
+
 const STYLE = ["S1", "S6", "S4"], SLOT = 2.6;
 
 // ---------- câu chữ: [v1, v2, v3] ----------
@@ -104,7 +105,7 @@ for (let v = 0; v < 3; v++) {
   fs.writeFileSync(path.join(dir, "plan.json"), JSON.stringify({ video: name, kenh: null, style: { base: STYLE[v] }, info_numbers: [], blocks }, null, 1));
   // media: nền + "người" của tests/demo kéo dài đủ thời lượng; tiếng ù đúng các quãng nói
   const ff = (a) => execFileSync("ffmpeg", ["-loglevel", "error", "-y", ...a]);
-  ff(["-stream_loop", "-1", "-i", path.join(ROOT, "work/demo/footage.mp4"), "-t", String(dur), "-c:v", "libx264", "-pix_fmt", "yuv420p", path.join(work, "footage.mp4")]);
+  ff(["-stream_loop", "-1", "-i", path.join(ROOT, "work/demo/footage.mp4"), "-t", String(dur), "-c", "copy", path.join(work, "footage.mp4")]); // lặp nền thử, không cần mã hóa lại
   const on = T.chunks.map((c) => `between(t,${c.start},${c.end})`).join("+");
   ff(["-f", "lavfi", "-i", `aevalsrc='0.3*sin(2*PI*180*t)*gt(${on},0)':s=48000:d=${dur}`, path.join(work, "voice.wav")]);
   console.log(`✔ ${path.relative(ROOT, dir)}: ${blocks.length} khối · ${STYLE[v]} · ${dur}s`);
