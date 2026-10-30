@@ -24,6 +24,8 @@ print(f"đỉnh output {db(abs(o).max()):.1f} dBFS ({'đạt' if db(abs(o).max()
 bad = 0
 for c in json.load(open(f"{proj}/sfx.json"))["cues"]:
     a = int(c["at"] * 48000); b = min(n, a + int(0.7 * 48000))
+    if b - a < 4800 or np.sqrt(np.mean(v[a:b] ** 2)) < 1e-4:  # ngoài vùng có giọng (trước lời đầu / sau lời cuối): không có gì để so
+        print(f'{c["at"]:7.2f} {c["name"]:14s} vol={c["vol"]:.2f} (không có giọng để so)'); continue
     sp, vr = db(abs(d[a:b]).max()), db(np.sqrt(np.mean((g * v[a:b]) ** 2)))  # giọng đúng mức trong bản trộn (đã chuẩn hóa)
     flag = "NHỎ" if sp < vr - 4 else ("TO" if sp > vr + 6 else "")
     bad += bool(flag)
