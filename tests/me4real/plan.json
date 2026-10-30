@@ -1,0 +1,400 @@
+{
+ "video": "me4real",
+ "style": {
+  "base": "S1",
+  "display": [
+   "be-vietnam-pro",
+   [
+    900
+   ]
+  ],
+  "sans": [
+   "be-vietnam-pro",
+   [
+    700
+   ]
+  ]
+ },
+ "hook_burst": false,
+ "media": {
+  "footage": "work/me4real/footage.mp4",
+  "voice": "work/me4real/voice.wav"
+ },
+ "blocks": [
+  {
+   "p": "kim-loai",
+   "at": 0.3,
+   "o": {
+    "m": "PHÁO HOA",
+    "s": "Quốc Tế",
+    "tone": "vang",
+    "tia": true
+   },
+   "top": 300,
+   "sfx": "auto"
+  },
+  {
+   "p": "so-khong-lo",
+   "at": 2.9,
+   "o": {
+    "k": "TRIỆU ĐỒNG",
+    "value": 200,
+    "s": "hợp đồng thuê",
+    "dem": false
+   },
+   "top": 260,
+   "sfx": "auto"
+  },
+  {
+   "p": "so-khong-lo",
+   "at": 5.5,
+   "o": {
+    "value": 800,
+    "from": 40,
+    "u": "m²",
+    "s": "đất Phố Cổ"
+   },
+   "top": 260,
+   "sfx": "auto"
+  },
+  {
+   "p": "so-dem",
+   "at": 8.1,
+   "o": {
+    "rows": [
+     {
+      "n": 10,
+      "u": "tầng"
+     },
+     {
+      "n": 50,
+      "u": "phòng"
+     }
+    ]
+   },
+   "top": 560,
+   "sfx": "auto"
+  },
+  {
+   "p": "cap-dong",
+   "at": 10.7,
+   "o": {
+    "rows": [
+     {
+      "hoa": "VỊ TRÍ",
+      "viet": "Ấn Tượng"
+     },
+     {
+      "hoa": "QUY MÔ",
+      "viet": "Lý Tưởng"
+     }
+    ]
+   },
+   "top": 520,
+   "sfx": "auto"
+  },
+  {
+   "p": "phoi-canh",
+   "at": 13.3,
+   "o": {
+    "lines": [
+     {
+      "t": "VỐN BAN ĐẦU"
+     },
+     {
+      "parts": [
+       {
+        "t": "chỉ từ",
+        "v": "nho"
+       },
+       {
+        "t": "1,3 TỶ",
+        "v": "so"
+       }
+      ]
+     }
+    ],
+    "goc": -18
+   },
+   "top": 760,
+   "sfx": "auto"
+  },
+  {
+   "p": "noi-khoi",
+   "at": 15.9,
+   "o": {
+    "m": "HỘI AN",
+    "tone": "bang"
+   },
+   "top": 320,
+   "sfx": "auto"
+  },
+  {
+   "p": "noi-khoi",
+   "at": 18.5,
+   "o": {
+    "m": "SỞ HỮU LÂU DÀI",
+    "tone": "vang",
+    "goc": -10,
+    "xien": -12
+   },
+   "top": 760,
+   "sfx": "auto"
+  },
+  {
+   "p": "so-chen",
+   "at": 21.1,
+   "o": {
+    "truoc": "Miễn phí|quản lí",
+    "so": "1",
+    "sau": "năm",
+    "goc": -6
+   },
+   "top": 760,
+   "sfx": "auto"
+  },
+  {
+   "p": "cao-trao",
+   "at": 23.7,
+   "o": {
+    "align": "phai",
+    "lines": [
+     {
+      "t": "Tăng",
+      "v": "dem"
+     },
+     {
+      "t": "15%",
+      "v": "so"
+     },
+     {
+      "parts": [
+       {
+        "t": "so với",
+        "v": "nho"
+       },
+       {
+        "t": "Năm",
+        "v": "dem"
+       }
+      ]
+     },
+     {
+      "t": "2024",
+      "v": "khoa"
+     }
+    ]
+   },
+   "top": 330,
+   "sfx": "auto"
+  },
+  {
+   "p": "cao-trao",
+   "at": 26.3,
+   "o": {
+    "lines": [
+     {
+      "t": "NGÂN HÀNG",
+      "v": "khoa"
+     },
+     {
+      "parts": [
+       {
+        "t": "hỗ trợ đến",
+        "v": "nho"
+       },
+       {
+        "t": "70%",
+        "v": "so"
+       }
+      ]
+     },
+     {
+      "t": "ưu đãi lãi suất",
+      "v": "nho"
+     },
+     {
+      "parts": [
+       {
+        "t": "0%",
+        "v": "so"
+       },
+       {
+        "t": "lên đến",
+        "v": "nho"
+       },
+       {
+        "t": "24th",
+        "v": "so",
+        "c": "#7ef0c8",
+        "c2": "#20a676"
+       }
+      ]
+     }
+    ]
+   },
+   "top": 330,
+   "sfx": "auto"
+  },
+  {
+   "p": "cao-trao",
+   "at": 28.9,
+   "o": {
+    "align": "giua",
+    "lines": [
+     {
+      "t": "Hồ Bơi Vô Cực",
+      "v": "muc"
+     },
+     {
+      "t": "Sky Bar",
+      "v": "muc",
+      "c": "#ffd23f"
+     },
+     {
+      "t": "Lounge Sang Trọng",
+      "v": "muc",
+      "c": "#7ef0c8"
+     }
+    ]
+   },
+   "top": 700,
+   "sfx": "auto"
+  },
+  {
+   "p": "cao-trao",
+   "at": 31.5,
+   "o": {
+    "lines": [
+     {
+      "t": "FULL",
+      "v": "khoa",
+      "c": "#9ff3ff"
+     },
+     {
+      "t": "Nội Thất",
+      "v": "vien"
+     },
+     {
+      "t": "liền tường",
+      "v": "nho"
+     },
+     {
+      "t": "Cao Cấp",
+      "v": "chot",
+      "c": "#ff5a4e",
+      "c2": "#ffd23f",
+      "hoa": false
+     }
+    ]
+   },
+   "top": 520,
+   "sfx": "auto"
+  },
+  {
+   "p": "pill-xep",
+   "at": 34.1,
+   "o": {
+    "items": [
+     {
+      "t": "31 TẦNG NỔI"
+     },
+     {
+      "t": "3 TẦNG HẦM"
+     }
+    ]
+   },
+   "top": 1240,
+   "sfx": "auto",
+   "color": "gold",
+   "size": 100
+  },
+  {
+   "p": "nhan-ban-do",
+   "at": 36.7,
+   "o": {
+    "m": "CAPITAL SQUARE"
+   },
+   "top": 520,
+   "sfx": "auto",
+   "color": "gold"
+  },
+  {
+   "p": "chu-gian",
+   "at": 39.3,
+   "o": {
+    "m": "THE LEGEND",
+    "s": "trở thành điểm đến"
+   },
+   "top": 300,
+   "sfx": "auto"
+  },
+  {
+   "p": "chu-gian",
+   "at": 41.9,
+   "o": {
+    "m": "LÀM VIỆC",
+    "mau": true
+   },
+   "top": 300,
+   "sfx": "auto",
+   "color": "gold"
+  },
+  {
+   "p": "logo-ghep",
+   "at": 44.5,
+   "o": {
+    "m": "Sun",
+    "s": "Symphony",
+    "so": "5",
+    "sub": "Second Home"
+   },
+   "top": 300,
+   "sfx": "auto"
+  },
+  {
+   "p": "poster-serif",
+   "at": 47.1,
+   "o": {
+    "m": "TIỆN ÍCH",
+    "s": "xa hoa",
+    "sub": "CHO CHỦ NHÂN TINH HOA",
+    "c": "#7a5420"
+   },
+   "top": 260,
+   "sfx": "auto"
+  },
+  {
+   "p": "so-thu-tu",
+   "at": 49.7,
+   "o": {
+    "rows": [
+     {
+      "n": "1",
+      "nho": "một mặt bằng",
+      "lon": "THƯƠNG MẠI"
+     },
+     {
+      "n": "2",
+      "nho": "luồng",
+      "lon": "Tiếp Cận",
+      "viet": true
+     }
+    ]
+   },
+   "top": 320,
+   "sfx": "auto",
+   "color": "gold"
+  },
+  {
+   "p": "khung-sdt",
+   "at": 52.3,
+   "o": {
+    "m": "0935.991.948"
+   },
+   "top": 1260,
+   "sfx": "auto",
+   "size": 130
+  }
+ ]
+}

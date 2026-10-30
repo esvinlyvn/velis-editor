@@ -16,8 +16,9 @@
       .bds { font-weight: 900; }
       /* ô chữ: căn giữa khung 1080, rộng tối đa 900; top theo từng khối. Không đặt class "slot" (trùng class nội bộ của quay-vong) */
       .kt-slot { position: absolute; left: 90px; right: 90px; display: flex; justify-content: center; }
-      .kt-slot.left { justify-content: flex-start; }
+      .kt-slot.left { justify-content: flex-start; } .kt-slot.right { justify-content: flex-end; }
       .kt-slot.narrow { left: 60px; right: 140px; } /* khối xuống dưới y 700: né cột nút bên phải (x > 940) */
+      .kt-slot.low { left: 140px; right: 140px; } /* dải dưới y 1240–1440: đối xứng 140–940, khớp kt-check */
       /* Lớp phủ sau chữ (luật 13, 15, 18, 19): CHỈ hiện khi có chữ, mờ vào/ra theo đoạn, các khối liền nhau (nghỉ < 1 s) dùng chung một lần phủ.
          Độ đậm theo nền đo được (scripts/text-contrast.mjs), tối đa 0,6; nền đủ tương phản thì không phủ. Dải trên: gradient từ đỉnh video, nhạt dần liên tục, hết 160 px dưới chữ.
          Dải dưới: quanh các khối top ≥ 900. Chế độ "mo" (style.scrim): thêm lớp làm mờ nền cùng hình dạng dải trên (không làm tối thêm). */
@@ -75,6 +76,7 @@
       Promise.all(ST.loads.map((f) => document.fonts.load(f, VI))).then(() => document.fonts.ready).then(() => {
         const host = document.getElementById("kt");
         document.documentElement.style.setProperty("--script", q(ST.script));
+        document.documentElement.style.setProperty("--serif", q(ST.serif));
         let scrimBottom = 0, lowTop = 1e9, lowBottom = 0;
         const fit = (slot, c, o, h) => { // khối rộng quá ô thì dựng lại với cỡ nhỏ hơn
           const Wd = slot.clientWidth * 0.96; // chừa 4% cho đoạn trôi phóng to khi đứng yên
@@ -88,7 +90,7 @@
         KT.forEach((c, i) => {
           const slot = document.createElement("div");
           const low = (c.top ?? 250) >= 900;
-          slot.className = "kt-slot" + (c.narrow || low ? " narrow" : "") + (c.p === "cao-trao" ? " left" : "") + (c.hard ? " hard" : "") + (c.objTop != null ? " behind" : "");
+          slot.className = "kt-slot" + (low ? " low" : c.narrow ? " narrow" : "") + ((c.p === "cao-trao" && (c.o.align ?? "trai") === "trai") || c.p === "pill-xep" ? " left" : c.p === "cao-trao" && c.o.align === "phai" ? " right" : "") + (c.hard ? " hard" : "") + (c.objTop != null ? " behind" : "");
           slot.id = "kt" + i; slot.style.top = (c.top ?? 250) + "px";
           host.appendChild(slot);
           let o = { size: 160, display: q(ST.display), sans: q(ST.sans), ...c.o }, h = BDS.make(c.p, slot, o);
@@ -99,7 +101,7 @@
             slot.style.top = Math.max(250, Math.round(c.objTop - (m.bottom - s0.top) + (c.behindFrac ?? 0.35) * m.height)) + "px";
           }
           // khối xuống dưới y 700 → ô hẹp x 60–940 (né cột nút bên phải), co lại nếu cần
-          if (!slot.classList.contains("narrow") && h.r.getBoundingClientRect().bottom > 700) { slot.classList.add("narrow"); [o, h] = fit(slot, c, o, h); }
+          if (!low && !slot.classList.contains("narrow") && h.r.getBoundingClientRect().bottom > 700) { slot.classList.add("narrow"); [o, h] = fit(slot, c, o, h); }
           const rb = h.r.getBoundingClientRect();
           c.zone = c.objTop != null ? "none" : low ? "low" : "top"; c.cy = (rb.top + rb.bottom) / 2;
           if (c.zone === "low") { lowTop = Math.min(lowTop, rb.top); lowBottom = Math.max(lowBottom, rb.bottom); }
