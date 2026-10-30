@@ -1,11 +1,14 @@
 // Tự kiểm chữ chốt preset BĐS (window.__kt do template ghi): tua tới lúc mỗi khối đã đứng yên, đo khung và từng ký tự.
 //   node scripts/qa/kt-check.cjs build/<ten-video>/index.html <composition-id>
 // Báo lỗi: lệch tâm > 8 px, tràn vùng an toàn, ký tự chưa hiện đủ (opacity < 0.99) hoặc ra ngoài khung hình, 2 khối cùng hiện.
+// Trình duyệt: PW_CHROMIUM, không có thì /opt/pw-browsers/chromium (máy cloud), không có nữa thì Chromium của Playwright (`npx playwright install chromium`).
+const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright");
+const OPT = "/opt/pw-browsers/chromium";
 (async () => {
   const file = path.resolve(process.argv[2]), comp = process.argv[3] || "main";
-  const b = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || "/opt/pw-browsers/chromium" });
+  const b = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || (fs.existsSync(OPT) ? OPT : undefined) });
   const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   await p.addInitScript(() => { window.__timelines = {}; });
   await p.goto("file://" + file);

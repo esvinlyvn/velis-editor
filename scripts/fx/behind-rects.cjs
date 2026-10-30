@@ -1,9 +1,11 @@
 // Khung từng ký tự chữ chính của các khối chữ-sau-đối-tượng (window.__kt có `behind`), lúc khối đã đứng (at + 1,1 s).
 //   node scripts/fx/behind-rects.cjs build/<v>/index.html <composition-id>   → JSON ra stdout (dùng bởi behind-check.py)
+const fs = require("fs");
 const path = require("path");
 const { chromium } = require(path.resolve("node_modules/playwright"));
+const OPT = "/opt/pw-browsers/chromium"; // máy cloud; không có thì dùng Chromium của Playwright
 (async () => {
-  const b = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || "/opt/pw-browsers/chromium" });
+  const b = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || (fs.existsSync(OPT) ? OPT : undefined) });
   const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   await p.addInitScript(() => { window.__timelines = {}; });
   await p.goto("file://" + path.resolve(process.argv[2]));
