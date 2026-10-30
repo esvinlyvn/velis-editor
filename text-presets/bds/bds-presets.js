@@ -435,7 +435,7 @@
   };
 
   P["cao-trao"] = {
-    vi: "Cao trào bậc thang", use: "Câu cao trào / khối thông tin / danh sách cộng dồn dựng dần 3–5 dòng, mỗi dòng vào đúng lúc nói tới, rồi tan cùng lúc. Mỗi dòng 2–5 chữ (luật 1). Vai: dem (đệm nhỏ) · nho (rất nhỏ) · muc (mục danh sách) · khoa (đậm hoa) · cam (viết tay) · vien (viết tay rỗng ruột) · so (số gradient lớn) · chot (gradient, một lần mỗi cụm). o.align trai|giua|phai; phần nào cũng nhận c riêng (danh sách nhiều màu).", from: "Kinetic typography BĐS (phong cách ME4REAL, docs/PHONG-CACH-ME4REAL.md C1–C2)",
+    vi: "Cao trào bậc thang", use: "Câu cao trào / khối thông tin / danh sách cộng dồn dựng dần 3–5 dòng, mỗi dòng vào đúng lúc nói tới, rồi tan cùng lúc. Mỗi dòng 2–5 chữ (luật 1). Vai: dem (đệm nhỏ) · nho (rất nhỏ) · muc (mục danh sách) · mong (to nét mảnh) · khoa (đậm hoa) · cam (viết tay) · vien (viết tay rỗng ruột) · so (số gradient lớn) · chot (gradient, một lần mỗi cụm). o.align trai|giua|phai; phần nào cũng nhận c riêng (danh sách nhiều màu).", from: "Kinetic typography BĐS (phong cách ME4REAL, docs/PHONG-CACH-ME4REAL.md C1–C2)",
     sample: { lines: [{ parts: [{ t: "mà còn", v: "dem" }, { t: "mở ra", v: "khoa" }] }, { t: "một cơ hội", v: "dem" }, { t: "sở hữu", v: "khoa" }, { t: "Ven Sông", v: "cam" }, { t: "hiếm có", v: "chot" }], c: "#ffd166", c2: "#e8761a" },
     // o.lines: [{ t, v, at? } | { parts: [{ t, v }], at? }] · at = giây tuyệt đối dòng đó vào (bám lời); thiếu thì cách nhau o.step (0,35 s)
     build(r, o) {
