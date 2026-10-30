@@ -12,6 +12,8 @@ Chạy bằng [HyperFrames](https://github.com/heygen-com/hyperframes) (HTML + G
 
 ## Cài
 
+**Người mới:** đọc [`HUONG-DAN.md`](HUONG-DAN.md), đi từ tạo tài khoản GitHub, cài công cụ, lấy repo về làm của riêng, tới video đầu tiên và cách dạy luật mới.
+
 Cần Node.js 22+, FFmpeg, Python 3.
 
 ```
@@ -29,6 +31,7 @@ Mỗi khách có cấu hình riêng ở `clients/<khach>/brand.json`: màu, LUT,
 
 | File | Nội dung |
 |---|---|
+| `HUONG-DAN.md` | hướng dẫn chi tiết cho người mới |
 | `CLAUDE.md` | điểm vào cho Claude |
 | `docs/VAN-HANH.md` | quy tắc vận hành, thứ tự ưu tiên, các mâu thuẫn đã gỡ |
 | `TALKING-HEAD.md` | bảng luật người dùng đã chốt, quy trình 40–60 phút |
