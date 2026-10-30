@@ -33,7 +33,7 @@ Có hai nơi để chạy:
 |---|---|---|
 | Tài khoản Claude | gói **Pro** hoặc **Max** ở [claude.ai](https://claude.ai) | Claude Code (cả cloud lẫn máy) dùng tài khoản này. Gói Max làm được nhiều video hơn mỗi ngày |
 | Tài khoản GitHub | miễn phí | nơi cất repo riêng |
-| Gói sạch | file `bds-editor.zip` (qua link Google Drive…) **hoặc** một repo người giao chuyển sang tên anh/chị | xem mục 3 |
+| Lời mời vào repo mẫu | người giao mời tài khoản GitHub của anh/chị | xem mục 3 |
 | Nơi để clip | Google Drive hoặc Dropbox | khi chạy trên cloud, Claude tải clip từ link |
 | Máy tính | chỉ cần trình duyệt nếu chạy cloud | chạy trên máy thì xem yêu cầu ở mục 7 |
 
@@ -55,29 +55,20 @@ GitHub là nơi cất repo trên mạng. Repo là thư mục dự án có lưu l
 
 ## 3. Đưa gói sạch vào repo riêng
 
-Chọn **một** trong hai cách, tùy người giao gửi gì.
+Người giao giữ một **repo mẫu** chứa gói sạch. Anh/chị tạo repo riêng của mình từ repo mẫu đó.
 
-### Cách 1: người giao chuyển repo sang tên anh/chị (dễ nhất)
+1. Gửi tên tài khoản GitHub cho người giao. Người giao mời anh/chị vào repo mẫu.
+2. Mở email từ GitHub (hoặc [github.com/notifications](https://github.com/notifications)) → **Accept invitation**.
+3. Trong repo mẫu, bấm nút xanh **Use this template** → **Create a new repository**.
+4. **Owner:** chọn tài khoản của anh/chị. **Repository name:** đặt tên, ví dụ `bds-editor`. Chọn **Private**. Để trống ô "Include all branches".
+5. Bấm **Create repository**.
+6. Báo người giao là đã tạo xong. Người giao sẽ gỡ anh/chị khỏi repo mẫu; repo của anh/chị không bị ảnh hưởng gì.
 
-1. Người giao tạo repo chứa gói sạch, rồi vào **Settings → General → Transfer ownership** và nhập tên GitHub của anh/chị.
-2. Anh/chị mở email từ GitHub, bấm chấp nhận.
-3. Vào repo vừa nhận: **Settings → General**, kéo xuống **Danger Zone**, kiểm tra repo đang là **Private**.
+Repo vừa tạo thuộc hẳn về anh/chị: lịch sử bắt đầu từ chính anh/chị, không ghi "forked from", không nối với repo mẫu. Người giao không có quyền gì trên đó.
 
-Repo giờ thuộc hẳn về anh/chị. Người giao không còn quyền gì trên đó.
+> **Đừng bấm Fork.** Fork giữ dây nối với repo mẫu, và bị xóa theo khi anh/chị mất quyền vào repo mẫu.
 
-### Cách 2: được gửi link file `bds-editor.zip`
-
-1. Tạo repo trống: bấm dấu **+** góc trên phải GitHub → **New repository** → đặt tên (ví dụ `bds-editor`) → chọn **Private** → **không** tick README, .gitignore, license → **Create repository**.
-2. Làm tiếp mục 4 để kết nối cloud. Ở phiên Claude đầu tiên (mục 4d), dán thêm câu này trước câu kiểm:
-   ```
-   Repo này đang trống. Tải gói từ link <link-zip>, giải nén vào gốc repo (nếu có thư mục bọc ngoài thì lấy phần bên trong),
-   commit "Khởi tạo bộ dựng video BĐS" và push lên main.
-   ```
-   File zip khoảng 50 MB, quá giới hạn 25 MB khi tải lên bằng trang web GitHub, nên để Claude tải về và đẩy lên.
-
-> **Vì sao không bấm Fork?** Fork giữ dây nối với repo gốc ("forked from…"). Hai cách trên cho anh/chị một repo tách hẳn ra.
-
-**Kiểm:** trang repo trên GitHub có các file `CLAUDE.md`, `HUONG-DAN.md`, `package.json`.
+**Kiểm:** repo mới nằm dưới tên tài khoản của anh/chị, là **Private**, có các file `CLAUDE.md`, `HUONG-DAN.md`, `package.json`.
 
 ---
 
@@ -137,10 +128,9 @@ Dán vào khung chat:
 2. Chạy npm run example. Báo kết quả và gửi tôi file build/example/output.mp4.
 3. Kiểm ~/.asr/bin/python import được faster_whisper, rembg.
 4. Nếu thiếu gì, cài cho phiên này và nói tôi cần thêm dòng nào vào setup script.
-5. Thêm vào CLAUDE.md dòng: "Python chạy bằng ~/.asr/bin/python." Commit và push.
 ```
 
-**Kiểm:** Claude báo `npm run example` render được (video khoảng 9–10 giây) và gửi file vào khung chat. Trên GitHub có commit mới.
+**Kiểm:** Claude báo `npm run example` render được (video khoảng 9–10 giây) và gửi file vào khung chat.
 
 > **Quyền chạy lệnh:** Claude có thể hỏi trước khi chạy lệnh hay sửa file. Đọc lướt rồi cho phép. Muốn ít bị hỏi, hỏi Claude "làm sao để bớt bị hỏi quyền?".
 

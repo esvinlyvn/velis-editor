@@ -32,7 +32,8 @@ const files = walk(OUT).filter((f) => TEXT.test(f));
 const edit = (rel, fn) => { const f = path.join(OUT, rel); fs.writeFileSync(f, fn(fs.readFileSync(f, "utf8"))); };
 
 // Sửa riêng từng file trước khi thay chữ hàng loạt
-edit("CLAUDE.md", (s) => s.replace(/ Content tự động cho kênh Vis[^\n]*/, "").replace(/\n- Lõi dựng \(`scripts\/`[^\n]*/, ""));
+edit("CLAUDE.md", (s) => s.replace(/ Content tự động cho kênh Vis[^\n]*/, "").replace(/\n- Lõi dựng \(`scripts\/`[^\n]*/, "")
+  .replace(/(\n- Không dùng SFX scribble-2\.)/, "$1\n- Python chạy bằng `~/.asr/bin/python` (cài theo `HUONG-DAN.md` mục 4b hoặc 7c)."));
 edit("docs/VAN-HANH.md", (s) => s.replace(/\n## 11\. Lõi chung[\s\S]*$/, "\n").replace(/\n- Lõi dùng chung với repo `edit-bds`[^\n]*/, ""));
 edit("TALKING-HEAD.md", (s) => s.split("\n").filter((l) => !CFG.dong_4c.some((slug) => l.startsWith(`| \`${slug}\``))).join("\n")
   .replace("\n", "\n\n> Gói này không kèm các dự án `projects/video-mau-*` (là dữ liệu khách). Chỗ nào nhắc tới thì dựng lại theo mô tả trong file này, mẫu khung ở `projects/example/`.\n"));
