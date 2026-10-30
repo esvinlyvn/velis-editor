@@ -100,7 +100,7 @@ Môi trường quyết định máy ảo được cài gì và được vào m�
    *.dropboxusercontent.com
    ```
    (Hugging Face để tải model nhận diện giọng nói; Google Drive, Dropbox để tải clip.)
-4. **Setup script** (chạy mỗi khi mở phiên mới): dán đoạn dưới, đổi `bds-editor` thành **tên repo** của anh/chị.
+4. **Setup script** (chạy mỗi khi mở phiên mới): dán nguyên đoạn dưới, không cần sửa gì. Dòng cuối tự tìm thư mục repo, nên dùng được với mọi tên repo.
    ```bash
    #!/bin/bash
    set -e
@@ -109,7 +109,7 @@ Môi trường quyết định máy ảo được cài gì và được vào m�
    export PATH="$HOME/.local/bin:$PATH"
    uv venv -q ~/.asr
    VIRTUAL_ENV=~/.asr uv pip install -q faster-whisper numpy imageio pillow "rembg[cpu]" opencv-python-headless
-   cd bds-editor && npm ci --no-audit --no-fund
+   for d in */; do [ -f "$d/package.json" ] && (cd "$d" && npm ci --no-audit --no-fund); done; true
    ```
 5. Lưu.
 
