@@ -2,9 +2,10 @@
 
 Áp dụng khi người dùng gửi một clip quay sẵn: sale, môi giới, người nói trước dự án. Việc của mình là giữ nguyên cảnh quay, thêm chữ chốt, SFX, và cắt chỗ hỏng.
 
-Mẫu để chép: **`projects/huy-tran-casa-villa/`** (mới nhất, đủ mọi bản sửa).
-- `build.mjs`: hàm `W(i, "chữ")` lấy giờ từng chữ, danh sách khối chữ `KT`, danh sách SFX liệt kê thẳng.
-- `template.html`: lớp tối `#scrim`, ô chữ `kt-slot`, chờ font tiếng Việt, tự co chữ, đăng ký timeline sau khi dựng.
+Mẫu để chép: **`projects/example/`** (đủ mọi luật dưới đây, đã qua lint, `kt-check` 100%, `motion_check`, `sfx-levels`; đọc `SHOTBOOK.md` của nó).
+- `build.mjs`: hàm `W(i, "chữ")` lấy giờ từng chữ, danh sách khối chữ `KT` (mỗi khối kèm tiếng SFX), lớp tiếng phụ `LAYER`, đo nền `scrimPlan`, chặn SFX lặp loại.
+- `template.html`: lớp tối `#scrim` / `#scrim-low`, ô chữ `kt-slot`, chờ font tiếng Việt, tự co chữ, đăng ký timeline sau khi dựng.
+- Có thêm `hook.json`, `text-plan.json`, `SHOTBOOK.md` làm mẫu cho các bước hook, chọn chữ, kịch bản cú máy.
 - Có chữ nằm sau người thì chép thêm phần `BEHIND` của `projects/palm-river/`.
 
 ## Luật người dùng đã chốt (đọc trước, các mục sau chi tiết hơn)
@@ -107,7 +108,7 @@ Mẫu để chép: **`projects/huy-tran-casa-villa/`** (mới nhất, đủ mọ
   - **Trần độ phủ 0,6** (luật 19): phủ đậm hơn thì cả video tối. Nền quá sáng chưa đạt ngưỡng (trời trắng, tường trắng: thường gặp) thì viền tối đậm hơn 1,5–2 px (class `hard`), không phủ thêm. `build.mjs` in bảng tương phản từng khối để soát.
   - **Không chồng bóng, không quầng** (luật 18): gỡ mọi `drop-shadow` / `text-shadow` loang rộng của CSS preset, cả tối lẫn sáng cùng màu (noi-bat, chuyen-dong, toc-do, quay-vong, gia-chot, khoi-noi, nhan-neon, song, ky-thuat, ky-niem, quầng đỏ của canh-bao). Viền mảnh đặt trên ô `.kt-slot` vì `BDS.in` tween `filter: blur` trên khối và dòng chữ, đặt ở đó sẽ bị ghi đè.
   - **Pha màu clip** (luật 19): `eq=contrast=1.08:saturation=1.12` trước khi phủ chữ, bản pha để ở `work/`; đo nền trên bản đã pha.
-  - Mẫu: `#scrim`, `#scrim-low` trong `projects/casa-villa-kim-tham/template.html`.
+  - Mẫu: `#scrim`, `#scrim-low` trong `projects/example/template.html`.
 - **Mỗi video một phong cách khác:** đổi preset chính, font, cách hiện chữ.
 - **Khoảng cách dòng:** chữ dẫn ôm sát chữ chính, không đè dấu. Preset tự làm việc này (snug), không chỉnh tay.
 - **Vị trí:**
@@ -153,7 +154,9 @@ Mẫu để chép: **`projects/huy-tran-casa-villa/`** (mới nhất, đủ mọ
   - Tránh: tiếng có giọng người (`wow`, `cheer`, `bruh`) và tiếng hài.
 - **Mức** (`gainDb` 6): `vol` 0,3–0,5 cho đa số; tiếng dài hoặc chói (`type`, `cash`) khoảng 0,3. Sau render chạy `sfx-levels.py`: không tiếng nào NHỎ / TO.
 - Hai tiếng cách nhau ít nhất 0,6 s (`minGap`).
-- `build.mjs` liệt kê thẳng danh sách SFX (mẫu ở `huy-tran-casa-villa`), không sinh vòng lặp gắn cùng một tiếng.
+- **Khối trước tắt trước khối sau 0,35 s** (`out = at khối sau − 0,35`): khối mờ ra mất 0,3 s, tắt muộn hơn thì hai khối cùng hiện trong lúc chuyển. `kt-check` chỉ đo lúc khối đứng yên nên không bắt được lỗi này; soi bằng snapshot lúc chuyển (mục 6 bước 4).
+- `build.mjs` liệt kê thẳng danh sách SFX (mẫu ở `projects/example`), không sinh vòng lặp gắn cùng một tiếng.
+- **SFX không được đè lời:** tiếng rơi đúng lúc nói một từ khóa (tên, số, tiếng nước ngoài) làm từ đó nghe sai. Sau render chạy nhận diện giọng trên `output.mp4`: từ nào đúng ở `voice.wav` mà sai ở bản dựng là bị SFX che, dời tiếng sau từ đó hoặc đổi sang tiếng gọn (click, snap) thay cho whoosh.
 
 ## 4b. Chữ nằm sau đối tượng (hiệu ứng điện ảnh)
 

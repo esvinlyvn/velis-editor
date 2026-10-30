@@ -106,7 +106,7 @@ Mỗi phiên chạy trên một máy ảo riêng, lấy repo từ GitHub về, l
 
 > Claude có thể hỏi trước khi chạy lệnh hay sửa file. Đọc lướt rồi cho phép.
 
-**Xong khi:** Claude báo `npm run example` render được (video khoảng 9–10 giây), gửi file vào khung chat, và báo import được `faster_whisper`, `rembg`. Nếu dòng đầu phiên báo "Script cài đặt thất bại", xem [Lỗi hay gặp](#lỗi-hay-gặp).
+**Xong khi:** Claude báo `npm run example` render được (video khoảng 17 giây: dãy nhà, giọng đọc, 9 khối chữ chốt, SFX), gửi file vào khung chat, và báo import được `faster_whisper`, `rembg`. Nếu dòng đầu phiên báo "Script cài đặt thất bại", xem [Lỗi hay gặp](#lỗi-hay-gặp).
 
 ---
 
@@ -298,7 +298,7 @@ uv venv ~/.asr && VIRTUAL_ENV=~/.asr uv pip install faster-whisper numpy imageio
 npm run example
 ```
 
-Có `build/example/output.mp4` khoảng 9–10 giây là xong.
+Có `build/example/output.mp4` khoảng 17 giây là xong.
 
 **Làm việc:** chép clip vào `work/<ten-video>/`, rồi `cd ~/bds-editor && git pull && claude` và giao việc như bước 6b (thay link bằng đường dẫn `work/...`). Bản xem trước và bản cuối nằm ở `build/<video>/output.mp4`. Xong thì bảo Claude "commit và push".
 

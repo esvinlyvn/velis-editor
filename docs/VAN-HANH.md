@@ -98,7 +98,8 @@ Làm theo `TALKING-HEAD.md` từ mục 0 đến 6. Phần bổ sung và thứ t�
   - không để quá ít, không lặp một tiếng;
   - dùng rộng kho SFX, thêm lớp tiếng nhỏ cho chuyển động phụ: chữ quay vòng, số chốt, nét gạch, chuyển cảnh (luật 17);
   - chữ gõ đi với tiếng gõ phím đúng nhịp từng ký tự (luật 16).
-- **Kiểm âm:** `python3 -I scripts/qa/sfx-levels.py`: đỉnh ≤ −1,5 dBFS, không có tiếng lúc nhỏ lúc to; SFX không vượt đỉnh voice.
+- **Độ to bản trộn:** SFX dày làm bản trộn to hơn giọng 1–3 dB. Sau render, `scripts/build-video.mjs` tự đo và chuẩn hóa bản trộn về −14 LUFS, đỉnh ≤ −1,5 dBTP (tuyến tính: tỷ lệ SFX / giọng giữ nguyên), in dòng `✔ âm lượng`.
+- **Kiểm âm:** `python3 -I scripts/qa/sfx-levels.py`: đỉnh ≤ −1,5 dBFS, không có tiếng lúc nhỏ lúc to; SFX không vượt đỉnh voice. Rồi chạy nhận diện giọng trên `output.mp4` để chắc SFX không che lời (TALKING-HEAD 4a).
 - **Nhạc nền:** chỉ dùng khi khách gửi hoặc trong `brand.json` có, và phải có quyền sử dụng.
 
 ## 6. Phong cách và lịch sử theo khách

@@ -1,0 +1,104 @@
+{
+ "gainDb": 6,
+ "minGap": 0.35,
+ "cues": [
+  {
+   "at": 0.1,
+   "name": "whoosh-heavy",
+   "vol": 1,
+   "why": "MUA NHÀ Ở ĐÂU?"
+  },
+  {
+   "at": 1.7,
+   "name": "title-in",
+   "vol": 0.4,
+   "why": "VƯỜN MÂY"
+  },
+  {
+   "at": 3.19,
+   "name": "meter",
+   "vol": 0.4,
+   "why": "CÁCH TRUNG TÂM 15"
+  },
+  {
+   "at": 4.09,
+   "name": "coin",
+   "vol": 0.4,
+   "why": "15 phút chốt số"
+  },
+  {
+   "at": 4.73,
+   "name": "counter-roll",
+   "vol": 0.33,
+   "why": "CĂN HỘ 70"
+  },
+  {
+   "at": 5.63,
+   "name": "punch",
+   "vol": 0.39,
+   "why": "70 m² chốt số"
+  },
+  {
+   "at": 6.46,
+   "name": "scribble",
+   "vol": 0.35,
+   "why": "2 PHÒNG NGỦ"
+  },
+  {
+   "at": 8.07,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "HỒ BƠI / PHÒNG GYM / CÔNG VIÊN"
+  },
+  {
+   "at": 8.89,
+   "name": "pen-click",
+   "vol": 0.35,
+   "why": "quay-vong → PHÒNG GYM"
+  },
+  {
+   "at": 9.56,
+   "name": "snap",
+   "vol": 0.2,
+   "why": "quay-vong → CÔNG VIÊN"
+  },
+  {
+   "at": 10.72,
+   "name": "error-soft",
+   "vol": 0.42,
+   "why": "PHÍ ẨN"
+  },
+  {
+   "at": 11.62,
+   "name": "paper-tear",
+   "vol": 0.6,
+   "why": "gạch đỏ"
+  },
+  {
+   "at": 12.62,
+   "name": "stamp",
+   "vol": 0.36,
+   "why": "ĐÃ CÓ SỔ HỒNG"
+  },
+  {
+   "at": 13.96,
+   "name": "type",
+   "vol": 0.3,
+   "why": "Nhắn em nhận bảng giá",
+   "run": {
+    "n": 21,
+    "step": 0.06,
+    "names": [
+     "type",
+     "type-3"
+    ]
+   }
+  },
+  {
+   "at": 15.01,
+   "name": "sparkle",
+   "vol": 0.5,
+   "why": "kết"
+  }
+ ]
+}

@@ -102,6 +102,8 @@ art/*.svg ────────┘   ├─ font woff2, gsap, voice chuẩn h
      `ffmpeg -ss 34.4 -t 7 -i voice.wav -af silencedetect=noise=-32dB:d=0.08 -f null -`
 
 ### 4.2 Phụ đề (trong `build.mjs`)
+> Video BĐS **không chạy phụ đề** (TALKING-HEAD luật 1): `noCap` tắt mọi cụm, như `projects/example/build.mjs`. Phần này chỉ để hiểu công cụ chung.
+
 - Chia mỗi cụm thành nhóm tối đa 7 chữ. Ưu tiên ngắt sau dấu câu, hoặc trước từ nối (`LINK`). Không ngắt giữa từ ghép (`canBreak`).
 - Đuôi 1–2 chữ thì gộp vào nhóm trước.
 - Thời gian mỗi nhóm chia theo tỷ lệ số ký tự trong cụm.

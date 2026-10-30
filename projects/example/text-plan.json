@@ -1,0 +1,13 @@
+{ "video": "example", "mode": "bds", "client": "_mau", "family": "rieng",
+  "main": "B18:tang-truong",
+  "moments": [
+    { "id": "k1", "role": "cau-hoi", "text": "Với 3 tỷ / MUA NHÀ Ở ĐÂU?", "energy": "cao" },
+    { "id": "k2", "role": "ten-du-an", "text": "Dự án / VƯỜN MÂY", "energy": "cao" },
+    { "id": "k3", "role": "con-so", "text": "CÁCH TRUNG TÂM / 15 PHÚT", "energy": "vua" },
+    { "id": "k4", "role": "con-so", "text": "CĂN HỘ / 70 m²", "energy": "vua" },
+    { "id": "k5", "role": "phan-khuc", "text": "Thiết kế / 2 PHÒNG NGỦ", "energy": "vua" },
+    { "id": "k6", "role": "liet-ke", "text": "Tiện ích / HỒ BƠI, PHÒNG GYM, CÔNG VIÊN", "energy": "vua" },
+    { "id": "k7", "role": "canh-bao", "text": "PHÍ ẨN", "energy": "vua" },
+    { "id": "k8", "role": "phap-ly", "text": "ĐÃ CÓ SỔ HỒNG", "energy": "vua" },
+    { "id": "k9", "role": "cta", "text": "Nhắn em nhận bảng giá", "energy": "vua" }
+  ] }
