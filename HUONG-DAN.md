@@ -1,106 +1,78 @@
-# Hướng dẫn cho người mới: từ con số 0 tới video đầu tiên
+# Hướng dẫn cho người mới
 
-Bộ công cụ này nhận **clip quay thật về bất động sản** (người nói trước máy, cảnh quay dự án) và dựng thành video dọc 1080×1920: cắt nhịp, chữ chốt, minh họa, bản đồ, SFX, màu. Người làm chính là **Claude Code**. Anh/chị gửi clip, nói muốn gì, duyệt bản xem trước và góp ý. Claude ghi lại những gì anh/chị dạy vào repo, nên video sau làm đúng ý hơn video trước.
+Bộ công cụ này nhận **clip quay thật về bất động sản** (người nói trước máy, cảnh quay dự án) và dựng thành video dọc 1080×1920: cắt nhịp, chữ chốt, minh họa, bản đồ, SFX, màu. Người làm chính là **Claude Code** chạy trên cloud của Claude. Anh/chị gửi clip, nói muốn gì, duyệt bản xem trước và góp ý. Claude ghi lại những gì anh/chị dạy vào repo, nên video sau làm đúng ý hơn video trước.
 
-Bộ công cụ được giao dưới dạng **gói sạch**: không có dữ liệu hay clip của khách nào, không nối với repo của người giao. Sau khi làm theo hướng dẫn, anh/chị có **một repo riêng**. Luật anh/chị dạy chỉ nằm trong repo đó.
+Anh/chị sẽ có **một repo riêng**, private, chỉ mình anh/chị có quyền. Luật anh/chị dạy chỉ nằm trong repo đó. Repo không nối với ai khác.
 
-Có hai nơi để chạy:
-- **Cloud của Claude** (claude.ai/code): không cài gì lên máy, dùng được cả trên điện thoại. **Nên bắt đầu ở đây.**
-- **Máy của mình:** nhanh hơn với clip dài, giữ clip trên máy. Làm khi đã quen.
+Làm lần lượt từ bước 1 đến bước 7. Mỗi bước có phần **Xong khi** để biết đã làm đúng. Chỗ nào ghi **(người giao)** là việc người giao bộ công cụ làm, anh/chị chỉ cần chờ.
 
-Đọc lần lượt. Mỗi bước có phần **Kiểm** để biết đã xong.
-
----
-
-## Mục lục
-
-1. [Cần chuẩn bị gì](#1-cần-chuẩn-bị-gì)
-2. [Tạo tài khoản GitHub](#2-tạo-tài-khoản-github)
-3. [Đưa gói sạch vào repo riêng](#3-đưa-gói-sạch-vào-repo-riêng)
-4. [Chạy trên cloud của Claude](#4-chạy-trên-cloud-của-claude)
-5. [Làm video đầu tiên](#5-làm-video-đầu-tiên)
-6. [Dạy luật mới, kỹ năng mới](#6-dạy-luật-mới-kỹ-năng-mới)
-7. [Chạy trên máy của mình](#7-chạy-trên-máy-của-mình)
-8. [Lỗi hay gặp](#8-lỗi-hay-gặp)
-9. [Quyền sử dụng tài nguyên](#9-quyền-sử-dụng-tài-nguyên)
-10. [Bảng lệnh nhanh](#10-bảng-lệnh-nhanh)
-
----
-
-## 1. Cần chuẩn bị gì
-
-| Thứ | Yêu cầu | Ghi chú |
+| Bước | Việc | Thời gian |
 |---|---|---|
-| Tài khoản Claude | gói **Pro** hoặc **Max** ở [claude.ai](https://claude.ai) | Claude Code (cả cloud lẫn máy) dùng tài khoản này. Gói Max làm được nhiều video hơn mỗi ngày |
-| Tài khoản GitHub | miễn phí | nơi cất repo riêng |
-| Lời mời vào repo mẫu | người giao mời tài khoản GitHub của anh/chị | xem mục 3 |
-| Nơi để clip | Google Drive hoặc Dropbox | khi chạy trên cloud, Claude tải clip từ link |
-| Máy tính | chỉ cần trình duyệt nếu chạy cloud | chạy trên máy thì xem yêu cầu ở mục 7 |
+| 1 | Chuẩn bị tài khoản Claude và GitHub | 15 phút |
+| 2 | Nhận repo riêng từ repo mẫu | 5 phút |
+| 3 | Cho Claude quyền vào repo | 3 phút |
+| 4 | Tạo môi trường cloud | 5 phút |
+| 5 | Phiên đầu tiên: kiểm mọi thứ chạy được | 10 phút |
+| 6 | Làm video đầu tiên | 40–60 phút |
+| 7 | Dạy luật mới, kỹ năng mới | khi cần |
 
-**Thời gian:** thiết lập lần đầu khoảng 30 phút trên cloud. Một video 60–90 giây mất khoảng 40–60 phút, trong đó render khoảng 10 phút.
-
----
-
-## 2. Tạo tài khoản GitHub
-
-GitHub là nơi cất repo trên mạng. Repo là thư mục dự án có lưu lịch sử mọi lần sửa.
-
-1. Vào [github.com/signup](https://github.com/signup), nhập email, mật khẩu, tên người dùng (ví dụ `nguyenvana`). Tên này sẽ nằm trong đường dẫn repo.
-2. Xác nhận email.
-3. **Bật xác thực 2 lớp:** ảnh đại diện → **Settings** → **Password and authentication** → **Enable two-factor authentication**. Dùng app như Google Authenticator. Lưu mã khôi phục ở chỗ an toàn.
-
-**Kiểm:** đăng nhập GitHub được, có hỏi mã 2 lớp.
+Phần sau bước 7: [chạy trên máy của mình](#chạy-trên-máy-của-mình), [lỗi hay gặp](#lỗi-hay-gặp), [quyền sử dụng tài nguyên](#quyền-sử-dụng-tài-nguyên), [bảng lệnh](#bảng-lệnh-nhanh).
 
 ---
 
-## 3. Đưa gói sạch vào repo riêng
+## Bước 1. Chuẩn bị tài khoản
 
-Người giao giữ một **repo mẫu** chứa gói sạch. Anh/chị tạo repo riêng của mình từ repo mẫu đó.
+1. **Tài khoản Claude** gói **Pro** hoặc **Max** ở [claude.ai](https://claude.ai). Gói Max làm được nhiều video hơn mỗi ngày.
+2. **Tài khoản GitHub** (miễn phí). Chưa có thì:
+   1. Vào [github.com/signup](https://github.com/signup), nhập email, mật khẩu, tên người dùng (ví dụ `nguyenvana`).
+   2. Xác nhận email.
+   3. Bật xác thực 2 lớp: ảnh đại diện → **Settings** → **Password and authentication** → **Enable two-factor authentication**. Dùng app như Google Authenticator. Lưu mã khôi phục ở chỗ an toàn.
+3. **Gửi tên người dùng GitHub** (ví dụ `nguyenvana`) cho người giao bộ công cụ.
 
-1. Gửi tên tài khoản GitHub cho người giao. Người giao mời anh/chị vào repo mẫu.
-2. Mở email từ GitHub (hoặc [github.com/notifications](https://github.com/notifications)) → **Accept invitation**.
-3. Trong repo mẫu, bấm nút xanh **Use this template** → **Create a new repository**.
-4. **Owner:** chọn tài khoản của anh/chị. **Repository name:** đặt tên, ví dụ `bds-editor`. Chọn **Private**. Để trống ô "Include all branches".
-5. Bấm **Create repository**.
-6. Báo người giao là đã tạo xong. Người giao sẽ gỡ anh/chị khỏi repo mẫu; repo của anh/chị không bị ảnh hưởng gì.
-
-Repo vừa tạo thuộc hẳn về anh/chị: lịch sử bắt đầu từ chính anh/chị, không ghi "forked from", không nối với repo mẫu. Người giao không có quyền gì trên đó.
-
-> **Đừng bấm Fork.** Fork giữ dây nối với repo mẫu, và bị xóa theo khi anh/chị mất quyền vào repo mẫu.
-
-**Kiểm:** repo mới nằm dưới tên tài khoản của anh/chị, là **Private**, có các file `CLAUDE.md`, `HUONG-DAN.md`, `package.json`.
+**Xong khi:** đăng nhập được claude.ai và github.com; người giao đã có tên GitHub của anh/chị.
 
 ---
 
-## 4. Chạy trên cloud của Claude
+## Bước 2. Nhận repo riêng từ repo mẫu
 
-Cloud của Claude là một máy ảo dựng sẵn. Mỗi phiên làm việc lấy repo từ GitHub về, làm xong thì đẩy lên lại. **Máy ảo bị xóa sau khi phiên kết thúc**: thứ gì chưa push lên GitHub hoặc chưa tải về là mất.
+**(người giao)** mời anh/chị vào repo mẫu với quyền đọc.
 
-### 4a. Cho Claude quyền vào repo
+1. Mở email từ GitHub có tiêu đề kiểu "… invited you to … " (hoặc vào [github.com/notifications](https://github.com/notifications)) → **View invitation** → **Accept invitation**.
+2. Trong trang repo mẫu, bấm nút xanh **Use this template** → **Create a new repository**.
+3. Điền:
+   - **Owner:** tài khoản của anh/chị.
+   - **Repository name:** tên tùy ý, ví dụ `bds-editor`.
+   - Chọn **Private**.
+   - Để trống ô **Include all branches**.
+4. Bấm **Create repository**.
+5. Báo người giao là đã tạo xong.
+
+**(người giao)** gỡ anh/chị khỏi repo mẫu. Repo vừa tạo không bị ảnh hưởng: nó thuộc hẳn về anh/chị, không ghi "forked from", người giao không có quyền gì trên đó.
+
+> **Đừng bấm Fork.** Fork giữ dây nối với repo mẫu, và bị xóa theo khi anh/chị bị gỡ khỏi repo mẫu.
+
+**Xong khi:** repo mới nằm dưới tên anh/chị (`github.com/<ten-ban>/bds-editor`), có nhãn **Private**, có các file `CLAUDE.md`, `HUONG-DAN.md`, `package.json`.
+
+---
+
+## Bước 3. Cho Claude quyền vào repo
 
 1. Vào [claude.ai/code](https://claude.ai/code), đăng nhập tài khoản Claude.
-2. Làm theo hướng dẫn kết nối GitHub (hoặc vào [claude.ai/connect-github](https://claude.ai/connect-github)).
-3. Khi GitHub hỏi cài **Claude GitHub App**, chọn **Only select repositories** rồi chọn đúng repo của anh/chị. Cài sau cũng được, ở [github.com/apps/claude](https://github.com/apps/claude) → **Configure**.
+2. Nếu được hỏi kết nối GitHub thì làm theo (hoặc vào [claude.ai/connect-github](https://claude.ai/connect-github)).
+3. Cài **Claude GitHub App** cho repo của mình: vào [github.com/apps/claude](https://github.com/apps/claude) → **Install** (hoặc **Configure** nếu đã cài) → chọn tài khoản của anh/chị → **Only select repositories** → chọn repo vừa tạo ở bước 2 → **Save**.
 
-### 4b. Tạo môi trường (một lần)
+**Xong khi:** ở claude.ai/code, lúc chọn repo cho phiên mới, thấy repo của mình trong danh sách.
 
-Môi trường quyết định máy ảo được cài gì và được vào mạng nào.
+---
 
-1. Ở claude.ai/code, mở menu **môi trường cloud** (cạnh tên phiên, hoặc lúc chọn repo cho phiên mới) → tạo môi trường mới, hoặc chọn môi trường rồi bấm **Edit**.
-2. Đặt tên, ví dụ `dung-video`.
-3. **Network access** (quyền vào mạng): chọn **Full** cho đơn giản. Muốn chặt hơn thì chọn **Limited**, để nguyên ô **Allow package managers**, rồi thêm vào **Allowed domains**:
-   ```
-   huggingface.co
-   *.hf.co
-   astral.sh
-   github.com
-   objects.githubusercontent.com
-   drive.google.com
-   drive.usercontent.google.com
-   *.dropboxusercontent.com
-   ```
-   (Hugging Face để tải model nhận diện giọng nói; Google Drive, Dropbox để tải clip.)
-4. **Setup script** (chạy mỗi khi mở phiên mới): dán nguyên đoạn dưới, không cần sửa gì. Dòng cuối tự tìm thư mục repo, nên dùng được với mọi tên repo.
+## Bước 4. Tạo môi trường cloud
+
+Môi trường là cấu hình của máy ảo Claude dùng để làm việc: được vào mạng nào, cài sẵn gì. Tạo một lần, các phiên sau dùng lại.
+
+1. Ở claude.ai/code, bấm vào **tên môi trường** cạnh ô chọn repo (mặc định thường là "Default") → **Thêm môi trường** (hoặc chọn môi trường rồi bấm **Edit**).
+2. **Tên:** ví dụ `dung-video`.
+3. **Network access:** chọn **Full**. (Cần để tải model nhận diện giọng nói và tải clip từ Google Drive.)
+4. **Setup script:** dán nguyên đoạn dưới, **không sửa chữ nào**. Đoạn này tự tìm thư mục repo, dùng được với mọi tên repo.
    ```bash
    #!/bin/bash
    set -e
@@ -113,59 +85,61 @@ Môi trường quyết định máy ảo được cài gì và được vào m�
    ```
 5. Lưu.
 
-### 4c. Mở phiên
-
-1. Ở claude.ai/code bấm tạo phiên mới, chọn **repo của anh/chị** và **môi trường `dung-video`**.
-2. Chờ máy ảo khởi động và chạy setup script (vài phút lần đầu).
-
-### 4d. Phiên đầu tiên: kiểm môi trường
-
-Dán vào khung chat:
-
-```
-Đây là repo dựng video BĐS của tôi, lần đầu chạy trên cloud. Hãy:
-1. Đọc CLAUDE.md và HUONG-DAN.md.
-2. Chạy npm run example. Báo kết quả và gửi tôi file build/example/output.mp4.
-3. Kiểm ~/.asr/bin/python import được faster_whisper, rembg.
-4. Nếu thiếu gì, cài cho phiên này và nói tôi cần thêm dòng nào vào setup script.
-```
-
-**Kiểm:** Claude báo `npm run example` render được (video khoảng 9–10 giây) và gửi file vào khung chat.
-
-> **Quyền chạy lệnh:** Claude có thể hỏi trước khi chạy lệnh hay sửa file. Đọc lướt rồi cho phép. Muốn ít bị hỏi, hỏi Claude "làm sao để bớt bị hỏi quyền?".
+**Xong khi:** môi trường `dung-video` hiện trong danh sách môi trường.
 
 ---
 
-## 5. Làm video đầu tiên
+## Bước 5. Phiên đầu tiên: kiểm mọi thứ chạy được
 
-### 5a. Đưa clip lên
+1. Ở claude.ai/code, tạo phiên mới: chọn **repo của anh/chị**, nhánh **main**, môi trường **dung-video**.
+2. Dán vào khung chat:
+   ```
+   Đây là repo dựng video BĐS của tôi, lần đầu chạy trên cloud. Hãy:
+   1. Đọc CLAUDE.md và HUONG-DAN.md.
+   2. Chạy npm run example. Báo kết quả và gửi tôi file build/example/output.mp4.
+   3. Kiểm ~/.asr/bin/python import được faster_whisper, rembg.
+   4. Nếu thiếu gì, cài cho phiên này và nói tôi cần thêm dòng nào vào setup script.
+   ```
+3. Chờ vài phút. Lần đầu máy ảo phải cài thư viện.
+
+Mỗi phiên chạy trên một máy ảo riêng, lấy repo từ GitHub về, làm xong thì đẩy lên lại. **Máy ảo bị xóa sau khi phiên kết thúc**: thứ gì chưa push lên GitHub hoặc chưa tải về là mất.
+
+> Claude có thể hỏi trước khi chạy lệnh hay sửa file. Đọc lướt rồi cho phép.
+
+**Xong khi:** Claude báo `npm run example` render được (video khoảng 9–10 giây), gửi file vào khung chat, và báo import được `faster_whisper`, `rembg`. Nếu dòng đầu phiên báo "Script cài đặt thất bại", xem [Lỗi hay gặp](#lỗi-hay-gặp).
+
+---
+
+## Bước 6. Làm video đầu tiên
+
+### 6a. Đưa clip lên Google Drive
 
 1. Tải clip `.mp4` / `.mov` lên Google Drive (hoặc Dropbox). Nhiều clip thì bỏ chung một thư mục, đặt tên theo thứ tự: `01.mp4`, `02.mp4`…
-2. Chuột phải → **Chia sẻ** → **Bất kỳ ai có đường liên kết** → **Người xem** → **Sao chép đường liên kết**.
-3. Tài liệu dự án (bảng giá, vị trí, tiện ích, logo) để cùng thư mục. Claude chỉ đưa lên video số liệu **có trong lời nói hoặc trong tài liệu này**, không tự bịa.
+2. Tài liệu dự án (bảng giá, vị trí, tiện ích, logo) để cùng thư mục. Claude chỉ đưa lên video số liệu **có trong lời nói hoặc trong tài liệu này**, không tự bịa.
+3. Chuột phải thư mục → **Chia sẻ** → **Bất kỳ ai có đường liên kết** → **Người xem** → **Sao chép đường liên kết**.
 
-> Clip của khách là dữ liệu riêng. Chỉ chia sẻ link trong lúc làm, xong thì tắt chia sẻ. Claude để clip trong `work/`, thư mục này **không bao giờ** được đưa lên GitHub.
+> Clip của khách là dữ liệu riêng. Chỉ bật chia sẻ trong lúc làm, xong thì tắt. Claude để clip trong `work/`, thư mục này **không bao giờ** được đưa lên GitHub.
 
-### 5b. Giao việc
+### 6b. Giao việc
 
-Mở phiên mới (mục 4c) và nói tự nhiên, càng rõ càng ít bị hỏi lại:
+Tạo phiên mới (repo của mình, môi trường `dung-video`) và nói tự nhiên, càng rõ càng ít bị hỏi lại:
 
 ```
 Edit video cho anh Tuấn, dự án Sunrise Riverside.
-Clip: <link Google Drive>. Tài liệu dự án: <link>.
+Clip và tài liệu: <link Google Drive>.
 Khách mới: màu nhấn xanh ngọc #19C3B1, CTA "Nhắn anh Tuấn để nhận bảng giá". Đăng TikTok.
 ```
 
-Những gì Claude cần biết (thiếu thì nó hỏi **một lần**):
-- **Khách là ai:** mỗi khách có cấu hình riêng ở `clients/<khach>/brand.json` (màu, LUT, CTA, logo, lịch sử phong cách). Khách mới thì Claude tạo từ `clients/_mau/`.
+Claude cần biết ba điều, thiếu thì nó hỏi **một lần**:
+- **Khách là ai.** Mỗi khách có cấu hình riêng ở `clients/<khach>/brand.json`: màu, LUT, CTA, logo, lịch sử phong cách. Khách mới thì Claude tạo từ `clients/_mau/`.
 - **CTA cuối video:** câu kêu gọi, ví dụ "Nhắn tin để nhận bảng giá".
 - **Clip:** link.
 
-### 5c. Claude sẽ làm gì
+### 6c. Claude làm gì
 
 Không cần nhớ, chỉ để biết đang tới đâu:
 1. Đọc luật (`docs/VAN-HANH.md`, bảng luật ở `TALKING-HEAD.md`, `docs/TRINH-BAY.md`).
-2. Tải clip, nhận diện lời nói có giờ từng chữ. Lần đầu mỗi phiên phải tải model khoảng 3 GB, mất vài phút.
+2. Tải clip, nhận diện lời nói có giờ từng chữ. Mỗi phiên mới phải tải model khoảng 3 GB, mất vài phút.
 3. Soi clip, cắt chỗ im, chỗ vấp, câu hỏng.
 4. Chọn hook 3 giây đầu.
 5. Viết `SHOTBOOK.md`: kế hoạch từng đoạn gồm chữ chốt, minh họa, bản đồ, SFX.
@@ -173,12 +147,12 @@ Không cần nhớ, chỉ để biết đang tới đâu:
 7. Tự kiểm (lint, `kt-check`, chụp khung hình), rồi **render một lần**.
 8. Gửi bản xem trước vào khung chat, kèm danh sách khối chữ.
 
-Thời gian khoảng 40–60 phút. Không cần ngồi canh; đóng tab rồi quay lại sau cũng được, phiên vẫn chạy.
+Mất khoảng 40–60 phút. Không cần ngồi canh: đóng tab rồi quay lại sau, phiên vẫn chạy.
 
-### 5d. Xem, góp ý, duyệt
+### 6d. Xem, góp ý, duyệt
 
-1. Bấm vào thẻ file trong khung chat để xem hoặc tải bản xem trước.
-2. Góp ý cụ thể, có giây và có lý do thì Claude làm đúng ngay:
+1. Bấm thẻ file trong khung chat để xem bản xem trước.
+2. Góp ý cụ thể, có giây và lý do:
    - "Giây 12 chữ che mặt anh Tuấn, dời lên trên."
    - "Chữ GIÁ 3 TỶ 2 màu vàng khó đọc trên nền trời, đổi màu hoặc thêm nền."
    - "Hook đầu chưa đủ gắt, thử câu 'Căn này rẻ hơn thị trường 400 triệu'."
@@ -189,13 +163,15 @@ Thời gian khoảng 40–60 phút. Không cần ngồi canh; đóng tab rồi q
    - thêm một dòng vào bảng 4c của `TALKING-HEAD.md`;
    - push lên GitHub.
 
+**Xong khi:** đã tải MP4 bản cuối về máy, và trang repo trên GitHub có commit mới của video này.
+
 ---
 
-## 6. Dạy luật mới, kỹ năng mới
+## Bước 7. Dạy luật mới, kỹ năng mới
 
 Mỗi phiên Claude bắt đầu trắng trơn. Nó chỉ biết **những gì ghi trong repo**. Vì vậy mọi điều anh/chị dạy phải được **ghi vào file, commit và push**, nếu không thì phiên sau quên.
 
-### 6a. Dạy gì, ghi ở đâu
+### 7a. Dạy gì, ghi ở đâu
 
 | Muốn dạy | Ghi vào | Nói với Claude ví dụ |
 |---|---|---|
@@ -206,11 +182,9 @@ Mỗi phiên Claude bắt đầu trắng trơn. Nó chỉ biết **những gì g
 | Kiểu chữ mới | `text-presets/` | "Tạo preset chữ mới tên 'gia-soc' giống mẫu này: …" (gửi ảnh hoặc link video) |
 | Tiếng SFX mới | `sfx/` qua `scripts/sfx-import.mjs` | "Tải các file ở <link> rồi nhập vào kho SFX." |
 | Màu phim (LUT) | `luts/*.cube`, nguồn ghi ở `luts/SOURCES.md` | "Thêm LUT ở <link> tên am-ap, cường độ 0,6, làm mặc định cho khách anh Tuấn." |
-| Một quy trình hoàn toàn mới (video tin tức, video so sánh dự án…) | một **skill** mới ở `.claude/skills/<ten>/SKILL.md` | xem 6c |
+| Một quy trình hoàn toàn mới (video tin tức, video so sánh dự án…) | một **skill** mới ở `.claude/skills/<ten>/SKILL.md` | xem 7c |
 
-### 6b. Câu mẫu để dạy luật
-
-Nói ngay khi thấy, lúc góp ý video:
+### 7b. Câu mẫu để dạy luật
 
 ```
 Từ giờ trở đi: số tiền luôn viết "3,2 tỷ" chứ không viết "3.200.000.000".
@@ -223,9 +197,9 @@ Luật mới **trái** với luật cũ thì nói rõ để Claude sửa dòng c
 Bỏ luật 9 (không vạch gạch hai bên chữ dẫn). Giờ tôi muốn có vạch gạch mảnh. Sửa lại dòng đó.
 ```
 
-Thứ tự ưu tiên khi hai chỗ nói khác nhau: **lời anh/chị trong phiên đang làm** > bảng luật `TALKING-HEAD.md` > `brand.json` của khách > `docs/VAN-HANH.md`, `docs/TRINH-BAY.md` > các tài liệu còn lại. Chi tiết ở `docs/VAN-HANH.md` mục 1.
+Khi hai chỗ nói khác nhau, chỗ đứng trước thắng: **lời anh/chị trong phiên đang làm** > bảng luật `TALKING-HEAD.md` > `brand.json` của khách > `docs/VAN-HANH.md`, `docs/TRINH-BAY.md` > các tài liệu còn lại.
 
-### 6c. Dạy một kỹ năng mới (skill)
+### 7c. Dạy một kỹ năng mới (skill)
 
 Skill là một bản hướng dẫn mà Claude tự mở khi gặp đúng loại việc. Repo có sẵn skill `.claude/skills/bds-editor/SKILL.md` cho việc dựng clip BĐS; mở ra xem để biết một skill trông thế nào.
 
@@ -237,26 +211,9 @@ mỗi bên một dự án, có bảng so sánh giá / vị trí / pháp lý ở 
 Dùng lại luật chữ, SFX, kiểm như video thường. Ghi vào .claude/skills/video-so-sanh/SKILL.md, commit và push.
 ```
 
-Tự viết tay cũng được (trên GitHub: **Add file → Create new file**, gõ tên `.claude/skills/video-so-sanh/SKILL.md`):
+Phần `description` ở đầu file skill quyết định **khi nào** Claude dùng nó, nên ghi rõ những câu anh/chị hay nói. Muốn gọi thẳng thì gõ `/video-so-sanh`.
 
-```markdown
----
-name: video-so-sanh
-description: Dựng video so sánh hai dự án BĐS ... Dùng khi người dùng nói "so sánh", "đặt cạnh nhau" ...
----
-
-# video-so-sanh
-
-1. Đọc luật: docs/VAN-HANH.md, bảng luật TALKING-HEAD.md.
-2. ...các bước...
-
-Không làm:
-- ...
-```
-
-Phần `description` quyết định **khi nào** Claude dùng skill, nên ghi rõ những câu anh/chị hay nói. Muốn gọi thẳng thì gõ `/video-so-sanh`.
-
-### 6d. Học từ video mẫu
+### 7d. Học từ video mẫu
 
 ```
 Đây là video tham khảo: <link>. Phân tích cách họ làm hook, đặt chữ, nhịp cắt, chuyển cảnh.
@@ -264,39 +221,22 @@ Cái gì hợp với luật hiện có thì ghi vào docs/TRINH-BAY.md thành m�
 Cái gì trái luật thì liệt kê cho tôi quyết. Không copy nguyên thiết kế của họ.
 ```
 
-### 6e. Kiểm xem đã "học" chưa
+### 7e. Kiểm đã "học" chưa, và sửa khi dạy sai
 
-Mở **phiên mới** và hỏi:
-
-```
-Luật về số tiền hiện ghi ở đâu? Đọc lại cho tôi.
-```
-
-Phiên mới trả lời đúng nghĩa là đã lưu. Trên GitHub, tab **Commits** phải có commit sửa đúng file đó.
-
-### 6f. Lỡ dạy sai
-
-"Hoàn tác commit dạy luật vừa rồi." Claude dùng `git revert`, không mất lịch sử.
+- Mở **phiên mới** và hỏi: "Luật về số tiền hiện ghi ở đâu? Đọc lại cho tôi." Trả lời đúng nghĩa là đã lưu.
+- Dạy sai thì nói: "Hoàn tác commit dạy luật vừa rồi." Claude dùng `git revert`, không mất lịch sử.
 
 ---
 
-## 7. Chạy trên máy của mình
+## Chạy trên máy của mình
 
-Khi đã quen cloud, chạy trên máy giúp clip dài nhanh hơn và clip không phải lên mạng. Cùng một repo, cùng luật: làm ở đâu cũng được, miễn là **pull trước khi làm, push sau khi xong**.
+Không bắt buộc. Khi đã quen cloud, chạy trên máy giúp clip dài nhanh hơn và clip không phải lên mạng. Cùng một repo, cùng luật: làm ở đâu cũng được, miễn là **pull trước khi làm, push sau khi xong**.
 
-### 7a. Yêu cầu
+**Yêu cầu:** macOS, Linux, hoặc Windows 10/11 có **WSL2**; RAM từ 8 GB (nên 16 GB); ổ trống khoảng 15 GB.
 
-| Thứ | Yêu cầu |
-|---|---|
-| Hệ điều hành | macOS, Linux, hoặc Windows 10/11 có **WSL2** (các lệnh trong repo viết cho bash) |
-| RAM | tối thiểu 8 GB, nên 16 GB |
-| Ổ trống | khoảng 15 GB |
+**Cài công cụ.** Mọi lệnh gõ trong Terminal (Windows: app Ubuntu sau khi cài WSL).
 
-### 7b. Cài công cụ
-
-Mọi lệnh gõ trong **Terminal** (macOS: app Terminal; Windows: app Ubuntu sau khi cài WSL).
-
-**macOS:** cài Homebrew rồi các công cụ:
+macOS:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -306,11 +246,9 @@ Mọi lệnh gõ trong **Terminal** (macOS: app Terminal; Windows: app Ubuntu sa
 brew install git node@22 ffmpeg python uv gh
 ```
 
-Nếu `node -v` chưa ra 22, làm theo dòng `echo 'export PATH=…node@22…'` mà brew in ra rồi mở Terminal mới.
+Windows: mở PowerShell quyền Administrator, chạy `wsl --install -d Ubuntu`, khởi động lại máy, mở app Ubuntu, rồi làm như Linux. Để repo trong `~` của Ubuntu, **không** để trong `/mnt/c/...` (chạy rất chậm).
 
-**Windows:** mở PowerShell quyền Administrator, chạy `wsl --install -d Ubuntu`, khởi động lại máy, mở app Ubuntu, rồi làm như Linux. Để repo trong `~` của Ubuntu, **không** để trong `/mnt/c/...` (chạy rất chậm). Mở thư mục Ubuntu từ Explorer: gõ `\\wsl$\Ubuntu\home\<ten>`.
-
-**Linux (Ubuntu / Debian):**
+Linux (Ubuntu / Debian):
 
 ```bash
 sudo apt update && sudo apt install -y git ffmpeg python3 python3-venv curl build-essential gh
@@ -326,15 +264,13 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 nvm install 22 && curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-**Claude Code** (mọi hệ điều hành):
+Claude Code (mọi hệ điều hành). Cài xong mở Terminal mới, gõ `claude`, đăng nhập theo trình duyệt:
 
 ```bash
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-Mở Terminal mới, gõ `claude`, đăng nhập theo trình duyệt, rồi `/exit`.
-
-**Git và GitHub:**
+Git và GitHub (chọn **GitHub.com → HTTPS → Login with a web browser**):
 
 ```bash
 git config --global user.name "Nguyễn Văn A" && git config --global user.email "email-github@example.com"
@@ -344,9 +280,7 @@ git config --global user.name "Nguyễn Văn A" && git config --global user.emai
 gh auth login && gh auth setup-git
 ```
 
-(Chọn **GitHub.com → HTTPS → Login with a web browser**.)
-
-### 7c. Lấy repo về và cài thư viện
+**Lấy repo về và cài thư viện:**
 
 ```bash
 git clone https://github.com/<ten-ban>/bds-editor.git ~/bds-editor && cd ~/bds-editor && npm install
@@ -364,52 +298,43 @@ uv venv ~/.asr && VIRTUAL_ENV=~/.asr uv pip install faster-whisper numpy imageio
 npm run example
 ```
 
-**Kiểm:** có `build/example/output.mp4` khoảng 9–10 giây.
+Có `build/example/output.mp4` khoảng 9–10 giây là xong.
 
-### 7d. Làm việc trên máy
-
-- Chép clip vào `work/<ten-video>/` (thư mục này không lên GitHub).
-- `cd ~/bds-editor && git pull && claude`, rồi giao việc như mục 5b, thay link bằng đường dẫn `work/...`.
-- Bản xem trước và bản cuối nằm ở `build/<video>/output.mp4`.
-- Xong thì bảo Claude "commit và push", để phiên cloud lần sau cũng biết.
+**Làm việc:** chép clip vào `work/<ten-video>/`, rồi `cd ~/bds-editor && git pull && claude` và giao việc như bước 6b (thay link bằng đường dẫn `work/...`). Bản xem trước và bản cuối nằm ở `build/<video>/output.mp4`. Xong thì bảo Claude "commit và push".
 
 ---
 
-## 8. Lỗi hay gặp
+## Lỗi hay gặp
 
 | Triệu chứng | Cách xử lý |
 |---|---|
-| Cloud: Claude báo không thấy repo, không push được | Kiểm Claude GitHub App đã cài cho đúng repo chưa (mục 4a) |
-| Cloud: setup script báo lỗi | Đọc dòng lỗi, sửa ở **Edit** môi trường → Setup script, rồi mở phiên mới |
-| Cloud: không tải được clip hay model, báo bị chặn tên miền | Network access chưa cho tên miền đó: thêm vào Allowed domains, hoặc chọn Full (mục 4b) |
-| Cloud: link Google Drive tải về file HTML nhỏ | Link chưa để "Bất kỳ ai có đường liên kết" (mục 5a) |
-| Cloud: mất file render | Máy ảo đã bị xóa. Lần sau tải về ngay khi Claude gửi. Dữ liệu dựng đã push thì bảo Claude render lại |
-| `node: command not found` hoặc `node -v` dưới 22 | Mở Terminal mới. Ubuntu/WSL: `nvm install 22 && nvm alias default 22` |
-| `git push` hỏi mật khẩu rồi báo lỗi | GitHub không nhận mật khẩu nữa: `gh auth login` rồi `gh auth setup-git` |
-| `git push` báo `rejected … fetch first` | Có bản mới hơn trên GitHub (thường do phiên cloud vừa push): `git pull --rebase` rồi push lại |
-| `kt-check` báo `Executable doesn't exist` | Trên máy: `npx playwright install --with-deps chromium` |
-| `No module named faster_whisper` | Chạy bằng `~/.asr/bin/python`, không phải `python3` |
-| Nhận diện giọng rất chậm | Bình thường: clip 90 giây mất 3–5 phút trên 4 nhân |
-| Chữ tiếng Việt mất dấu, dấu bị cắt | Nói với Claude: "giây X mất dấu chữ Y". Đây là lỗi có mục kiểm trong quy trình |
-| Claude làm sai điều đã dặn hôm trước | Điều đó chưa được ghi vào repo. Dạy lại và bảo ghi vào bảng luật (mục 6) |
+| Đầu phiên báo "Script cài đặt thất bại" | Bấm mũi tên xem dòng lỗi. Thường do chép setup script thiếu dòng: sửa ở **Edit** môi trường, dán lại nguyên đoạn ở bước 4, rồi mở phiên mới. Phiên đang chạy thì nhờ Claude cài bù |
+| Không thấy repo của mình khi tạo phiên | Chưa cài Claude GitHub App cho repo đó (bước 3) |
+| Claude báo không push được | Như trên: kiểm Claude GitHub App có repo của mình chưa |
+| Không tải được clip hay model, báo bị chặn | Network access của môi trường chưa để **Full** (bước 4) |
+| Link Google Drive tải về file HTML nhỏ | Link chưa để "Bất kỳ ai có đường liên kết" (bước 6a) |
+| Mất file render | Máy ảo đã bị xóa. Lần sau tải về ngay khi Claude gửi. Dữ liệu dựng đã push thì bảo Claude render lại |
+| Không thấy nút **Use this template** | Chưa chấp nhận lời mời, hoặc người giao chưa bật Template repository. Báo người giao |
+| Chữ tiếng Việt mất dấu, dấu bị cắt | Nói với Claude: "giây X mất dấu chữ Y" |
+| Claude làm sai điều đã dặn hôm trước | Điều đó chưa được ghi vào repo. Dạy lại và bảo ghi vào bảng luật (bước 7) |
 | Claude báo hết lượt dùng | Gói Pro có giới hạn theo giờ. Chờ, hoặc nâng lên Max |
 
-Bí thì tả lỗi cho Claude, kèm nguyên văn thông báo. Claude đọc lỗi và tự sửa môi trường được, hoặc chỉ anh/chị chỗ cần bấm.
+Bí thì tả lỗi cho Claude kèm nguyên văn thông báo. Claude đọc lỗi và tự sửa được, hoặc chỉ anh/chị chỗ cần bấm.
 
 ---
 
-## 9. Quyền sử dụng tài nguyên
+## Quyền sử dụng tài nguyên
 
-Đọc `docs/SOURCES.md` **trước khi làm video cho khách trả tiền**. Một số tài nguyên trong gói có điều kiện:
+Đọc `docs/SOURCES.md` **trước khi làm video cho khách trả tiền**:
 
 - **Thẻ chuyển động và vài script kiểm** lấy từ video-talkcraft, giấy phép **phi thương mại**. Dùng cho video thương mại thì phải có thư cho phép của tác giả, hoặc không dùng phần đó.
-- **Kho SFX** do người giao mua. Hỏi người giao xem giấy phép có cho anh/chị dùng không. Nếu không, tự mua gói SFX rồi nhập bằng `node scripts/sfx-import.mjs <thu-muc>`.
+- **Kho SFX:** hỏi người giao xem giấy phép có cho anh/chị dùng không. Nếu không, tự mua gói SFX rồi nhờ Claude nhập bằng `scripts/sfx-import.mjs`.
 - **Font** `@fontsource` (giấy phép OFL): dùng tự do.
 - **LUT, nhạc nền, logo** tự thêm: chỉ dùng thứ có quyền, ghi nguồn vào `luts/SOURCES.md` hoặc `docs/SOURCES.md`.
 
 ---
 
-## 10. Bảng lệnh nhanh
+## Bảng lệnh nhanh
 
 Phần lớn thời gian chỉ cần nói với Claude. Bảng này để tra khi muốn tự làm hoặc kiểm Claude.
 
@@ -422,7 +347,6 @@ Phần lớn thời gian chỉ cần nói với Claude. Bảng này để tra kh
 | Kiểm chữ chốt | `node scripts/qa/kt-check.cjs build/<video>/index.html <composition-id>` |
 | Nhận diện giọng | `~/.asr/bin/python -I scripts/asr/transcribe.py clip.mp4 work/asr.json "Tên riêng, địa danh"` |
 | Kiểm hình đứng im | `~/.asr/bin/python scripts/qa/motion_check.py build/<video>/output.mp4` |
-| Kiểm môi trường | `npx hyperframes doctor` |
 
 ## Đọc thêm khi đã quen
 
