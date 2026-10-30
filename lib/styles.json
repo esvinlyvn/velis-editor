@@ -1,5 +1,5 @@
 {
-  "_doc": "Tổ hợp phong cách (gen) đã thử, dùng làm điểm xuất phát. Một video = một tổ hợp, sau đó đổi tiếp theo luật 5: khác video trước của cùng kênh ở ≥ 3/5 gen (preset chính, font chính, font dẫn, cách hiện, lớp tối). Thêm tổ hợp mới vào đây khi người dùng duyệt một video có phong cách mới. fonts: [gói @fontsource, [file weight]] — weight dạng '700-italic' cho chữ nghiêng. Font từ file: [\"file:fonts/svn/<tên>.otf\"] (bộ SVN, xem docs/SOURCES.md). Vai font: display, sans, script (viết tay mảnh), script2 (viết tay cọ), serif.",
+  "_doc": "Tổ hợp phong cách (gen) đã thử, dùng làm điểm xuất phát. Một video = một tổ hợp, sau đó đổi tiếp theo luật 5: khác video trước của cùng kênh ở ≥ 3/5 gen (preset chính, font chính, font dẫn, cách hiện, lớp tối). Thêm tổ hợp mới vào đây khi người dùng duyệt một video có phong cách mới. fonts: [gói @fontsource, [file weight]] — weight dạng '700-italic' cho chữ nghiêng. Font từ file: [\"file:fonts/svn/<tên>.otf\"] (bộ SVN, xem docs/SOURCES.md). Vai font: display, sans, script (viết tay, mặc định Lobster), script2 (viết tay cọ), serif.",
   "S1": {
     "ten": "Tối giản",
     "main": "tieu-de-kep",
@@ -120,7 +120,10 @@
       ]
     ],
     "script": [
-      "file:fonts/svn/SVN-Nickainley Script.otf"
+      "lobster",
+      [
+        400
+      ]
     ],
     "script2": [
       "file:fonts/svn/SVN-Haptic Script.otf"
@@ -128,14 +131,14 @@
     "serif": [
       "file:fonts/svn/SVN-Paris Pro.otf"
     ],
-    "cach_hien": "chữ hình học dày khít + viết tay nét mảnh + chữ to nét mảnh; bộ preset ME4REAL (BDS-PRESETS 2b)"
+    "cach_hien": "chữ hình học dày khít + viết tay nét dày (Lobster) + chữ to nét mảnh; bộ preset ME4REAL (BDS-PRESETS 2b)"
   },
   "_script": {
-    "_doc": "Font viết tay cho vai 'cam' của preset cao-trao",
+    "_doc": "Font viết tay cho vai 'cam' của preset cao-trao và chữ viết tay các preset BĐS/ME4REAL. Lobster (nét dày): người dùng duyệt 30/10/2026 chê Dancing Script và SVN-Nickainley mỏng, xấu ở cỡ nhỏ",
     "default": [
-      "dancing-script",
+      "lobster",
       [
-        700
+        400
       ]
     ],
     "script2_default": [

@@ -222,7 +222,7 @@ Vùng an toàn chung: **x 60–940, y 250–1440**. Cách làm trong template:
 
 Chọn preset cho từng chữ chốt theo [`text-presets/QUY-TAC-CHU.md`](text-presets/QUY-TAC-CHU.md) (viết `text-plan.json`, chạy `node text-presets/pick-text.mjs <plan>`, duyệt, cuối cùng `--commit`). Ba nguồn:
 
-- **L60, bộ 60 preset** (`presets.mjs`): import trong `build.mjs`, cách dùng ở [`text-presets/README.md`](text-presets/README.md) mục 4.
+- **L60, bộ chung 67 preset** (`presets.mjs`; chỉ dùng preset đã duyệt, `lib/presets-duyet.json`): import trong `build.mjs`, cách dùng ở [`text-presets/README.md`](text-presets/README.md) mục 4.
   ```js
   import { presetHtml, presetJs, presetRuntime, contrastPlan } from "../../text-presets/presets.mjs";
   import { fontCss } from "../../text-presets/fonts.mjs";

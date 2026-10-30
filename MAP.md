@@ -56,12 +56,12 @@ Mỗi cảnh một file, đặt trong `projects/<ten-video>/map/<ten-canh>.json`
 | `fps` | | Mặc định 30 |
 | `transcript`, `start` | | Bật mốc theo lời thoại (mục 6) |
 | `name` | | Tên đầu ra (mặc định là tên file) |
-| `labelPreset`, `labelScale` | | Preset và cỡ mặc định của nhãn (mặc định `e-label`, 0,74) |
+| `labelPreset`, `labelScale` | | Preset và cỡ mặc định của nhãn (mặc định `b-location`, 0,74; `e-label` người dùng duyệt "không dùng", `lib/presets-duyet.json`) |
 | `scaleBar` | | Hiện thước tỷ lệ km (mẫu `compare` tự bật) |
 
 **Nhãn** (mọi chỗ ghi `label`, `fromLabel`, `toLabel`, `labels[]`):
 ```json
-{ "texts": ["LONG THÀNH", "sân bay quốc tế"], "preset": "e-label", "at": "@2:sân bay", "hold": 2.5, "place": "above", "scale": 0.74 }
+{ "texts": ["LONG THÀNH", "sân bay quốc tế"], "preset": "b-location", "at": "@2:sân bay", "hold": 2.5, "place": "above", "scale": 0.74 }
 ```
 - `texts` là các dòng của text preset, giống `presetHtml()` (`text-presets/README.md` mục 4). Với `e-label`: dòng 1 là tên riêng trong hộp màu, dòng 2 là nhãn nhỏ đè góc. Viết hoa ngay trong dữ liệu.
 - **Chữ trên hình chỉ là chữ bạn ghi.** Công cụ không tự thêm số km, diện tích hay thời gian. Số km tự tính chỉ in ra console để tham khảo.

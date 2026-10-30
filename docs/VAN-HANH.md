@@ -95,13 +95,13 @@ Mỗi bước có một lệnh trong `lib/` (chi tiết định dạng ở `lib/
 
 ## 4. Chữ chốt
 
-- **Nguồn preset:** bộ 60 (`text-presets/presets.mjs`), bộ BĐS 18 (`text-presets/bds/`), thẻ bám lời (`text-presets/vis-cards.mjs`, hợp cho đoạn mở 3 giây và câu cao trào).
+- **Nguồn preset:** bộ chung 67 (`text-presets/presets.mjs`), bộ BĐS 22 và bộ ME4REAL 14 (`text-presets/bds/`), chỉ dùng preset có trong `lib/presets-duyet.json` (luật 20), thẻ bám lời (`text-presets/vis-cards.mjs`, hợp cho đoạn mở 3 giây và câu cao trào).
 - **Gán vai:** mỗi khối chữ gắn một vai (bảng vai trong `text-presets/QUY-TAC-CHU.md`): số tiền, địa danh, tiện ích, pháp lý, so sánh, cảnh báo…
 - **Luật 8, một loại thông tin một preset:** trong một video, cùng một vai luôn dùng cùng một preset. Ví dụ mọi số tiền dùng `gia-chot`, mọi địa danh dùng `dia-danh`. Chạy `node text-presets/pick-text.mjs projects/<video>/text-plan.json` với `"mode": "bds"` để script giữ cố định theo vai và tránh lặp phong cách của khách.
 - **Một preset chính** cho khối chữ thường (cột "Preset chính" ở bảng 4c), khác video trước của cùng khách.
 - **Chữ dày (luật 4):** gần như mỗi câu một khối, có chữ ngay từ giây 0,1.
 - **Cấm theo luật:**
-  - Không hiệu ứng ký tự ngẫu nhiên hay vụn (luật 7). Vì vậy trong velis-editor không dùng `chuong-moi` của bộ BĐS (chữ dẫn giải mã ký tự) và các kiểu `popRand`, `scatter` của bộ 60.
+  - Chỉ dùng preset người dùng đã duyệt (luật 20, `lib/presets-duyet.json`; `lib/plan.mjs` chặn preset "không dùng"). Trước đây agent tự suy ra `chuong-moi`, `popRand`, `scatter` vi phạm luật 7 nên cấm; buổi duyệt 30/10/2026 người dùng đã xem clip và cho dùng.
   - Không vạch gạch hai bên chữ dẫn (luật 9). Preset có trang trí `rules` (`b-number`, `b-location`, `d-counter`) phải tắt phần trang trí đó hoặc chọn preset khác.
   - Không xén mép chữ nghiêng (luật 12).
 - **Màu (luật 6):** chữ chính ưu tiên gradient. Màu nhấn lấy từ `brand.json`.

@@ -18,7 +18,7 @@ Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là d�
 | 4 | Chữ dày: gần như mỗi câu một khối, có chữ ngay từ 0,1 s | Thực hành 2 |
 | 5 | Mỗi video một phong cách khác (preset chính + font + cách hiện chữ), không lặp video trước (bảng ở mục 4c) | Thực hành 2 |
 | 6 | Màu chữ ưu tiên gradient | Thực hành 2 |
-| 7 | Không dùng hiệu ứng hiện ký tự ngẫu nhiên hay vụn (nhìn như lỗi) | Thực hành 2 |
+| 7 | Không dùng hiệu ứng hiện ký tự ngẫu nhiên hay vụn (nhìn như lỗi). Preset nào vi phạm thì người dùng xem clip rồi quyết (luật 20), agent không tự suy ra để cấm: `chuong-moi`, `tung-chu`, `dia-danh` và các preset dùng `popRand` / `scatter` đã được xem và duyệt dùng | Thực hành 2; duyệt preset 30/10/2026 |
 | 8 | Không "spam" một hiệu ứng: mỗi loại thông tin một preset | Thực hành 3 |
 | 9 | Chữ dẫn đủ to, không vạch gạch 2 bên | Thực hành 3 |
 | 10 | SFX: mỗi khối chữ một tiếng, không tiếng nào trùng loại; không để quá ít, không lặp một tiếng | Thực hành 3 + 4 |
@@ -31,6 +31,10 @@ Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là d�
 | 17 | Dùng kho SFX cho rộng: mỗi khối một loại riêng, thêm lớp tiếng nhỏ cho chuyển động phụ (chữ quay-vong đổi, số chốt, nét gạch, cú chuyển cảnh của clip) | Thực hành 5 |
 | 18 | **Đo trước, xử lý sau** (sửa 30/10/2026): đo tương phản chữ với nền sau từng khối; **đủ tương phản thì không thêm gì sau chữ** (không phủ, không viền, không bóng, không tỏa sáng). Thiếu thì chọn cách nhẹ nhất đủ đọc, theo thứ tự: viền mảnh → bóng gọn → (chữ tối trên nền tối) tỏa sáng nhẹ → nền mờ sau chữ + bóng + tối nhẹ (≤ 0,35). Không dùng tỏa sáng / quầng để trang trí; hiệu ứng trang trí bám theo video mẫu (`docs/PHONG-CACH-ME4REAL.md`). `lib/build.mjs` tự chọn và in cột "xử lý" | Thực hành 5; người dùng sửa 30/10/2026 |
 | 19 | Video không được tối đi vì chữ: lớp phủ tối đa 0,6; clip điện thoại nhạt thì pha màu nhẹ (tăng tương phản, độ bão hòa) trước khi phủ chữ | Thực hành 5 |
+| 20 | **Preset chữ chỉ dùng trong danh sách đã duyệt** (`lib/presets-duyet.json`: bộ BĐS 22/22, bộ ME4REAL 14/15 + `cao-trao` trừ vai `mong`, bộ chung 36/67). Duyệt chỉ là **dùng hay không**; dùng cho ý nào, đặt ở đâu, phối giữa các bộ là agent tự tính theo từng video. Agent được làm preset / bộ mới, nhưng phải đưa người dùng duyệt (clip trên khung thật) rồi mới thêm vào danh sách | Duyệt preset 30/10/2026 |
+| 21 | Hai dòng chữ được chồng lên nhau **chỉ khi dòng trên không có dấu dưới (dấu nặng) hay nét móc xuống** (g, j, p, q, y…); có thì dòng dưới đứng sát ngay dưới. Dòng phụ kéo sát dòng chính nhưng không chạm dấu hay nét móc | Duyệt preset 30/10/2026 |
+| 22 | Chữ viết tay dùng font **nét dày** (mặc định Lobster); không dùng font viết tay nét mảnh (Dancing Script, SVN-Nickainley) ở cỡ nhỏ | Duyệt preset 30/10/2026 |
+| 23 | Dòng key (chữ nhấn lớn) giữ **một hàng**; dài thì thu nhỏ cả khối, không ngắt xuống dòng | Duyệt preset 30/10/2026 |
 
 **Mục tiêu: 40–60 phút một video.** Chỉ render một lần ở cuối. Mỗi lần render clip 90 s mất khoảng 10 phút. Tất cả khâu kiểm khác làm trên snapshot và script, không cần render.
 
@@ -91,7 +95,6 @@ Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là d�
   - Số đo dùng `gia-chot` (200 m², 50 MÉT).
   - Liệt kê dùng `quay-vong`.
   - "Không còn / không có" dùng `canh-bao`.
-  - **Không dùng `tung-chu`, `dia-danh`:** giữa lúc chạy hiệu ứng, ký tự hiện ngẫu nhiên hoặc vụn, nhìn như lỗi.
 - **Màu ưu tiên gradient:** `c` là màu giữa, `c2` là màu đáy. Màu theo nghĩa:
   - vàng → cam: con số, sản phẩm
   - xanh ngọc → xanh dương: nơi chốn

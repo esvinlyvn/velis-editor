@@ -3,7 +3,7 @@
 Bộ công cụ dựng video bất động sản dọc 1080×1920 từ **clip quay thật** (sale hay chủ đầu tư nói trước máy, quay dự án). Dùng với Claude Code: thả clip thô vào, Claude dựng ra video hoàn chỉnh gồm:
 - cắt nhịp, bỏ khoảng lặng;
 - hook 3 giây theo góc của câu mở;
-- chữ chốt theo preset (bộ 60 preset, 18 preset BĐS, thẻ bám lời), có chữ đặt sau người;
+- chữ chốt theo preset (bộ chung 67 preset, 22 preset BĐS, 14 preset ME4REAL, thẻ bám lời; chỉ dùng preset đã duyệt trong `lib/presets-duyet.json`), có chữ đặt sau người;
 - minh họa "nói gì vẽ nấy", bản đồ;
 - SFX, màu và LUT;
 - tự kiểm trước khi giao.

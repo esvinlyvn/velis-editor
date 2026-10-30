@@ -32,7 +32,8 @@ Kiểm thư viện sau mỗi lần sửa: `npm run demo` (dựng `tests/demo` b�
 | `plan.mjs` | Đọc `plan.json` → dòng thời gian khối chữ + SFX; kiểm luật 1, 4, 7, 8, số liệu khớp lời, cụm cao-trao đủ lâu |
 | `template.html` | Template chung: xử lý sau chữ theo tương phản (luật 18 mới: không gì / viền / bóng / tỏa sáng / nền mờ + tối nhẹ, `build.mjs` chọn cho từng khối), chữ sau người, ô chữ tự co |
 | `music.mjs` | Nhạc nền: hạ dưới giọng theo giờ lời nói (ducking), lưới phách cho montage |
-| `styles.json` | Tổ hợp phong cách S1–S6 (preset chính, font theo vai display / sans / script / script2 / serif, cách hiện, lớp tối). S6 = ME4REAL: Montserrat + font SVN ở `fonts/svn/` (`"file:fonts/svn/<tên>.otf"`) |
+| `styles.json` | Tổ hợp phong cách S1–S6 (preset chính, font theo vai display / sans / script / script2 / serif, cách hiện, lớp tối). S6 = ME4REAL: Montserrat + Lobster (viết tay) + font SVN ở `fonts/svn/` (`"file:fonts/svn/<tên>.otf"`). Viết tay mặc định Lobster (luật 22) |
+| `presets-duyet.json` | Preset người dùng đã duyệt dùng / không dùng (luật 20). `plan.mjs` chặn preset "không dùng" và biến thể "không dùng" (`bien_the_khong`); `pick-text` và `scripts/map` cũng đọc file này |
 | `palettes.json` | Màu gradient + bộ màu theo nghĩa (main, so, an-toan, noi-chon, thoi-gian, phu-dinh) |
 | `sfx-roles.json` | Vai SFX → tên trong kho; vai chữ → vai SFX; 6 công thức tổ hợp tiếng |
 | `recipes.json` | Công thức khung video R1, R2, R5, R6, R7 |

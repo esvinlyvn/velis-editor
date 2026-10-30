@@ -48,7 +48,7 @@ Với `strike`: theo luật house-rules số 9, **không dùng nét gạch chéo
 - Hook nằm dưới khối chữ chốt hoặc ở vùng trống; mép hook cách đỉnh đầu ít nhất 20 px. Không đè mặt, không đè miệng.
 - Nội dung hook lấy **từ chính lời nói**, rút gọn còn 1–4 chữ, không bịa ý mới.
 
-**Dựng:** các hook dựng bằng HTML + GSAP trong `text-presets/hooks/`, theo đúng quy ước của bộ BĐS 18: không đặt transform trong CSS, `fromTo` ghi rõ đích, không dùng `onUpdate`, số đếm dựng sẵn từng bước. Lần đầu dùng hook nào thì dựng hook đó, kèm một trang xem thử như `text-presets/bds/gallery.html`. Thêm hook mới thì cập nhật bảng trên và danh sách id trong `hook-pick.mjs`.
+**Dựng:** các hook dựng bằng HTML + GSAP trong `text-presets/hooks/`, theo đúng quy ước của bộ BĐS: không đặt transform trong CSS, `fromTo` ghi rõ đích, không dùng `onUpdate`, số đếm dựng sẵn từng bước. Lần đầu dùng hook nào thì dựng hook đó, kèm một trang xem thử như `text-presets/bds/gallery.html`. Thêm hook mới thì cập nhật bảng trên và danh sách id trong `hook-pick.mjs`.
 
 ## 2. Minh họa: nói gì vẽ nấy
 
