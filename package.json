@@ -10,7 +10,8 @@
     "qc": "node lib/qc.mjs",
     "export": "node lib/export.mjs",
     "map:data": "node scripts/map/data.mjs",
-    "map": "node scripts/map/render.mjs"
+    "map": "node scripts/map/render.mjs",
+    "test:chung": "node tests/chung/make-media.mjs && node lib/build.mjs tests/chung --no-render"
   },
   "repository": {
     "type": "git",

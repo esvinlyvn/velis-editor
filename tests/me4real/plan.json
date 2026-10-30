@@ -343,14 +343,12 @@
    "sfx": "auto"
   },
   {
-   "p": "poster-serif",
+   "p": "kim-loai",
    "at": 47.1,
    "o": {
     "m": "TIỆN ÍCH",
     "s": "xa hoa",
-    "sub": "CHO CHỦ NHÂN TINH HOA",
-    "c": "#7a5420",
-    "c2": "#1f2f5c"
+    "tone": "bac"
    },
    "top": 260,
    "sfx": "auto"
@@ -389,7 +387,7 @@
        },
        {
         "t": "Mở Ra",
-        "v": "mong"
+        "v": "cam"
        }
       ]
      },
