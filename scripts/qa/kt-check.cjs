@@ -21,6 +21,8 @@ const OPT = "/opt/pw-browsers/chromium";
     const jobs = [];
     for (const [i, c] of window.__kt.entries()) {
       if (c.p === "quay-vong") c.o.words.forEach((w, j) => jobs.push([i, c, Math.min(c.at + 0.15 + j * c.o.step + Math.min(0.6, c.o.step - 0.3), c.out - 0.05)]));
+      // cao-trao: kiểm lúc dòng cuối đã vào xong (các dòng vào theo lời, có thể kéo dài 2–3 s)
+      else if (c.p === "cao-trao") jobs.push([i, c, Math.min(Math.max(c.at, ...c.o.lines.map((L, k) => L.at ?? c.at + k * (c.o.step ?? 0.35))) + 0.7, c.out - 0.05, tl.duration() - 0.05)]);
       else jobs.push([i, c, Math.min(c.at + 1.4, c.out - 0.05, tl.duration() - 0.05)]);
     }
     for (const [i, c, t] of jobs) {
@@ -32,7 +34,8 @@ const OPT = "/opt/pw-browsers/chromium";
       const box = low ? { l: 140, r: 940, t: 1240, b: 1440 } : narrow ? { l: 60, r: 940, t: 250, b: 1440 } : r.bottom > 700 ? { l: 60, r: 940, t: 250, b: 1440 } : { l: 60, r: 1020, t: 250, b: 700 };
       const errs = [];
       const cx = (r.left + r.right) / 2, want = (box.l + box.r) / 2;
-      if (Math.abs(cx - want) > 8) errs.push(`lệch tâm ${Math.round(cx - want)}px`);
+      const left = c.h.r.parentElement?.classList.contains("left"); // khối căn trái có chủ đích (cao-trao): không kiểm tâm
+      if (!left && Math.abs(cx - want) > 8) errs.push(`lệch tâm ${Math.round(cx - want)}px`);
       if (r.left < box.l - 1 || r.right > box.r + 1) errs.push(`tràn ngang ${Math.round(r.left)}–${Math.round(r.right)}`);
       if (r.top < box.t - 1 || r.bottom > box.b + 1) errs.push(`tràn dọc ${Math.round(r.top)}–${Math.round(r.bottom)}`);
       if (parseFloat(getComputedStyle(c.h.r).opacity) < 0.99) errs.push("khối chưa hiện đủ");
@@ -46,7 +49,7 @@ const OPT = "/opt/pw-browsers/chromium";
       if (dim.length) errs.push(`${dim.length} ký tự mờ: "${dim.map((e) => e.textContent).join("")}"`);
       const others = window.__kt.filter((o, j) => j !== i && parseFloat(getComputedStyle(o.h.r).opacity) > 0.05).map((o) => o.o.m || o.o.k);
       if (others.length) errs.push(`chồng với: ${others.join(", ")}`);
-      out.push({ i, t: +t.toFixed(2), p: c.p, txt: `${c.o.k ?? ""} / ${c.o.m ?? c.o.words ?? c.o.value}`, size: c.h.o.size, rect: [r.left, r.top, r.right, r.bottom].map(Math.round), errs });
+      out.push({ i, t: +t.toFixed(2), p: c.p, txt: c.o.lines ? c.o.lines.map((L) => L.t ?? L.parts.map((x) => x.t).join(" ")).join(" / ") : `${c.o.k ?? ""} / ${c.o.m ?? c.o.words ?? c.o.value}`, size: c.h.o.size, rect: [r.left, r.top, r.right, r.bottom].map(Math.round), errs });
     }
     return out;
   }, comp);

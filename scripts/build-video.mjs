@@ -103,7 +103,7 @@ export function buildVideo(metaUrl, cfg) {
 
 // Bản trộn (giọng −14 LUFS + SFX) thường to hơn chuẩn: SFX dày cộng thêm 1–3 dB. Lệch khỏi −14 ± 0,5 LUFS thì chuẩn hóa
 // hai lượt kiểu tuyến tính (cả bản tăng/giảm đều nhau, tỷ lệ SFX / giọng giữ nguyên), trần đỉnh −1,5 dBTP, giữ nguyên hình.
-function loudnormMix(file, I = -14, TP = -1.5) {
+export function loudnormMix(file, I = -14, TP = -1.5) {
   const measure = (af) => {
     const err = spawnSync("ffmpeg", ["-hide_banner", "-nostdin", "-i", file, "-af", af, "-f", "null", "-"], { encoding: "utf8" }).stderr;
     return JSON.parse(err.slice(err.lastIndexOf("{"), err.lastIndexOf("}") + 1));
