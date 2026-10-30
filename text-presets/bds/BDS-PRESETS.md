@@ -56,6 +56,31 @@ Số đo một vài preset:
 
 Không dựng lại: Subtitles và Simple Type, vì không dùng phụ đề chạy (TALKING-HEAD luật 1); Fully customizable và Colorful text, vì trùng ý với preset khác.
 
+## 2b. Bộ ME4REAL (14 preset, `me4real.js` / `me4real.css`)
+
+Dựng lại từ 6 video của editor BĐS ME4REAL (`docs/PHONG-CACH-ME4REAL.md`), đo từng khung 0,15 s lúc chữ vào; số đo ghi ở dòng `đo:` trong code. Nạp **sau** `bds-presets.js`, đăng ký vào `BDS.presets` nên dùng chung `BDS.make / in / out`, `lib/` và `kt-check`. Trong `pick-text.mjs` là nhóm `M4`. Không chép: quầng sáng sau chữ (luật 18) và vị trí dưới vùng an toàn TikTok.
+
+| Preset | Dùng cho | Tham số chính | Gốc |
+| --- | --- | --- | --- |
+| `kim-loai` | Từ khóa đắt, hook: PHÁO HOA *Quốc Tế*, DU LỊCH, BOOKING | `m`, `s` (viết tay), `tone` vang \| bac, `tia` | V1 4 s, V3 22 s |
+| `so-khong-lo` | Con số là cả câu: 200 triệu, 10 năm trước, 800 m² | `k` (nhãn trên), `value`, `from`, `u` (đơn vị, to ngang số; `uNho` nhỏ), `s` (viết tay), `dem:false` = đập vào | V1 5 s, V5 1 s, V6 2 s |
+| `so-dem` | Thông số theo dòng: 10 tầng / 50 phòng | `rows: [{ n, u, k?, from?, at? }]`, màu dòng 1 `c/c2`, dòng 2 `c3/c4` | V1 44 s |
+| `cap-dong` | Tiêu chí song song: VỊ TRÍ *Ấn Tượng* / QUY MÔ *Lý Tưởng* | `rows: [{ hoa, viet, at? }]` | V1 28 s |
+| `phoi-canh` | Chữ nằm theo mặt phẳng, trôi theo máy: VỐN BAN ĐẦU chỉ từ 1,3 TỶ | `lines` (vai thuong \| nho \| so), `goc`, `xien`, `troi: [dx, dy]`, `noi` | V2 17 s |
+| `noi-khoi` | Địa danh, cam kết: HỘI AN, SỞ HỮU LÂU DÀI | `m`, `s`, `tone` vang \| bang \| trang, `goc`, `xien` | V6 7 s, V2 24 s |
+| `so-chen` | Ưu đãi một con số: Miễn phí quản lí **1** năm | `truoc` ("dòng1\|dòng2"), `so`, `sau`, `goc` | V2 30 s |
+| `pill-xep` | Thông số dán cạnh công trình: 31 TẦNG NỔI / 3 TẦNG HẦM (dải dưới, căn trái) | `items: [{ t, at? }]` | V3 47 s |
+| `nhan-ban-do` | Điểm trên bản đồ: thẻ vàng + ghim đỏ | `m`, `goc` | V2 43 s |
+| `chu-gian` | Tên dự án / hạng mục: THE LEGEND, LÀM VIỆC | `m`, `s`, `mau` (chữ màu cỡ vừa), `gian` | V5 15 s, V4 32 s |
+| `logo-ghep` | Tên dự án dạng logo: Sun *Symphony* 5 · Second Home | `m`, `s`, `so`, `sub` | V3 78 s |
+| `poster-serif` | Tiện ích sang trọng **trên nền sáng**: TIỆN ÍCH *xa hoa* | `m`, `s`, `sub`, `c` (màu mực) | V5 35 s |
+| `so-thu-tu` | Lợi thế đánh số: **1** mặt bằng THƯƠNG MẠI | `rows: [{ n, nho, lon, viet?, at? }]` | V6 19 s |
+| `khung-sdt` | CTA: số điện thoại trong khung viền | `m` | V3 118 s |
+
+`cao-trao` (bộ 22) được mở rộng cùng đợt để phủ thêm 5 kiểu của ME4REAL: khối thông tin ("NGÂN HÀNG hỗ trợ 70%…"), chỉ số căn phải ("Tăng 15% so với Năm 2024", `align: "phai"`), danh sách nhiều màu (`align: "giua"`, vai `muc`, `c` từng dòng), chữ viết tay rỗng ruột (vai `vien`), giữ chữ thường ở dòng chốt (`hoa: false`). Vai đủ: `dem`, `nho`, `muc`, `khoa`, `cam`, `vien`, `so`, `chot`.
+
+Bảng thử cả bộ: `npm run test:me4real` (21 khối, chữ lấy đúng từ video gốc) → `build/me4real/index.html`.
+
 ## 3. Cách dùng trong template
 
 1. Nhúng `bds-presets.css` và `bds-presets.js` vào template, sau gsap. Cách gọn: trong `build.mjs` đọc hai file này rồi thay vào placeholder `{{BDS_CSS}}` và `{{BDS_JS}}`. Hoặc chép thẳng nội dung vào template.

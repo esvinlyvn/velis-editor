@@ -24,7 +24,7 @@ Luật gốc nằm ở bảng **luật đã chốt** của `TALKING-HEAD.md` (lu
 
 ## Bảng vai
 
-Dùng các vai chung trong `pick-text.mjs` (mo-dau, chot-y, con-so-tien, con-so, tang-giam, dia-danh, thuat-ngu, so-sanh, canh-bao, trich-loi, liet-ke, trang-thai, thoi-gian, qua-khu, phan-moi, canh-quan, phan-khuc, cau-hoi), cộng thêm 5 vai riêng cho BĐS (mode `bds` chỉ gợi ý preset bộ BĐS, vì `lib/build.mjs` chỉ dựng bộ này):
+Dùng các vai chung trong `pick-text.mjs` (mo-dau, chot-y, con-so-tien, con-so, tang-giam, dia-danh, thuat-ngu, so-sanh, canh-bao, trich-loi, liet-ke, trang-thai, thoi-gian, qua-khu, phan-moi, canh-quan, phan-khuc, cau-hoi), cộng thêm 5 vai riêng cho BĐS (mode `bds` chỉ gợi ý preset bộ BĐS `B18` và bộ ME4REAL `M4`, vì `lib/build.mjs` chỉ dựng hai bộ này; bảng ở `bds/BDS-PRESETS.md` mục 2 và 2b):
 
 | Vai | Khi lời đang… | Ví dụ |
 |---|---|---|

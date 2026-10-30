@@ -17,7 +17,7 @@ node lib/export.mjs projects/<video> --draft       # bản nháp gửi duyệt �
 
 Video mẫu đi đủ chuỗi trên: `npm run example`, xem `projects/example/plan.json` và `SHOTBOOK.md`.
 
-Kiểm thư viện sau mỗi lần sửa: `npm run demo` (dựng `tests/demo` bằng media tổng hợp, không render).
+Kiểm thư viện sau mỗi lần sửa: `npm run demo` (dựng `tests/demo` bằng media tổng hợp, không render). Sửa preset chữ thì chạy thêm `npm run test:me4real` rồi `kt-check` trên `build/me4real/index.html` (21 khối).
 
 ## Thành phần
 
@@ -73,7 +73,7 @@ Nguồn phương pháp: `docs/PHONG-CACH-ME4REAL.md` (mã K, H, C, I, T, A, E, R
 | `blocks[].sfx` | `"auto"` (mặc định: chọn theo vai, không lặp loại trong 30 s, tiếng phụ tự né âm đầu chữ), `["tên", vol]` ghi tay (vd. khi QC báo tiếng che lời), hoặc `null` |
 | `blocks[].top`, `size`, `p` | Vị trí y (mặc định 250; ≥ 900 = dải dưới), cỡ chữ, preset ghi đè |
 | `blocks[].behind`, `behindFrac` | Chữ sau người: tên cửa sổ trong `plan.behind` (`{ "intro": [0, 4.8] }`); mặt nạ ở `work/<video>/matte/` (TALKING-HEAD 4b) |
-| `o` | Tham số preset (`text-presets/bds/BDS-PRESETS.md`); `cao-trao` dùng `lines` với vai `dem` / `khoa` / `cam` / `chot` |
+| `o` | Tham số preset (`text-presets/bds/BDS-PRESETS.md`, bộ ME4REAL ở mục 2b); `cao-trao` dùng `lines` với vai `dem` / `nho` / `muc` / `khoa` / `cam` / `vien` / `so` / `chot`, `align` trai \| giua \| phai |
 | `hook_peak` | Mốc đỉnh hook: tiếng chốt của công thức "bùng mở" rơi đúng đây, tiếng dâng chạy trước 1,6 s |
 | `music` | `{ "file": "work/<video>/music.mp3", "bed_db": -6, "duck_db": -20, "bpm": 120, "montage": [[15, 32]] }`; chỉ khi có nhạc có quyền dùng |
 | `info_numbers` | Số lấy từ `info/` mà lời không nói (để kiểm số liệu không báo nhầm) |

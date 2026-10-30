@@ -34,7 +34,7 @@ Công thức chung: khung đầu đã chuyển động → giây 0,9–1,2 icon 
 
 - **C1 Cụm bậc thang** → preset `cao-trao`: 3–5 dòng, mỗi dòng 2–5 chữ (luật 1), vào theo lời cách 0,3–0,5 s, căn trái thụt dần, giữ 1–2,5 s sau dòng cuối, tan đồng loạt. Tối đa 1 cụm mỗi 10–15 s.
 - **C2 Bốn vai trong cụm:** `dem` (sans nhỏ) · `khoa` (đậm hoa) · `cam` (viết tay) · `chot` (gradient, một lần mỗi cụm, nhấp nháy khi vào).
-- **C3 Preset động** tương ứng bộ BĐS: Slide → `tieu-de-kep` / `tap-chi`; Flicker → dòng chốt `cao-trao`; Count → `gia-chot`; Letter slide → `tang-truong`; Write → vai `cam`.
+- **C3 Bộ preset ME4REAL** (`text-presets/bds/me4real.js`, bảng ở `BDS-PRESETS.md` mục 2b): 14 preset `kim-loai`, `so-khong-lo`, `so-dem`, `cap-dong`, `phoi-canh`, `noi-khoi`, `so-chen`, `pill-xep`, `nhan-ban-do`, `chu-gian`, `logo-ghep`, `poster-serif`, `so-thu-tu`, `khung-sdt`, cộng `cao-trao` mở rộng (thông tin, chỉ số căn phải, danh sách nhiều màu, viết tay rỗng). Tổng 15 preset phủ 20 kiểu chữ đếm được trong 6 video. Macro gốc tương ứng: Slide → `cao-trao` / `cap-dong`; Flicker → dòng chốt; Count → `so-khong-lo` / `so-dem`; Write → vai `cam`, chữ viết tay của `kim-loai` / `logo-ghep`; Letter slide / tracking → `chu-gian`.
 - **C4 Phụ đề:** ME4REAL dùng phụ đề từng chữ; velis-editor **không phụ đề** (luật 1).
 - **C5 Nhãn trên hình:** pill thông số, viền nét đứt quanh lô đất + diện tích, chữ bám mặt tòa nhà (TRINH-BAY mục 2).
 

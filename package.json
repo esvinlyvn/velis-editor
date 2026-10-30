@@ -4,6 +4,7 @@
   "description": "Dựng video dọc 1080x1920 bất động sản từ clip quay thật bằng HyperFrames: chữ chốt, SFX, hậu kỳ",
   "scripts": {
     "demo": "node tests/demo/make-media.mjs && node lib/build.mjs tests/demo --no-render",
+    "test:me4real": "node tests/me4real/make-media.mjs && node lib/build.mjs tests/me4real --no-render",
     "new": "node scripts/new-video.mjs",
     "example": "node projects/example/make-media.mjs && node lib/ingest.mjs projects/example && node lib/assemble.mjs projects/example && node lib/build.mjs projects/example",
     "qc": "node lib/qc.mjs",
