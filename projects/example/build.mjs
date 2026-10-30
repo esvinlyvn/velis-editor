@@ -100,7 +100,7 @@ if (dup.length) throw new Error("SFX lặp loại trong 30 s:\n" + dup.join("\n"
 fs.writeFileSync(path.join(HERE, "sfx.json"), JSON.stringify({ gainDb: 6, minGap: 0.35, cues: SFX }, null, 1) + "\n");
 
 buildVideo(import.meta.url, {
-  fonts: [["yeseva-one", [400]], ["encode-sans", [600, 700]], ["be-vietnam-pro", [900]]], // be-vietnam-pro: font dự phòng trong CSS preset BĐS (lint)
+  fonts: [["yeseva-one", [400]], ["encode-sans", [600, 700]], ["be-vietnam-pro", [900]], ["dancing-script", [700]]], // be-vietnam-pro, dancing-script: font dự phòng trong CSS preset BĐS (lint)
   noCap: T.map((c) => c.i), // không phụ đề chạy (luật 1): mọi cụm đều tắt phụ đề
   endStart: 0,
   tail: 1.1,
