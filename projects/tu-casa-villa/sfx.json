@@ -1,0 +1,420 @@
+{
+ "gainDb": 6,
+ "minGap": 0.35,
+ "cues": [
+  {
+   "at": 0.05,
+   "name": "whoosh-heavy",
+   "vol": 0.55,
+   "why": "intro: chữ đầu tiên vào"
+  },
+  {
+   "at": 0.6,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "17 THÁNG TRƯỚC chữ đáp xong"
+  },
+  {
+   "at": 3.08,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Đây chỉ là / BÃI ĐẤT TRỐNG"
+  },
+  {
+   "at": 3.58,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "BÃI ĐẤT TRỐNG chữ đáp xong"
+  },
+  {
+   "at": 5.65,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Qua bàn tay / SUN GROUP"
+  },
+  {
+   "at": 6.15,
+   "name": "pop",
+   "vol": 0.85,
+   "why": "SUN GROUP chữ đáp xong"
+  },
+  {
+   "at": 7.43,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Đã kiến tạo / THÀNH PHỐ BIỂN"
+  },
+  {
+   "at": 7.93,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "THÀNH PHỐ BIỂN chữ đáp xong"
+  },
+  {
+   "at": 8.68,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Mang tên / BLANCA CITY"
+  },
+  {
+   "at": 9.18,
+   "name": "pop",
+   "vol": 0.85,
+   "why": "BLANCA CITY chữ đáp xong"
+  },
+  {
+   "at": 10.33,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Vũng Tàu, nay thuộc / TP. HỒ CHÍ MINH"
+  },
+  {
+   "at": 10.83,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "TP. HỒ CHÍ MINH chữ đáp xong"
+  },
+  {
+   "at": 13.48,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Đây là dòng / CASA VILLA"
+  },
+  {
+   "at": 13.98,
+   "name": "pop",
+   "vol": 0.85,
+   "why": "CASA VILLA chữ đáp xong"
+  },
+  {
+   "at": 16.18,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Casa Villa có → 3 LOẠI HÌNH"
+  },
+  {
+   "at": 17.55,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Casa Villa có → LIỀN KỀ"
+  },
+  {
+   "at": 18.92,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Casa Villa có → SONG LẬP"
+  },
+  {
+   "at": 20.29,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Casa Villa có → ĐƠN LẬP"
+  },
+  {
+   "at": 21.76,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "LIỀN KỀ hiện trắng"
+  },
+  {
+   "at": 22.66,
+   "name": "error-soft",
+   "vol": 0.6,
+   "why": "LIỀN KỀ bị gạch đỏ"
+  },
+  {
+   "at": 23.76,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Chỉ còn / SONG LẬP · ĐƠN LẬP"
+  },
+  {
+   "at": 24.26,
+   "name": "pop",
+   "vol": 0.85,
+   "why": "SONG LẬP · ĐƠN LẬP chữ đáp xong"
+  },
+  {
+   "at": 26.44,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Căn này là / BIỆT THỰ SONG LẬP"
+  },
+  {
+   "at": 26.94,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "BIỆT THỰ SONG LẬP chữ đáp xong"
+  },
+  {
+   "at": 28.24,
+   "name": "meter",
+   "vol": 0.5,
+   "why": "số chạy lên"
+  },
+  {
+   "at": 29.14,
+   "name": "cash",
+   "vol": 0.5,
+   "why": "200 m² chốt"
+  },
+  {
+   "at": 31.61,
+   "name": "meter",
+   "vol": 0.5,
+   "why": "số chạy lên"
+  },
+  {
+   "at": 32.51,
+   "name": "cash",
+   "vol": 0.5,
+   "why": "300 m² chốt"
+  },
+  {
+   "at": 34.98,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Mua về để → Ở"
+  },
+  {
+   "at": 36.22,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Mua về để → KINH DOANH"
+  },
+  {
+   "at": 38.33,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Vỉa hè / RẤT RỘNG"
+  },
+  {
+   "at": 38.83,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "RẤT RỘNG chữ đáp xong"
+  },
+  {
+   "at": 40.35,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Tuyến đường / RẤT TO"
+  },
+  {
+   "at": 40.85,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "RẤT TO chữ đáp xong"
+  },
+  {
+   "at": 42.61,
+   "name": "meter",
+   "vol": 0.5,
+   "why": "số chạy lên"
+  },
+  {
+   "at": 43.51,
+   "name": "cash",
+   "vol": 0.5,
+   "why": "50 MÉT chốt"
+  },
+  {
+   "at": 47.19,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Công viên nước / SUN WORLD"
+  },
+  {
+   "at": 47.69,
+   "name": "pop",
+   "vol": 0.85,
+   "why": "SUN WORLD chữ đáp xong"
+  },
+  {
+   "at": 49.22,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Rộng tới / 15 HECTA"
+  },
+  {
+   "at": 49.72,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "15 HECTA chữ đáp xong"
+  },
+  {
+   "at": 50.42,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Mỗi ngày đón / 3–5 NGÀN KHÁCH"
+  },
+  {
+   "at": 50.92,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "3–5 NGÀN KHÁCH chữ đáp xong"
+  },
+  {
+   "at": 54.27,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Nên cho thuê / CỰC KỲ DỄ"
+  },
+  {
+   "at": 54.77,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "CỰC KỲ DỄ chữ đáp xong"
+  },
+  {
+   "at": 58.23,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Từ Bắc tới Nam → NHIỀU ĐÔ THỊ"
+  },
+  {
+   "at": 59.98,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Từ Bắc tới Nam → NGHỈ DƯỠNG"
+  },
+  {
+   "at": 61.73,
+   "name": "swipe",
+   "vol": 0.4,
+   "why": "Từ Bắc tới Nam → VEN BIỂN"
+  },
+  {
+   "at": 62.43,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Nhưng ở nơi khác / NHÀ PHỐ THẤP TẦNG"
+  },
+  {
+   "at": 62.93,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "NHÀ PHỐ THẤP TẦNG chữ đáp xong"
+  },
+  {
+   "at": 65.4,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "SỞ HỮU LÂU DÀI hiện trắng"
+  },
+  {
+   "at": 66.3,
+   "name": "error-soft",
+   "vol": 0.6,
+   "why": "SỞ HỮU LÂU DÀI bị gạch đỏ"
+  },
+  {
+   "at": 67.98,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Tại / BLANCA CITY"
+  },
+  {
+   "at": 68.48,
+   "name": "pop",
+   "vol": 0.85,
+   "why": "BLANCA CITY chữ đáp xong"
+  },
+  {
+   "at": 70.2,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Nhà phố đều / SỞ HỮU LÂU DÀI"
+  },
+  {
+   "at": 70.7,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "SỞ HỮU LÂU DÀI chữ đáp xong"
+  },
+  {
+   "at": 72.01,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Rất là / AN TOÀN"
+  },
+  {
+   "at": 72.51,
+   "name": "pop",
+   "vol": 0.85,
+   "why": "AN TOÀN chữ đáp xong"
+  },
+  {
+   "at": 73.91,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Thiết kế / RẤT ĐẸP"
+  },
+  {
+   "at": 74.41,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "RẤT ĐẸP chữ đáp xong"
+  },
+  {
+   "at": 76.01,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Phong cách / ĐỊA TRUNG HẢI"
+  },
+  {
+   "at": 76.51,
+   "name": "pop",
+   "vol": 0.85,
+   "why": "ĐỊA TRUNG HẢI chữ đáp xong"
+  },
+  {
+   "at": 77.56,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Tường trắng / MÁI NGÓI ĐỎ"
+  },
+  {
+   "at": 78.06,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "MÁI NGÓI ĐỎ chữ đáp xong"
+  },
+  {
+   "at": 80.19,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Bền theo thời gian / KHÓ PHAI MÀU"
+  },
+  {
+   "at": 80.69,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "KHÓ PHAI MÀU chữ đáp xong"
+  },
+  {
+   "at": 82.83,
+   "name": "whoosh-fast",
+   "vol": 0.5,
+   "why": "đẩy máy che vết nối"
+  },
+  {
+   "at": 83.45,
+   "name": "text-tick",
+   "vol": 0.6,
+   "why": "DÒNG THẤP TẦNG? chữ đáp xong"
+  },
+  {
+   "at": 85.7,
+   "name": "whoosh-soft",
+   "vol": 0.34,
+   "why": "Liên hệ ngay / TÚ"
+  },
+  {
+   "at": 86.2,
+   "name": "shimmer",
+   "vol": 0.75,
+   "why": "LIÊN HỆ TÚ (tiếng ngắn 1 s, không bị cắt ở cuối video)"
+  }
+ ]
+}

@@ -1,0 +1,474 @@
+{
+ "gainDb": 6,
+ "minGap": 0.35,
+ "cues": [
+  {
+   "at": 0.1,
+   "name": "sub-hit",
+   "vol": 0.9,
+   "why": "VỚI 30 TỶ"
+  },
+  {
+   "at": 2.28,
+   "name": "text-tick",
+   "vol": 0.46,
+   "why": "TỰ XÂY BIỆT THỰ"
+  },
+  {
+   "at": 5.16,
+   "name": "ting-2",
+   "vol": 0.6,
+   "why": "CASA VILLA"
+  },
+  {
+   "at": 8.86,
+   "name": "pop-multi",
+   "vol": 0.37,
+   "why": "4 LÝ DO"
+  },
+  {
+   "at": 11.4,
+   "name": "open",
+   "vol": 0.27,
+   "why": "KHAN HIẾM"
+  },
+  {
+   "at": 12.99,
+   "name": "counter-roll",
+   "vol": 0.33,
+   "why": "CASA CÓ 939"
+  },
+  {
+   "at": 13.89,
+   "name": "punch",
+   "vol": 0.39,
+   "why": "939 chốt số"
+  },
+  {
+   "at": 14.51,
+   "name": "meter",
+   "vol": 0.46,
+   "why": "CHỈ CHIẾM 10"
+  },
+  {
+   "at": 17.63,
+   "name": "click",
+   "vol": 0.35,
+   "why": "NHÀ PHỐ / SONG LẬP / ĐƠN LẬP"
+  },
+  {
+   "at": 18.58,
+   "name": "whoosh-tech-2",
+   "vol": 0.54,
+   "why": "quay-vong → SONG LẬP"
+  },
+  {
+   "at": 19.38,
+   "name": "snap",
+   "vol": 0.2,
+   "why": "quay-vong → ĐƠN LẬP"
+  },
+  {
+   "at": 20.13,
+   "name": "coin",
+   "vol": 0.22,
+   "why": "DIỆN TÍCH ĐẾN 266"
+  },
+  {
+   "at": 23.14,
+   "name": "whoosh-soft",
+   "vol": 0.41,
+   "why": "HÀNG BIỂN"
+  },
+  {
+   "at": 24.94,
+   "name": "neon-on",
+   "vol": 0.56,
+   "why": "SỞ HỮU LÂU DÀI"
+  },
+  {
+   "at": 27.36,
+   "name": "type",
+   "vol": 0.3,
+   "why": "Còn bao nhiêu quỹ đất lâu dài?",
+   "run": {
+    "n": 30,
+    "step": 0.06,
+    "names": [
+     "type",
+     "type-3"
+    ]
+   }
+  },
+  {
+   "at": 31.48,
+   "name": "thock",
+   "vol": 0.21,
+   "why": "KHÁC BIỆT"
+  },
+  {
+   "at": 33.3,
+   "name": "zoom-in",
+   "vol": 0.37,
+   "why": "clip: cắt sang phối cảnh"
+  },
+  {
+   "at": 35.4,
+   "name": "shimmer",
+   "vol": 0.3,
+   "why": "ĐỘC BẢN"
+  },
+  {
+   "at": 37.52,
+   "name": "slide",
+   "vol": 0.6,
+   "why": "Mái vòm"
+  },
+  {
+   "at": 39.1,
+   "name": "page-turn-2",
+   "vol": 0.25,
+   "why": "clip: sang thẻ Thiết kế hoàn mỹ"
+  },
+  {
+   "at": 49.04,
+   "name": "sparkle",
+   "vol": 0.63,
+   "why": "ĐẶC SẮC"
+  },
+  {
+   "at": 52.12,
+   "name": "open-2",
+   "vol": 0.37,
+   "why": "GIÁ TRỊ SỐNG"
+  },
+  {
+   "at": 54.06,
+   "name": "pin-drop-3",
+   "vol": 1,
+   "why": "ĐỐI DIỆN DỰ ÁN"
+  },
+  {
+   "at": 55.86,
+   "name": "whoosh-fast",
+   "vol": 0.56,
+   "why": "CHẠY BỘ"
+  },
+  {
+   "at": 57.44,
+   "name": "step",
+   "vol": 0.9,
+   "why": "17 THÁNG"
+  },
+  {
+   "at": 64.44,
+   "name": "chart-up",
+   "vol": 0.9,
+   "why": "LƯỢNG KHÁCH LỚN"
+  },
+  {
+   "at": 66.66,
+   "name": "success",
+   "vol": 0.39,
+   "why": "THUYẾT PHỤC"
+  },
+  {
+   "at": 67.9,
+   "name": "rewind",
+   "vol": 0.76,
+   "why": "20/10"
+  },
+  {
+   "at": 69.1,
+   "name": "pen-click",
+   "vol": 0.33,
+   "why": "BIỆT THỰ SONG LẬP"
+  },
+  {
+   "at": 72.3,
+   "name": "slide-2",
+   "vol": 0.3,
+   "why": "clip: sang flycam"
+  },
+  {
+   "at": 74.2,
+   "name": "type",
+   "vol": 0.3,
+   "why": "“Có 30 tỷ, xây biệt thự”",
+   "run": {
+    "n": 24,
+    "step": 0.06,
+    "names": [
+     "type",
+     "type-3"
+    ]
+   }
+  },
+  {
+   "at": 78.7,
+   "name": "camera",
+   "vol": 0.21,
+   "why": "HOÀNH TRÁNG"
+  },
+  {
+   "at": 80.48,
+   "name": "whoosh-double",
+   "vol": 0.38,
+   "why": "CÓ BIỆT THỰ"
+  },
+  {
+   "at": 83.37,
+   "name": "reward",
+   "vol": 0.79,
+   "why": "CÔNG VIÊN SUN WORLD 15"
+  },
+  {
+   "at": 84.27,
+   "name": "sub-hit-2",
+   "vol": 0.45,
+   "why": "15 ha chốt số"
+  },
+  {
+   "at": 86.56,
+   "name": "pop",
+   "vol": 0.73,
+   "why": "CHƠI CẢ NGÀY"
+  },
+  {
+   "at": 88.16,
+   "name": "swipe",
+   "vol": 0.42,
+   "why": "TTTM VEN BIỂN"
+  },
+  {
+   "at": 89.6,
+   "name": "whoosh-heavy",
+   "vol": 0.9,
+   "why": "clip: pháo hoa sang phối cảnh"
+  },
+  {
+   "at": 91.66,
+   "name": "ting",
+   "vol": 0.3,
+   "why": "HERMÈS"
+  },
+  {
+   "at": 94.14,
+   "name": "bell",
+   "vol": 0.37,
+   "why": "MARRIOTT"
+  },
+  {
+   "at": 97.61,
+   "name": "toggle",
+   "vol": 0.26,
+   "why": "TENNIS / BÓNG ĐÁ / PICKLEBALL"
+  },
+  {
+   "at": 98.56,
+   "name": "whoosh-tech-3",
+   "vol": 0.3,
+   "why": "quay-vong → BÓNG ĐÁ"
+  },
+  {
+   "at": 99.36,
+   "name": "snap",
+   "vol": 0.24,
+   "why": "quay-vong → PICKLEBALL"
+  },
+  {
+   "at": 100.94,
+   "name": "door-open",
+   "vol": 0.24,
+   "why": "NGAY SAU NHÀ"
+  },
+  {
+   "at": 102.91,
+   "name": "line-draw",
+   "vol": 0.74,
+   "why": "BÃI TẮM RIÊNG 900"
+  },
+  {
+   "at": 106.06,
+   "name": "error-soft",
+   "vol": 0.48,
+   "why": "30 TỶ TỰ TẠO RA"
+  },
+  {
+   "at": 106.96,
+   "name": "paper-tear",
+   "vol": 0.28,
+   "why": "gạch đỏ"
+  },
+  {
+   "at": 109.06,
+   "name": "unlock",
+   "vol": 0.22,
+   "why": "THÌ CÓ THỂ"
+  },
+  {
+   "at": 110.9,
+   "name": "zoom-in-2",
+   "vol": 0.43,
+   "why": "clip: sang biệt thự đêm"
+  },
+  {
+   "at": 112.88,
+   "name": "page-turn",
+   "vol": 0.42,
+   "why": "THƯ GIÃN"
+  },
+  {
+   "at": 115.18,
+   "name": "crumple",
+   "vol": 0.17,
+   "why": "PHẦN LỚN KHÔNG Ở"
+  },
+  {
+   "at": 116.08,
+   "name": "scribble",
+   "vol": 0.36,
+   "why": "gạch đỏ"
+  },
+  {
+   "at": 119.64,
+   "name": "receipt",
+   "vol": 0.29,
+   "why": "THÊM CHI PHÍ"
+  },
+  {
+   "at": 123.3,
+   "name": "wrong-buzzer",
+   "vol": 0.9,
+   "why": "ĐÁNG KHÔNG?"
+  },
+  {
+   "at": 124.2,
+   "name": "slash",
+   "vol": 0.39,
+   "why": "gạch đỏ"
+  },
+  {
+   "at": 124.56,
+   "name": "bass-drop",
+   "vol": 0.9,
+   "why": "KHÁC HẲN"
+  },
+  {
+   "at": 127.6,
+   "name": "cash",
+   "vol": 0.29,
+   "why": "DÒNG TIỀN"
+  },
+  {
+   "at": 129.26,
+   "name": "check",
+   "vol": 0.24,
+   "why": "KHÁCH CÓ SẴN"
+  },
+  {
+   "at": 131.52,
+   "name": "confirm",
+   "vol": 0.59,
+   "why": "CỘNG ĐỒNG CƯ DÂN"
+  },
+  {
+   "at": 134.34,
+   "name": "coin-shake",
+   "vol": 0.21,
+   "why": "CHỈ VIỆC KHAI THÁC"
+  },
+  {
+   "at": 136.62,
+   "name": "title-in",
+   "vol": 0.4,
+   "why": "DUY TRÌ GIÁ TRỊ"
+  },
+  {
+   "at": 138.34,
+   "name": "paper-rustle",
+   "vol": 0.38,
+   "why": "THIẾT KẾ ĐỘC BẢN"
+  },
+  {
+   "at": 140.6,
+   "name": "lock",
+   "vol": 0.31,
+   "why": "QUA ĐỜI SAU"
+  },
+  {
+   "at": 145.57,
+   "name": "beep",
+   "vol": 0.41,
+   "why": "CHĂM SÓC / VỆ SINH / CÂY XANH / AN NINH"
+  },
+  {
+   "at": 146.41,
+   "name": "whoosh-tech-4",
+   "vol": 0.35,
+   "why": "quay-vong → VỆ SINH"
+  },
+  {
+   "at": 147.1,
+   "name": "snap",
+   "vol": 0.2,
+   "why": "quay-vong → CÂY XANH"
+  },
+  {
+   "at": 147.79,
+   "name": "step-2",
+   "vol": 0.88,
+   "why": "quay-vong → AN NINH"
+  },
+  {
+   "at": 150.9,
+   "name": "stamp",
+   "vol": 0.36,
+   "why": "VẬN HÀNH HẠNG A"
+  },
+  {
+   "at": 152.88,
+   "name": "error-soft-2",
+   "vol": 0.42,
+   "why": "LO LẮNG"
+  },
+  {
+   "at": 153.78,
+   "name": "scribble",
+   "vol": 0.36,
+   "why": "gạch đỏ"
+  },
+  {
+   "at": 155.92,
+   "name": "type",
+   "vol": 0.3,
+   "why": "Chọn cả môi trường sống",
+   "run": {
+    "n": 23,
+    "step": 0.06,
+    "names": [
+     "type",
+     "type-3"
+    ]
+   }
+  },
+  {
+   "at": 160.29,
+   "name": "toggle",
+   "vol": 0.3,
+   "why": "NGHỈ DƯỠNG / GIỮ TÀI SẢN"
+  },
+  {
+   "at": 161.18,
+   "name": "click-2",
+   "vol": 0.28,
+   "why": "quay-vong → GIỮ TÀI SẢN"
+  },
+  {
+   "at": 164.04,
+   "name": "knock",
+   "vol": 0.24,
+   "why": "ĐI XEM THỰC TẾ"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Quỳnh Quỳnh · Casa Villa</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    {{BDS_JS}}
+    <style>
+{{FONTS}}
+      /* Clip quay thật của Quỳnh Quỳnh. Giữ cảnh quay, thêm: chữ chốt preset BĐS ở dải trời, SFX nhẹ. Không phụ đề (chữ chốt đã mang ý, phụ đề che người).
+         Một font: Be Vietnam Pro. Màu theo nghĩa: vàng = tiền, xanh = nơi chốn, đỏ = điều sai (0 đồng bị gạch).
+         Xem SHOTBOOK.md. Vùng an toàn: x 108–972, y 192–1728. */
+      :root { --display: "Be Vietnam Pro", sans-serif; --sans: "Be Vietnam Pro", sans-serif; }
+      body { margin: 0; background: #000; font-family: var(--sans); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      #ft { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; transform-origin: 50% 42%; }
+      /* lớp tối phía trên để chữ trắng đọc được trên nền trời sáng */
+      .scrim { position: absolute; left: 0; right: 0; top: 0; height: 820px; background: linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.38) 45%, rgba(0,0,0,0) 100%); pointer-events: none; }
+      .slot { position: absolute; left: 0; right: 0; display: flex; justify-content: center; }
+      .cap { position: absolute; left: 108px; right: 108px; top: 1480px; display: flex; justify-content: center; }
+      .cap-in { margin: 0; max-width: 860px; text-align: center; font-weight: 700; font-size: 50px; line-height: 1.38; color: #fff;
+        padding: 10px 26px 14px; border-radius: 16px; background: rgba(0, 0, 0, 0.72); text-shadow: 0 2px 6px rgba(0,0,0,.35); }
+    </style>
+    {{BDS_CSS}}
+  </head>
+  <body>
+    <div id="root" data-composition-id="qq" data-start="0" data-width="1080" data-height="1920" data-duration="{{DURATION}}">
+      <video class="clip" id="ft" src="assets/footage.mp4" muted data-start="0" data-duration="{{DURATION}}" data-media-start="0" data-track-index="0"></video>
+      <div class="clip scrim" id="scrim" data-start="0" data-duration="{{DURATION}}" data-track-index="1"></div>
+      <div class="clip slot" id="s1" data-start="0" data-duration="{{DURATION}}" data-track-index="3" style="top: 300px"></div>
+      <div class="clip slot" id="s2" data-start="0" data-duration="{{DURATION}}" data-track-index="4" style="top: 330px"></div>
+      <div class="clip slot" id="s3" data-start="0" data-duration="{{DURATION}}" data-track-index="5" style="top: 200px"></div>
+      <div class="clip slot" id="s4" data-start="0" data-duration="{{DURATION}}" data-track-index="6" style="top: 330px"></div>
+      <div class="clip slot" id="s5" data-start="0" data-duration="{{DURATION}}" data-track-index="7" style="top: 300px"></div>
+
+      {{CAPTIONS}}
+
+      {{SFX}}
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="{{VOICE_DUR}}" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["qq"] = tl;
+      // Camera đẩy chậm suốt video, điểm cuối đặt sau hết video để khung giữ cuối vẫn còn chuyển động
+      tl.fromTo("#ft", { scale: 1 }, { scale: 1.06, duration: {{DURATION}} + 1.5, ease: "none" }, 0);
+
+      // Phụ đề do build sinh: hiện đúng mốc data-start
+      document.querySelectorAll(".cap").forEach((el) =>
+        tl.fromTo(el.firstElementChild, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, parseFloat(el.dataset.start)));
+
+      // Preset đo vị trí ký tự → dựng sau khi font nạp, thêm vào cùng timeline đã đăng ký
+      document.fonts.ready.then(() => {
+        // B1 · lời mời 0 đồng
+        const a = BDS.make("tieu-de-kep", "#s1", { k: "Chỉ với", m: "0 ĐỒNG", size: 128, c: "#ffd23f" });
+        BDS.in(tl, a, 0.75);
+        BDS.out(tl, a, 3.2);
+        // B1b · sản phẩm: lấp khoảng trời trống giữa "0 ĐỒNG" và "Blanca City"
+        const p = BDS.make("tieu-de-kep", "#s5", { k: "Biệt thự song lập", m: "CASA VILLA", size: 104, c: "#ffd23f" });
+        BDS.in(tl, p, 3.45);
+        BDS.out(tl, p, 4.6);
+        // B2 · nơi chốn
+        const b = BDS.make("dia-danh", "#s2", { m: "Blanca City", size: 120, c: "#38b6ff" });
+        BDS.in(tl, b, 4.85);
+        BDS.out(tl, b, 6.45);
+        // B3 · cú lật: 0 ĐỒNG nhỏ phía trên bị gạch đỏ, 26 tỷ là hero
+        const c = BDS.make("canh-bao", "#s3", { m: "0 ĐỒNG", size: 84, c: "#ff3b4f" });
+        BDS.in(tl, c, 6.75);
+        const d = BDS.make("gia-chot", "#s4", { k: "CHỒNG CHO THÊM", value: 26, suffix: " tỷ", size: 150, c: "#ffd23f" });
+        BDS.in(tl, d, 7.05);
+      });
+    </script>
+  </body>
+</html>

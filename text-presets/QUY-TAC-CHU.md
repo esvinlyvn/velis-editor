@@ -1,0 +1,44 @@
+# Quy tắc chọn chữ chốt: velis-editor
+
+Luật gốc nằm ở bảng **luật đã chốt** của `TALKING-HEAD.md` (luật 1–17) và `docs/VAN-HANH.md` mục 4. File này chỉ hướng dẫn cách **chọn preset** cho từng khối chữ.
+
+## Quy trình
+
+1. Từ transcript đã cắt, đánh dấu khối chữ. Chữ dày (luật 4): gần như mỗi câu một khối, có chữ ngay từ giây 0,1.
+2. Viết `projects/<video>/text-plan.json`:
+   ```json
+   { "video": "palm-river-2", "mode": "bds", "client": "tu-phan", "family": "rieng",
+     "main": "B18:tieu-de-kep",
+     "moments": [ { "id": "k1", "role": "ten-du-an", "text": "PALM RIVER", "energy": "cao" } ] }
+   ```
+   - `main`: preset chính cho khối chữ thường. Phải khác preset chính của video trước cùng khách (`brand.json`, bảng 4c).
+   - `family`: bộ font của bộ 60 nếu cặp font video trùng một bộ A–E; không trùng thì ghi `rieng`.
+3. Chạy `node text-presets/pick-text.mjs projects/<video>/text-plan.json`. Ở `mode: "bds"` script:
+   - **giữ cố định preset theo vai** trong cả video (luật 8);
+   - loại `chuong-moi` (luật 7);
+   - trừ điểm preset có vạch gạch hai bên (luật 9);
+   - so lịch sử **chỉ với video trước của cùng khách**;
+   - không có ứng viên hợp vai thì dùng preset chính.
+4. Duyệt gợi ý. Đổi được khi có lý do (bố cục, độ dài chữ, đầu người, tương phản); ghi lý do vào SHOTBOOK.
+5. Giao xong: `--commit`, và ghi lịch sử vào `clients/<khach>/brand.json`.
+
+## Bảng vai
+
+Dùng các vai chung trong `pick-text.mjs` (mo-dau, chot-y, con-so-tien, con-so, tang-giam, dia-danh, thuat-ngu, so-sanh, canh-bao, trich-loi, liet-ke, trang-thai, thoi-gian, qua-khu, phan-moi, canh-quan, phan-khuc, cau-hoi), cộng thêm 4 vai riêng cho BĐS:
+
+| Vai | Khi lời đang… | Ví dụ |
+|---|---|---|
+| `ten-du-an` | gọi tên dự án hay khu | "Palm River", "Casa Villa" |
+| `tien-ich` | kể tiện ích | "hồ bơi tràn", "công viên 2 ha" |
+| `phap-ly` | nói giấy tờ, pháp lý, tiến độ | "sổ hồng riêng", "bàn giao quý 4" |
+| `cta` | kêu gọi cuối video | "Nhắn tin nhận bảng giá" |
+
+## Khác với kênh Vis
+
+| | Vis (content tự động) | velis-editor (clip quay thật) |
+|---|---|---|
+| Mật độ | thưa, 3–6 chữ chốt mỗi video | dày, gần như mỗi câu một khối |
+| Trong một video | xoay vòng preset, thưởng preset lạ | mỗi vai một preset cố định |
+| Lịch sử | theo kênh Vis | theo từng khách |
+| CTA | không có | có, theo `brand.json` |
+| Chữ sau người | không áp dụng | có, chỉ sau người (luật 11) |

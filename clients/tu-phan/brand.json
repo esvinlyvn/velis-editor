@@ -1,0 +1,32 @@
+{
+  "khach": "Tú Phan",
+  "slug": "tu-phan",
+  "mau_nhan": [
+    "#E9C27A",
+    "#C01F3A"
+  ],
+  "font_uu_tien": null,
+  "lut": {
+    "file": null,
+    "cuong_do": 0.65
+  },
+  "cta": {
+    "bat": null,
+    "chu": null,
+    "icon": null,
+    "follow": null
+  },
+  "logo": null,
+  "ghi_chu": "Không spam một hiệu ứng; chữ dẫn đủ to, không vạch gạch; chữ chỉ nằm sau người (luật 8–11). Màu nhấn lấy theo template video trước. CTA chưa có thông tin: hỏi khách trước khi dựng.",
+  "lich_su": [
+    {
+      "video": "palm-river",
+      "ngay": "2026-10-29",
+      "preset_chinh": "dien-anh",
+      "font_chinh": "Archivo",
+      "font_dan": "Saira",
+      "cach_hien": "co chữ từ mờ sang nét, chữ sau người",
+      "lop_toi": "dải theo khối (đã bỏ, xem luật 13)"
+    }
+  ]
+}

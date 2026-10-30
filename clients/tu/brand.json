@@ -1,0 +1,32 @@
+{
+  "khach": "Tú",
+  "slug": "tu",
+  "mau_nhan": [
+    "#FFC533",
+    "#FF7A00"
+  ],
+  "font_uu_tien": null,
+  "lut": {
+    "file": null,
+    "cuong_do": 0.65
+  },
+  "cta": {
+    "bat": null,
+    "chu": null,
+    "icon": null,
+    "follow": null
+  },
+  "logo": null,
+  "ghi_chu": "Chữ dày, có chữ từ 0,1 s; màu gradient; không hiệu ứng ký tự ngẫu nhiên (luật 4–7). Màu nhấn lấy theo template video trước. CTA chưa có thông tin: hỏi khách trước khi dựng.",
+  "lich_su": [
+    {
+      "video": "tu-casa-villa",
+      "ngay": "2026-10-29",
+      "preset_chinh": "khoi-noi",
+      "font_chinh": "Big Shoulders Display",
+      "font_dan": "Unbounded",
+      "cach_hien": "lật từng ký tự, nhãn màu",
+      "lop_toi": "dải trên"
+    }
+  ]
+}
