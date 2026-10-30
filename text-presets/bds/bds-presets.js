@@ -514,18 +514,16 @@
   function snug(h) {
     const k = h.parts.k?.l ?? h.parts.kl, m = k?.nextElementSibling; // kl: chữ dẫn giải mã của chuong-moi
     if (!CTX) return;
-    if (h.o.snug === false || (!m && !(h.p.snugSub && (h.parts.sub || h.parts.s)))) { withFlat(h, () => unhang(h)); return; }
-    if (k) k.style.marginBottom = ""; // đo lại từ giãn cách gốc của CSS
-    // Đo lại sau khi timeline đã đặt transform (y, scale…) thì gỡ tạm transform, đo xong trả lại
-    const els = [h.r, ...h.r.querySelectorAll("*")], saved = els.map((e) => e.style.transform);
-    els.forEach((e) => (e.style.transform = "none"));
-    try {
-      if (k && m) measure(h, k, m);
-      // dòng phụ dưới cụm chính (preset có snugSub): kéo sát lên nhưng không chạm dấu / nét móc của dòng trên
-      const sub = (h.parts.sub ?? h.parts.s)?.l, up = sub?.previousElementSibling;
-      if (h.p.snugSub && up && h.o.snugSub !== false) { up.style.marginBottom = ""; measure(h, up, sub); }
+    // Đo khi chưa có transform của timeline (y, scale…): gỡ tạm, đo xong trả lại
+    withFlat(h, () => {
+      if (h.o.snug !== false) {
+        if (k && m) { k.style.marginBottom = ""; measure(h, k, m); } // đo lại từ giãn cách gốc của CSS
+        // dòng phụ dưới cụm chính (preset có snugSub): kéo sát lên nhưng không chạm dấu / nét móc của dòng trên
+        const sub = (h.parts.sub ?? h.parts.s)?.l, up = sub?.previousElementSibling;
+        if (h.p.snugSub && up) { up.style.marginBottom = ""; measure(h, up, sub); }
+      }
       unhang(h);
-    } finally { els.forEach((e, i) => (e.style.transform = saved[i])); }
+    });
   }
   function withFlat(h, f) { // đo khi chưa có transform của timeline
     const els = [h.r, ...h.r.querySelectorAll("*")], saved = els.map((e) => e.style.transform);
@@ -558,10 +556,11 @@
   // cụm xếp chồng trong lưới / vị trí tuyệt đối: top tương đối). Áp cho mọi preset, sau snug.
   const HANGS = /[gjpqyQ,;]|\u0323/;
   function unhang(h) {
-    if (!CTX || h.o.unhang === false) return;
+    if (!CTX) return;
     const sc = h.r.getBoundingClientRect().width / (h.r.offsetWidth || 1) || 1;
     const units = [...new Set([...h.r.querySelectorAll(".ch, .ln, .lg-s, .lg-m, .lg-so, .sub")].map((e) => e.closest(".row, .lg-m, .lg-s, .lg-so, .sub, .ln")).filter(Boolean))]
       .filter((u, i, a) => !a.some((v) => v !== u && v.contains(u)) && u.textContent.trim());
+    if (!units.some((u) => HANGS.test(u.textContent.normalize("NFD")))) return; // không cụm nào có dấu dưới / nét móc: không có gì để gỡ
     // chạy lại (font nạp xong, co cỡ) phải ra cùng kết quả: trả về giá trị gốc trước khi đo
     for (const u of units) {
       if (u.dataset.uh == null) u.dataset.uh = JSON.stringify([u.style.marginTop, u.style.top, u.style.position]);
@@ -626,5 +625,5 @@
     return at + d;
   }
   // u: hàm phụ cho bộ preset bổ sung (me4real.js) dùng chung quy ước dựng sẵn từng bước, không onUpdate
-  g.BDS = { presets: P, make, in: enter, out: exit, list: () => Object.keys(P), u: { el, B, chars, line, steps, playSteps, fmtVi, decOf } };
+  g.BDS = { presets: P, make, in: enter, out: exit, list: () => Object.keys(P), u: { el, B, chars, line, steps, playSteps, fmtVi, decOf, HANGS } };
 })(typeof window !== "undefined" ? window : globalThis);

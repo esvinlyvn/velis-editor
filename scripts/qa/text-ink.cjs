@@ -9,6 +9,7 @@ const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright");
 const sharp = require("sharp");
+const { INIT } = require("./kt-times.cjs");
 const OPT = "/opt/pw-browsers/chromium";
 const CLIP_MIN = 25, OVER_MIN = 25; // điểm ảnh (khung 1080) — dưới mức này coi là răng cưa khử
 const FADE = new Set(["chung:am-thuc-4-mua"]); // chữ trắng tan dần xuống (cố ý)
@@ -21,6 +22,7 @@ const SOLID = `{ -webkit-background-clip: border-box !important; background-clip
   const b = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || (fs.existsSync(OPT) ? OPT : undefined) });
   const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   await p.addInitScript(() => { window.__timelines = {}; });
+  await p.addInitScript(INIT);
   await p.goto("file://" + file);
   await p.waitForFunction(() => window.__kt && window.__kt.length, null, { timeout: 30000 });
   await p.evaluate(() => document.fonts.ready);
@@ -38,8 +40,7 @@ const SOLID = `{ -webkit-background-clip: border-box !important; background-clip
   for (let i = 0; i < n; i++) {
     const job = await p.evaluate(([i, comp]) => {
       const tl = window.__timelines[comp], c = window.__kt[i];
-      const t = c.p === "cao-trao" ? Math.min(Math.max(c.at, ...c.o.lines.map((L, k) => L.at ?? c.at + k * (c.o.step ?? 0.35))) + 0.7, c.out - 0.05, tl.duration() - 0.05)
-        : c.p === "quay-vong" ? Math.min(c.at + 0.15 + Math.min(0.6, c.o.step - 0.3), c.out - 0.05) : Math.min(c.at + 1.4, c.out - 0.05, tl.duration() - 0.05);
+      const t = window.__restTimes(c, tl.duration())[0]; // cùng mốc với kt-check (quay-vong: chữ đầu)
       tl.seek(t, false);
       const slot = c.h.r.closest(".kt-slot");
       document.querySelectorAll(".kt-slot").forEach((s) => (s.style.visibility = s === slot ? "" : "hidden"));
@@ -47,11 +48,13 @@ const SOLID = `{ -webkit-background-clip: border-box !important; background-clip
       // nhóm dòng: bộ chung = .tp-line / nhãn; bộ BĐS = con trực tiếp của khối có chữ (cao-trao: từng hàng)
       const root = c.h.r, groups = root.classList.contains("tp") ? [...root.querySelectorAll(".tp-line, .tp-nhan")] : [...root.children].flatMap((e) => (e.classList.contains("row") || !e.querySelector(".row") ? [e] : [...e.querySelectorAll(".row")])).filter((e) => e.textContent.trim());
       groups.forEach((g, k) => g.setAttribute("data-ink", k));
-      const r = root.getBoundingClientRect(), q = (window.__tpInk ? window.__tpInk(root) : null);
-      const x0 = Math.max(0, Math.floor(Math.min(r.left, q ? q[0] : 1e9) - 60)), y0 = Math.max(0, Math.floor(Math.min(r.top, q ? q[2] : 1e9) - 60));
-      const x1 = Math.min(1080, Math.ceil(Math.max(r.right, q ? q[1] : -1e9) + 60)), y1 = Math.min(1920, Math.ceil(Math.max(r.bottom, q ? q[3] : -1e9) + 60));
-      const hang = (s) => /[gjpqyQ,;]|̣/.test(s.normalize("NFD"));
-      return { id: slot.id, p: c.p, t, clip: { x: x0, y: y0, width: x1 - x0, height: y1 - y0 }, groups: groups.map((g) => ({ txt: g.textContent.trim(), hang: hang(g.textContent), top: g.getBoundingClientRect().top })) };
+      const r = root.getBoundingClientRect(), q = window.__tpInk?.(root) ?? r; // vùng chữ thật (bộ chung) hoặc khung khối
+      const x0 = Math.max(0, Math.floor(Math.min(r.left, q.left) - 60)), y0 = Math.max(0, Math.floor(Math.min(r.top, q.top) - 60));
+      const x1 = Math.min(1080, Math.ceil(Math.max(r.right, q.right) + 60)), y1 = Math.min(1920, Math.ceil(Math.max(r.bottom, q.bottom) + 60));
+      const HG = window.__tpHangs ?? window.BDS?.u.HANGS; // luật 21: cùng regex với runtime chữ
+      const hang = (s) => HG.test(s.normalize("NFD"));
+      return { id: slot.id, p: c.p, t, clip: { x: x0, y: y0, width: x1 - x0, height: y1 - y0 }, groups: groups.map((g) => { const q = g.getBoundingClientRect(), em = 0.35 * parseFloat(getComputedStyle(g).fontSize); // nới cho dấu / nét móc ngoài khung dòng
+        return { txt: g.textContent.trim(), hang: hang(g.textContent), top: q.top, y0: q.top - em, y1: q.bottom + em }; }) };
     }, [i, comp]);
     if (job.clip.width < 4 || job.clip.height < 4) continue;
     const errs = [];
@@ -63,14 +66,15 @@ const SOLID = `{ -webkit-background-clip: border-box !important; background-clip
     const diff = Buffer.alloc(real.a.length * 4);
     for (let k = 0; k < real.a.length; k++) if (solid.a[k] > 160 && real.a[k] < 24) { clipped++; diff[k * 4] = 255; diff[k * 4 + 3] = 255; }
     if (clipped >= CLIP_MIN && !FADE.has(job.p)) errs.push(`xén ${clipped} điểm`);
-    // 2) đè dòng (chữ đặc, từng dòng một)
+    // 2) đè dòng (chữ đặc, từng dòng một) — chỉ chụp khi có hai dòng có thể chồng nhau theo chiều dọc
+    const G = job.groups, near = G.some((a, u) => G.some((b, v) => v > u && a.y0 < b.y1 && b.y0 < a.y1));
     const masks = [];
-    for (let k = 0; k < job.groups.length; k++) {
+    for (let k = 0; near && k < job.groups.length; k++) {
       await p.evaluate(([id, k]) => document.querySelectorAll(`#${id} [data-ink]`).forEach((g) => (g.style.visibility = +g.dataset.ink === k ? "visible" : "hidden")), [job.id, k]);
       masks.push((await alpha(job.clip)).a);
     }
     await p.evaluate((id) => document.querySelectorAll(`#${id} [data-ink]`).forEach((g) => (g.style.visibility = "")), job.id);
-    const order = job.groups.map((g, k) => k).sort((a, b) => job.groups[a].top - job.groups[b].top);
+    const order = near ? job.groups.map((g, k) => k).sort((a, b) => job.groups[a].top - job.groups[b].top) : [];
     for (let u = 0; u < order.length; u++) for (let v = u + 1; v < order.length; v++) {
       const A = masks[order[u]], B = masks[order[v]];
       let over = 0;

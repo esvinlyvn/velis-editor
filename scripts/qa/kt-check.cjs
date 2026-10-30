@@ -5,31 +5,26 @@
 const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright");
+const { INIT } = require("./kt-times.cjs");
 const OPT = "/opt/pw-browsers/chromium";
 (async () => {
   const file = path.resolve(process.argv[2]), comp = process.argv[3] || "main";
   const b = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || (fs.existsSync(OPT) ? OPT : undefined) });
   const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   await p.addInitScript(() => { window.__timelines = {}; });
+  await p.addInitScript(INIT);
   await p.goto("file://" + file);
   await p.waitForFunction(() => window.__kt && window.__kt.length, null, { timeout: 20000 });
   await p.evaluate(() => document.fonts.ready);
   await p.waitForTimeout(800);
   const res = await p.evaluate((comp) => {
     const tl = window.__timelines[comp], out = [];
-    // quay-vong: kiểm riêng từng chữ ở lúc nó đứng yên (giữa nhịp step); khối khác: 1,4 s sau khi vào hoặc ngay trước khi thoát
-    const jobs = [];
-    for (const [i, c] of window.__kt.entries()) {
-      if (c.p === "quay-vong") c.o.words.forEach((w, j) => jobs.push([i, c, Math.min(c.at + 0.15 + j * c.o.step + Math.min(0.6, c.o.step - 0.3), c.out - 0.05)]));
-      // cao-trao: kiểm lúc dòng cuối đã vào xong (các dòng vào theo lời, có thể kéo dài 2–3 s)
-      else if (c.p === "cao-trao") jobs.push([i, c, Math.min(Math.max(c.at, ...c.o.lines.map((L, k) => L.at ?? c.at + k * (c.o.step ?? 0.35))) + 0.7, c.out - 0.05, tl.duration() - 0.05)]);
-      else jobs.push([i, c, Math.min(c.at + 1.4, c.out - 0.05, tl.duration() - 0.05)]);
-    }
+    // mỗi khối kiểm ở lúc đã đứng yên (scripts/qa/kt-times.cjs; quay-vong: từng chữ)
+    const jobs = [...window.__kt.entries()].flatMap(([i, c]) => window.__restTimes(c, tl.duration()).map((t) => [i, c, t]));
     for (const [i, c, t] of jobs) {
       tl.seek(t, false);
-      const ink = (el) => { const [left, right, top, bottom] = window.__tpInk(el); return { left, top, right, bottom }; }; // vùng chữ thật (presetRuntime)
       // bộ chung (chung:<id>): đo theo nét chữ thật (dòng lệch ngang dx nằm ngoài khung bố cục)
-      const r = c.p.startsWith("chung:") ? ink(c.h.r) : c.h.r.getBoundingClientRect(), low = c.zone === "low";
+      const r = c.p.startsWith("chung:") ? window.__tpInk(c.h.r) : c.h.r.getBoundingClientRect(), low = c.zone === "low";
       // vùng an toàn TikTok: y 250–1440; cột nút bên phải chiếm x > 940 từ y 700 → khối chạm y > 700 thì giới hạn ngang 60–940
       // ô hẹp (class narrow do template đặt) → kiểm theo khung 60–940; còn lại khung theo vị trí thật
       const narrow = c.h.r.closest(".kt-slot")?.classList.contains("narrow");

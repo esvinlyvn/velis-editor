@@ -58,7 +58,7 @@
 .bds-chu-bac { align-items: flex-start; }
 .bds-chu-bac .k { font-size: .6em; color: #fff; margin-bottom: -.4em; }
 .bds-chu-bac .m { margin-left: .5em; }
-.bds-chu-bac .m .ch { background: linear-gradient(100deg, #f4f6f8 0%, #b9bec5 30%, #fff 45%, #8a9099 60%, #d9dde2 100%); background-size: 300% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; color: transparent; padding: .22em .01em .08em; margin: -.22em -.01em -.08em; }
+.bds-chu-bac .m .ch { background: linear-gradient(100deg, #f4f6f8 0%, #b9bec5 30%, #fff 45%, #8a9099 60%, #d9dde2 100%); background-size: 300% 100%; background-position: 100% 0; -webkit-background-clip: text; background-clip: text; color: transparent; padding: .3em .2em .24em; margin: -.3em -.2em -.24em; /* vùng tô rộng: râu ư/ơ, dấu chồng không bị xén */ }
 
 /* 10 tang-truong: chữ gradient mờ dần phía dưới như đang dâng lên */
 .bds-tang-truong .k { font-size: .62em; color: #fff; margin-bottom: -.38em; }
@@ -154,6 +154,7 @@
 .bds-cao-trao .v-khoa { text-transform: uppercase; }
 .bds-cao-trao .v-cam { font-family: var(--script, "Lobster", cursive); font-weight: 400; font-size: .92em; padding: 0 .12em; }
 .bds-cao-trao .v-chot { text-transform: uppercase; }
+.bds-cao-trao .v-chot .ch { padding: .3em .2em .24em; margin: -.3em -.2em -.24em; } /* chóp dấu chồng (Ấ, Ố) nhô ngang: vùng tô rộng */
 .bds-cao-trao.al-giua { align-items: center; } .bds-cao-trao.al-phai { align-items: flex-end; }
 .bds-cao-trao .v-nho { font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 600; font-size: .3em; }
 .bds-cao-trao .v-so { font-size: 1.35em; letter-spacing: -.02em; }

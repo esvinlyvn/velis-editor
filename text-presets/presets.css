@@ -74,7 +74,7 @@
 /* trang trí */
 .tp-deco { position: absolute; overflow: visible; pointer-events: none; }
 .tp-deco .dr { fill: none; stroke-linecap: round; }
-/* vẽ dần: GSAP mở clip-path của khung SVG từ trái sang (.rtl: từ phải sang), xong thì bỏ clip-path (đỡ nặng khi xuất khung).
+/* vẽ dần: GSAP mở clip-path của khung SVG từ trái sang, xong thì bỏ clip-path (đỡ nặng khi xuất khung).
    Không dùng stroke-dasharray/pathLength: cùng non-scaling-stroke, nét đứt khúc hoặc dừng giữa chừng khi khối được thu phóng */
 .tp-vbar { position: absolute; left: -.5em; top: .05em; bottom: .1em; width: 8px; border-radius: 4px; background: var(--vbar, #1E8BFF);
   box-shadow: 0 0 14px var(--vbar, #1E8BFF); }

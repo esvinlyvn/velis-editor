@@ -17,6 +17,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { DUYET, khong } from "./duyet.mjs";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const HIST = path.join(HERE, "history.json");
@@ -60,10 +61,8 @@ const hist = fs.existsSync(HIST) ? JSON.parse(fs.readFileSync(HIST, "utf8")) : {
 const MODE = plan.mode || "vis";
 if (MODE === "bds" && !plan.client) { console.error('mode "bds" cần trường "client" (tên khách).'); process.exit(1); }
 const recent = hist.videos.filter((v) => v.video !== plan.video && (MODE !== "bds" || v.client === plan.client)).slice(-3);
-// Danh sách người dùng đã duyệt (repo nào có lib/presets-duyet.json thì dùng; không có thì không chặn gì)
-const DUYET_F = path.join(HERE, "..", "lib", "presets-duyet.json");
-const DUYET = fs.existsSync(DUYET_F) ? JSON.parse(fs.readFileSync(DUYET_F, "utf8")) : null;
-const KHONG = new Set(DUYET ? [...DUYET.bds.khong.map((p) => "B18:" + p), ...DUYET.me4real.khong.map((p) => "M4:" + p), ...DUYET.chung.khong.map((p) => "L60:" + p)] : []);
+// danh sách người dùng đã duyệt (text-presets/duyet.mjs; repo không có danh sách thì không chặn gì)
+const BO = { B18: "bds", M4: "me4real", L60: "chung" };
 const sticky = {};                                         // mode bds: vai → preset cố định trong video
 const usedLast = new Set((recent.at(-1)?.presets) || []);
 const usedRecent = new Set(recent.flatMap((v) => v.presets));
@@ -92,7 +91,7 @@ for (const m of plan.moments) {
     const key = `${c.src}:${c.id}`;
     if (prev && prev.key === key) { s -= 6; why.push("trùng chữ chốt trước −6"); }
     if (prev && prev.mv === c.mv) { s -= 1.5; why.push("cùng kiểu chuyển động với chữ trước −1,5"); }
-    if (KHONG.has(key)) { s -= 99; why.push("người dùng đã duyệt không dùng (lib/presets-duyet.json)"); }
+    if (khong(BO[c.src], c.id)) { s -= 99; why.push("người dùng đã duyệt không dùng (lib/presets-duyet.json)"); }
     if (MODE === "bds" && Object.values(sticky).includes(key)) { s -= 3; why.push("preset đã giữ cho vai khác −3"); }
     const isDa = da === key && m.role === "chot-y";
     const n = count[key] || 0; if (n && !isDa) { s -= 1.2 * n; why.push(`đã dùng ${n} lần −${(1.2 * n).toFixed(1)}`); }

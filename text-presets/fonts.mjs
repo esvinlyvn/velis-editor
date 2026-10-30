@@ -18,6 +18,13 @@ export const FONT_FILES = [
   ["dancing-script", "700"], // chữ viết tay thay thế: móc ư/ơ rõ hơn Great Vibes (presetHtml hand: true)
 ];
 
+// chuỗi document.fonts.load cho mọi font của thư viện ('700 100px "Be Vietnam Pro"', 'italic 800 100px "Barlow Condensed"'…):
+// trang chờ tải xong mới đo bố cục (lib/build.mjs)
+export const fontLoads = () => FONT_FILES.map(([pkg, w]) => {
+  const fam = /font-family:\s*'([^']+)'/.exec(fs.readFileSync(path.join(ROOT, "node_modules/@fontsource", pkg, `${w}.css`), "utf8"))[1];
+  return `${w.includes("italic") ? "italic " : ""}${parseInt(w)} 100px "${fam}"`;
+});
+
 export function fontCss(outDir, rel = "assets/fonts") {
   const dst = path.join(outDir, rel);
   fs.mkdirSync(dst, { recursive: true });

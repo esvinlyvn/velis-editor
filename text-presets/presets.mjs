@@ -333,8 +333,6 @@ function decoSvg(d, col) {
   if (d.k === "strike") { const a = d.from ?? 0, b = d.to ?? 100; return `<svg class="tp-deco" style="left:${a}%;width:${b - a}%;top:.5em;height:.1em" viewBox="0 0 100 10" preserveAspectRatio="none"><path class="${cls}" d="M0,5 L100,5" stroke-width="9" ${st}/></svg>`; }
   if (d.k === "handles") return `<svg class="tp-deco hd" style="left:-8px;top:-8px;width:calc(100% + 16px);height:calc(100% + 16px)" viewBox="0 0 100 100" preserveAspectRatio="none"><rect class="${cls}" x="1" y="1" width="98" height="98" stroke-width="3" fill="none" ${st}/></svg>` +
     `<i class="hd-dot" style="right:-16px;top:-16px;background:${color};box-shadow:0 0 12px ${color}"></i><i class="hd-dot" style="left:-16px;bottom:-16px;background:${color};box-shadow:0 0 12px ${color}"></i>`;
-  if (d.k === "rules") return `<svg class="tp-deco rtl" style="right:calc(100% + .28em);top:.6em;width:.62em;height:.1em;min-width:60px" viewBox="0 0 100 10" preserveAspectRatio="none"><path class="${cls}" d="M100,5 L0,5" stroke-width="4" ${st}/></svg>` +
-    `<svg class="tp-deco" style="left:calc(100% + .28em);top:.6em;width:.62em;height:.1em;min-width:60px" viewBox="0 0 100 10" preserveAspectRatio="none"><path class="${cls}" d="M0,5 L100,5" stroke-width="4" ${st}/></svg>`;
   if (d.k === "check") return `<svg class="tp-deco" style="right:calc(100% + .3em);top:.12em;width:.82em;height:.82em" viewBox="0 0 100 100"><circle class="${cls}" cx="50" cy="50" r="44" stroke-width="7" ${st}/><path class="${cls}" d="M28,52 L44,67 L73,35" stroke-width="10" stroke-linejoin="round" ${st}/></svg>`;
   if (d.k === "marker") return `<i class="tp-marker" style="background:${color}"></i>`;
   return "";
@@ -367,6 +365,8 @@ function fillVars(l, th, rc) {
  *  bg "light": nền sáng (trời, tường trắng, nội thất sáng) → quầng tối + bóng thay cho glow sáng (contrastPlan() chọn hộ).
  *  hand: true thay chữ ký Great Vibes bằng Dancing Script 700 (móc ư/ơ rõ — dùng khi chữ ký là chữ phụ cỡ nhỏ).
  *  maxWidth: presetRuntime() tự thu nhỏ cả khối nếu rộng hơn (mặc định 940 px). edge: lề tối thiểu tới mép khung (mặc định 24 px; 60 = vùng an toàn DAC-TA-CHU). */
+// dòng có dấu dưới (dấu nặng) hay nét móc xuống (g, j, p, q, y…) — luật 21; runtime dùng chung nguồn này
+const HANG_RE = /[gjpqyQ,;]|\u0323/;
 export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale = 1, anchor = "center", maxWidth = 940, edge = 24, bg = "dark", footage, theme, recolor, hand = false, center, wrap = true } = {}) {
   const p = PRESET[pid];
   if (!p) throw new Error(`Không có preset: ${pid}`);
@@ -381,7 +381,7 @@ export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale =
   // Chồng dòng (mt âm) chỉ khi dòng ngay trên không có dấu dưới (dấu nặng) hay nét móc xuống (g, j, p, q, y…);
   // có thì dòng dưới đứng sát ngay dưới, không đè (người dùng duyệt 30/10/2026)
   const shown = p.lines.map((l, k) => (texts[k] === null || l.nhan ? null : (texts[k] ?? l.t ?? l.pill ?? "").normalize("NFC")));
-  const hangs = (t) => /[gjpqyQ,;]|\u0323/.test(t.normalize("NFD"));
+  const hangs = (t) => HANG_RE.test(t.normalize("NFD"));
   const lines = p.lines.map((l0, k) => {
     if (texts[k] === null || l0.nhan) return ""; // null: bỏ dòng này · nhan: đã gắn vào dòng đích
     let up = k - 1; while (up >= 0 && shown[up] == null) up--;
@@ -419,10 +419,10 @@ export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale =
       }).join("");
     }
     let big = "";
-    // chữ thật không mở đầu bằng số ("12.500 M²", "35%") → không treo số mẫu, không xóa ký tự nào của chữ thật
-    if (l.big && !(texts[k] != null && !/^(\d+)\s+(.+)$/.test(t))) {
-      // số treo lấy từ chữ thật: "02 KÝ HỢP ĐỒNG" → số "02" treo trái, phần còn lại là dòng chữ
-      const lead = texts[k] != null && t.match(/^(\d+)\s+(.+)$/);
+    // số treo lấy từ chữ thật: "02 KÝ HỢP ĐỒNG" → số "02" treo trái, phần còn lại là dòng chữ.
+    // Chữ thật không mở đầu bằng số ("12.500 M²", "35%"): lead = null → không treo số mẫu, không xóa ký tự nào của chữ thật
+    const lead = texts[k] != null ? t.match(/^(\d+)\s+(.+)$/) : undefined;
+    if (l.big && lead !== null) {
       const bigT = lead ? lead[1] : l.big.t;
       if (lead) body = chars(lead[2], joined);
       const bf = l.big.key ? { c1: th.c1, c2: th.c2 } : recolor && isColor(l.big.fill) ? { c1: recolor.c1, c2: recolor.c2 } : l.big.fill;
@@ -451,13 +451,14 @@ function inkBox(root){ var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9, add=function(q){ if(!q
   var tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT), n, rg=document.createRange();
   while((n=tw.nextNode())){ if(!n.data.trim()) continue; var st=getComputedStyle(n.parentElement); if(st.visibility==="hidden"||+st.opacity===0) continue; rg.selectNodeContents(n); add(rg.getBoundingClientRect()); }
   root.querySelectorAll(".tp-deco,.boxed .in,.outlined .in,.tagged .in,.tp-pill").forEach(function(e){ add(e.getBoundingClientRect()); });
-  return [x0,x1,y0,y1]; }
+  return { left:x0, right:x1, top:y0, bottom:y1 }; }
 window.__tpInk=inkBox;
 // Luật 21: dòng TRÊN có dấu dưới / nét móc (g, j, p, q, y…) thì dòng dưới không được chạm — đo nét thật, chạm thì đẩy xuống
-var HG=new RegExp("[gjpqyQ,;"+String.fromCharCode(0x323)+"]"), CV=document.createElement("canvas").getContext("2d");
+var HG=new RegExp(${JSON.stringify(HANG_RE.source)}), CV=document.createElement("canvas").getContext("2d"), lastF="", fa=0;
+window.__tpHangs=HG;
 function inkChars(line,sc){ var out=[], tw=document.createTreeWalker(line,NodeFilter.SHOW_TEXT), n, rg=document.createRange();
   while((n=tw.nextNode())){ if(!n.data.trim()) continue; var st=getComputedStyle(n.parentElement); if(st.visibility==="hidden") continue;
-    CV.font=st.fontStyle+" "+st.fontWeight+" "+st.fontSize+" "+st.fontFamily; var fm=CV.measureText("H"), fa=fm.fontBoundingBoxAscent;
+    var f=st.fontStyle+" "+st.fontWeight+" "+st.fontSize+" "+st.fontFamily; if(f!==lastF){ CV.font=f; fa=CV.measureText("H").fontBoundingBoxAscent; lastF=f; }
     for(var i=0;i<n.data.length;i++){ var ch=n.data[i]; if(!ch.trim()) continue; var j=i+1; while(j<n.data.length && /[\u0300-\u036f]/.test(n.data[j])) j++;
       rg.setStart(n,i); rg.setEnd(n,j); var b=rg.getBoundingClientRect(), m=CV.measureText(n.data.slice(i,j)); i=j-1;
       out.push({ l:b.left, r:b.right, top:b.top+(fa-m.actualBoundingBoxAscent)*sc, bot:b.top+(fa+m.actualBoundingBoxDescent)*sc }); } }
@@ -470,10 +471,12 @@ function unhang(tp){ var sc=tp.getBoundingClientRect().width/(tp.offsetWidth||1)
     var A=inkChars(up,sc), B=inkChars(lo,sc), gap=0.05*parseFloat(getComputedStyle(lo).fontSize)*sc, need=0;
     A.forEach(function(a){ B.forEach(function(b){ if(b.r<=a.l||b.l>=a.r) return; var d=a.bot+gap-b.top; if(d>need) need=d; }); });
     if(need>0.5) lo.style.marginTop=(parseFloat(getComputedStyle(lo).marginTop)||0)+need/sc+"px"; } }
-function lay(force){
-  if(window.__tpLock && !force) return; // trang đã tự đặt bố cục xong và gắn chuyển động (lib/template.html): không đo lại trên trạng thái đang diễn hoạt
+function lay(force, scope){
+  if(window.__tpLock && !force) return;
+  // scope: chỉ bố cục lại một khối (.tp-pos) — gọi từng khối thì không đo lại cả trang
+  var Q=function(sel){ return scope ? [].slice.call(scope.querySelectorAll(sel)).concat(scope.matches(sel) ? [scope] : []) : [].slice.call(document.querySelectorAll(sel)); }; // trang đã tự đặt bố cục xong và gắn chuyển động (lib/template.html): không đo lại trên trạng thái đang diễn hoạt
   // 1) chữ thật quá dài (khối phải thu dưới 72 %): xuống dòng dòng rộng nhất tại khoảng trắng gần giữa nhất, thay vì thu nhỏ
-  document.querySelectorAll(".tp-pos[data-maxw]").forEach(function(pos){
+  Q(".tp-pos[data-maxw]").forEach(function(pos){
     if(pos._wrapped || pos.dataset.wrap==="0" || (document.fonts && document.fonts.status!=="loaded")) return; // đo bằng font thật, không đo font dự phòng
     var s0=+pos.dataset.scale||1, cur=pos._s||s0, b=box(pos), w=(b[1]-b[0])/cur;
     if(w*s0 <= +pos.dataset.maxw/0.72) return;
@@ -494,7 +497,7 @@ function lay(force){
   //     Hộp màu (boxed): nhãn đè mép hộp, thẳng mép trái/phải hộp.
   var cv=document.createElement("canvas").getContext("2d");
   var ABOVE=/[\u0300\u0301\u0303\u0309\u0302\u0306\u031B]/, BELOW=/\u0323/;
-  document.querySelectorAll(".tp-nhan").forEach(function(n){
+  Q(".tp-nhan").forEach(function(n){
     var inn=n.parentElement, at=n.dataset.at, nw=n.offsetWidth, nh=n.offsetHeight, W=inn.offsetWidth, H=inn.offsetHeight;
     if(inn.closest(".boxed")){ var bl=(at==="tl" ? 0 : W-nw), bt=(at==="tl" ? -nh+0.38*nh : H-0.38*nh);
       // phần nhãn đè vào hộp không được che dấu: chữ dưới nhãn có dấu nặng (br) / dấu trên (tl) → nhãn ra hẳn ngoài mép hộp
@@ -523,9 +526,9 @@ function lay(force){
     n.style.left=Math.round(ok)+"px"; n.style.top=Math.round(y)+"px";
   });
   // 1c) luật 21: gỡ đè dấu / nét móc giữa hai dòng liền nhau
-  document.querySelectorAll(".tp-pos .tp").forEach(unhang);
+  Q(".tp-pos .tp").forEach(unhang);
   // 2) gradient ngang liền dòng: vị trí từng ký tự (--x) và bề rộng dòng (--lw)
-  document.querySelectorAll(".tp-line .in, .tp-line .big").forEach(function(bx){
+  Q(".tp-line .in, .tp-line .big").forEach(function(bx){
     bx.style.setProperty("--lw", bx.scrollWidth+"px");
     bx.querySelectorAll(".ch").forEach(function(c){
       if(bx.classList.contains("in") && c.closest(".big")) return;
@@ -534,7 +537,7 @@ function lay(force){
     });
   });
   // 3) khối rộng hơn data-maxw: thu nhỏ cả khối; khối lệch (dòng có dx) tràn mép khung: dịch vào trong (lề 24 px)
-  document.querySelectorAll(".tp-pos[data-maxw]").forEach(function(pos){
+  Q(".tp-pos[data-maxw]").forEach(function(pos){
     var s0=+pos.dataset.scale||1, cur=pos._s||s0, b=box(pos);
     var w=(b[1]-b[0])/cur, max=+pos.dataset.maxw;
     var s=Math.min(s0, max/w); if(Math.abs(s-cur)>1e-3){ pos._s=s; }
@@ -544,12 +547,12 @@ function lay(force){
     var op=pos.offsetParent||document.body, ox=op.getBoundingClientRect().left; b=[b[0]-ox, b[1]-ox];
     var W=op.clientWidth||1080, sh=0;
     // center "ink": căn giữa theo nét chữ thật (preset có dòng lệch ngang dx), không theo khung bố cục
-    if(pos.dataset.center==="ink"){ var ib=inkBox(pos.firstElementChild), want=W/2-(ib[0]+ib[1])/2+ox; if(Math.abs(want)>0.5){ pos._dx=(pos._dx||0)+want; tf(pos._dx); b=[b[0]+want,b[1]+want]; } }
-    var E=pos.dataset.edge!=null&&pos.dataset.edge!==""?+pos.dataset.edge:24; if(b[1]>W-E) sh=W-E-b[1]; if(b[0]+sh<E) sh=E-b[0];
+    if(pos.dataset.center==="ink"){ var ib=inkBox(pos.firstElementChild), want=W/2-(ib.left+ib.right)/2+ox; if(Math.abs(want)>0.5){ pos._dx=(pos._dx||0)+want; tf(pos._dx); b=[b[0]+want,b[1]+want]; } }
+    var E=pos.dataset.edge?+pos.dataset.edge:24; if(b[1]>W-E) sh=W-E-b[1]; if(b[0]+sh<E) sh=E-b[0];
     if(sh){ pos._dx=(pos._dx||0)+sh; tf(pos._dx); }
   });
 }
-window.__tpLay=function(){ lay(true); }; // gọi lại khi khối được dời chỗ / đổi bề rộng sau lúc tải (lib/template.html)
+window.__tpLay=function(pos){ lay(true, pos); }; // bố cục lại một khối (pos) sau khi dời chỗ / đổi bề rộng (lib/template.html); không truyền pos: cả trang
 lay(); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(lay);
 })();</script>`;
 }
@@ -626,7 +629,7 @@ const FX = {
   // hạt lấp lánh bật ra rồi tắt
   sparkle: (s, t) => `tl.fromTo("${s} .tp-spark", { opacity: 0, scale: 0, rotation: -60 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.3, stagger: 0.08, ease: "back.out(3)" }, ${t}); tl.to("${s} .tp-spark", { opacity: 0, scale: .4, duration: 0.4, stagger: 0.08 }, ${(t + .6).toFixed(3)});`,
 };
-const decoJs = (s, t) => `tl.fromTo("${s} .tp-deco:not(.rtl)", { clipPath: "inset(-60% 115% -60% -15%)" }, { clipPath: "inset(-60% -10% -60% -15%)", duration: 0.6, ease: "power2.inOut" }, ${t}); tl.fromTo("${s} .tp-deco.rtl", { clipPath: "inset(-60% -15% -60% 115%)" }, { clipPath: "inset(-60% -15% -60% -10%)", duration: 0.6, ease: "power2.inOut" }, ${t}); tl.set("${s} .tp-deco", { clipPath: "none" }, ${(t + 0.62).toFixed(3)}); tl.fromTo("${s} .hd-dot", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, ${t}); tl.fromTo("${s} .tp-marker", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.out" }, ${t});`;
+const decoJs = (s, t) => `tl.fromTo("${s} .tp-deco", { clipPath: "inset(-60% 115% -60% -15%)" }, { clipPath: "inset(-60% -10% -60% -15%)", duration: 0.6, ease: "power2.inOut" }, ${t}); tl.set("${s} .tp-deco", { clipPath: "none" }, ${(t + 0.62).toFixed(3)}); tl.fromTo("${s} .hd-dot", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, ${t}); tl.fromTo("${s} .tp-marker", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.out" }, ${t});`;
 const bigJs = (s, t) => `tl.fromTo("${s} .big", { opacity: 0, x: -120, scale: 1.4, filter: "blur(10px)" }, { opacity: 1, x: 0, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, ${t});`;
 // số đếm lên: bật lần lượt các bước dựng sẵn (không onUpdate — callback bị bỏ qua khi tua khung; không tl.set textContent —
 // GSAP đọc "1.200" thành số 1.2)
