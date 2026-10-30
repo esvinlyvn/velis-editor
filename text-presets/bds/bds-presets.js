@@ -1,4 +1,4 @@
-/* bds-presets.js — 18 preset chữ BĐS cho Vis (HyperFrames + GSAP 3).
+/* bds-presets.js — preset chữ BĐS cho Vis (HyperFrames + GSAP 3).
  *
  * Cách dùng trong template (sau khi đã có gsap và bds-presets.css):
  *   const h = BDS.make("gia-chot", "#s2-in", { k: "GIÁ CHỐT", value: 2.5, suffix: " tỷ", size: 120, c: "#ffd23f" });
@@ -431,6 +431,44 @@
       tl.fromTo(x.num, { scale: 1 }, { scale: 1.08, duration: 0.09, yoyo: true, repeat: 1, ease: "power1.out", immediateRender: false }, at + 0.95);
       tl.fromTo(x.bg, { opacity: 0, scale: 1.25 }, { opacity: 0.9, scale: 1, duration: 0.6, ease: "power2.out" }, at + 0.8);
       return at + 1.15;
+    },
+  };
+
+  P["cao-trao"] = {
+    vi: "Cao trào bậc thang", use: "Câu cao trào dựng dần thành 3–5 dòng, mỗi dòng vào đúng lúc nói tới, rồi tan cùng lúc. Mỗi dòng 2–5 chữ (luật 1). Vai chữ: dem (đệm, nhỏ) · khoa (từ khóa, đậm) · cam (cảm xúc, chữ viết tay) · chot (chốt, gradient, một lần mỗi cụm).", from: "Kinetic typography BĐS (phong cách ME4REAL, docs/PHONG-CACH-ME4REAL.md C1–C2)",
+    sample: { lines: [{ parts: [{ t: "mà còn", v: "dem" }, { t: "mở ra", v: "khoa" }] }, { t: "một cơ hội", v: "dem" }, { t: "sở hữu", v: "khoa" }, { t: "Ven Sông", v: "cam" }, { t: "hiếm có", v: "chot" }], c: "#ffd166", c2: "#e8761a" },
+    // o.lines: [{ t, v, at? } | { parts: [{ t, v }], at? }] · at = giây tuyệt đối dòng đó vào (bám lời); thiếu thì cách nhau o.step (0,35 s)
+    build(r, o) {
+      const rows = (o.lines || []).map((L, i) => {
+        const row = el("span", "ln row"); r.appendChild(row);
+        row.style.marginLeft = (i * (o.indent ?? 0.22)) + "em"; // bậc thang: mỗi dòng thụt thêm một nấc
+        const parts = (L.parts || [L]).map((p, j) => {
+          const v = p.v || "dem", s = el("span", "pt v-" + v + (v === "chot" ? " grad" : ""));
+          row.appendChild(s);
+          if (j) s.style.marginLeft = ".22em";
+          if (v === "chot") chars(s, p.t); else s.textContent = p.t;
+          return { s, v };
+        });
+        return { row, parts, at: L.at };
+      });
+      return { rows };
+    },
+    in(tl, x, at, o, fs) {
+      const step = o.step ?? 0.35;
+      let end = at;
+      x.rows.forEach((R, i) => {
+        const t = R.at ?? at + i * step;
+        tl.fromTo(R.row, { opacity: 0, x: -0.3 * fs, filter: B(6) }, { opacity: 1, x: 0, filter: B(0), duration: 0.32, ease: "power3.out", immediateRender: false }, t);
+        // dòng chốt: nhấp nháy 2 lần rồi đứng (flicker)
+        if (R.parts.some((p) => p.v === "chot")) {
+          tl.fromTo(R.row, { opacity: 1 }, { opacity: 0.35, duration: 0.05, immediateRender: false }, t + 0.34);
+          tl.fromTo(R.row, { opacity: 0.35 }, { opacity: 1, duration: 0.05, immediateRender: false }, t + 0.42);
+          tl.fromTo(R.row, { opacity: 1 }, { opacity: 0.5, duration: 0.04, immediateRender: false }, t + 0.5);
+          tl.fromTo(R.row, { opacity: 0.5 }, { opacity: 1, duration: 0.05, immediateRender: false }, t + 0.56);
+        }
+        end = Math.max(end, t + 0.6);
+      });
+      return end;
     },
   };
 

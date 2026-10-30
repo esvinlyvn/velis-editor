@@ -9,7 +9,7 @@
 // text-plan.json: { "video": "p34", "family": "E", "moments": [
 //   { "id": "k1", "role": "mo-dau", "text": "20 PHÚT VÔ TRUNG TÂM", "energy": "cao" }, ... ] }
 // family: A | B | C | D | E (bộ 60 preset) | "rieng" (chỉ dùng preset BĐS + thẻ bám lời theo font của video)
-// mode: "vis" (mặc định: chữ chốt thưa, xoay vòng trong video) | "bds" (velis-editor: luật 8 — mỗi vai một preset cố định
+// mode: "vis" (mặc định: chữ chốt thưa, xoay vòng trong video) | "bds" (velis-editor: chỉ preset B18; luật 8 — mỗi vai một preset cố định
 //       trong cả video; cấm hiệu ứng ký tự ngẫu nhiên, vạch gạch hai bên; lịch sử so theo "client")
 // client: tên khách (bắt buộc ở mode bds) — lịch sử chỉ so với video trước của cùng khách
 // main: preset chính cho khối chữ thường (vai chot-y), vd "B18:tieu-de-kep" — nên khác video trước của khách
@@ -46,6 +46,7 @@ const ROLES = {
   "phap-ly":    [C("B18","nhan-neon",null,2,"swing"), C("L60","c-tag","C",2,"box"), C("L60","d-spec","D",1,"slide")],
   "ten-du-an":  [C("L60","bds-dang-song",null,3,"spread"), C("B18","chu-bac",null,2,"shine"), C("L60","can-ho-cao-cap",null,2,"type"), C("L60","a-hook","A",3,"spread"), C("L60","e-hook","E",3,"spread")],
   "cta":        [C("L60","a-cta","A",2,"box"), C("L60","e-cta","E",2,"box"), C("L60","dang-ky",null,2,"type"), C("L60","comment-bao-gia",null,2,"drop"), C("L60","d-call","D",2,"type")],
+  "cao-trao":   [C("B18","cao-trao",null,3,"stair")],
   "cau-hoi":    [C("L60","bi-quyet",null,2,"pop"), C("L60","tai-sao",null,2,"box"), C("B18","go-chu",null,1,"type")],
 };
 // sửa tên: B18 không có "impact" — dùng noi-bat
@@ -69,10 +70,13 @@ const hash = (s) => { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c
 const E = { thap: 1, vua: 2, cao: 3 };
 
 let da = plan.main || plan.da || null; // preset 'da': chữ chốt thường của cả video
+if (MODE === "bds" && da) sticky["chot-y"] = da; // preset chính giữ vai chữ thường (QUY-TAC-CHU bước 2)
 const count = {}; let prev = null; const out = []; let highUsed = 0, cardsRuns = 0;
 for (const m of plan.moments) {
-  const cands = ROLES[m.role];
-  if (!cands) { out.push({ ...m, pick: null, why: `role "${m.role}" không có trong bảng — xem QUY-TAC mục 2` }); continue; }
+  // mode bds: lib/build.mjs chỉ dựng preset bộ BĐS (B18) → chỉ gợi ý B18; vai không có B18 thì dùng preset chính
+  const cands = MODE === "bds" ? (ROLES[m.role] || []).filter((c) => c.src === "B18") : ROLES[m.role];
+  if (MODE === "bds" && ROLES[m.role] && !cands.length && da) { sticky[m.role] = da; out.push({ ...m, pick: da, score: null, why: "vai chưa có preset B18 → preset chính" }); continue; }
+  if (!cands || !cands.length) { out.push({ ...m, pick: null, why: `role "${m.role}" không có trong bảng — xem QUY-TAC mục 2` }); continue; }
   if (MODE === "bds" && sticky[m.role]) {
     const key = sticky[m.role]; count[key] = (count[key] || 0) + 1; prev = { key, mv: prev?.mv };
     out.push({ ...m, pick: key, score: null, why: "luật 8: cùng vai, giữ preset đã chọn cho vai này" }); continue;

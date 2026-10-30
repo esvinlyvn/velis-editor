@@ -142,3 +142,13 @@
   padding: .26em .03em .1em; margin: -.26em -.03em -.1em; }
 /* chữ nghiêng đổ ra ngoài khung từ → đệm 2 bên rộng hơn, không thì nền cắt theo khung xén mất mép chữ (N của "SUN", P của "LẬP") */
 .bds-tap-chi .m .w.hl { padding: .26em .24em .1em .12em; margin: -.26em -.24em -.1em -.12em; font-style: italic; font-weight: 700; background-image: linear-gradient(180deg, color-mix(in srgb, var(--c) 35%, #fff) 15%, var(--c) 55%, var(--c2) 100%); }
+
+/* cao-trao: câu cao trào bậc thang. Vai chữ: dem (sans nhỏ) · khoa (đậm hoa) · cam (viết tay) · chot (gradient, nhấp nháy khi vào).
+   Font viết tay qua --script (mặc định Dancing Script). Căn trái, mỗi dòng thụt thêm o.indent em. */
+.bds-cao-trao { align-items: flex-start; line-height: 1.04; }
+.bds-cao-trao .row { display: block; padding: .1em .08em .04em; white-space: nowrap; }
+.bds-cao-trao .pt { display: inline-block; vertical-align: baseline; }
+.bds-cao-trao .v-dem { font-family: var(--sans, "Be Vietnam Pro", sans-serif); font-weight: 700; font-size: .42em; }
+.bds-cao-trao .v-khoa { text-transform: uppercase; }
+.bds-cao-trao .v-cam { font-family: var(--script, "Dancing Script", cursive); font-weight: 700; font-size: .92em; padding: 0 .12em; }
+.bds-cao-trao .v-chot { text-transform: uppercase; }
