@@ -1,7 +1,7 @@
 // Build dùng chung cho các video có cấu hình: phụ đề, font, voice, SFX, SVG → build/<ten-video>/index.html (+ render).
 //   import { buildVideo } from "../../scripts/build-video.mjs";
 //   buildVideo(import.meta.url, { fonts, noCap, keep, force, endStart, tail, hl, svgs, maxCap, html })
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -95,6 +95,26 @@ export function buildVideo(metaUrl, cfg) {
   fs.writeFileSync(path.join(out, "index.html"), html);
   console.log(`✔ ${path.relative(ROOT, out)}/index.html · ${DURATION}s · ${caps.length} phụ đề`);
   console.log(caps.map((c) => c.words.join(" ")).join(" | "));
-  if (!process.argv.includes("--no-render"))
+  if (!process.argv.includes("--no-render")) {
     execFileSync("npx", ["hyperframes", "render", "-o", "output.mp4"], { cwd: out, stdio: "inherit", env: { ...process.env, HYPERFRAMES_NO_TELEMETRY: "1" } });
+    if (cfg.loudnorm !== false) loudnormMix(path.join(out, "output.mp4"));
+  }
+}
+
+// Bản trộn (giọng −14 LUFS + SFX) thường to hơn chuẩn: SFX dày cộng thêm 1–3 dB. Lệch khỏi −14 ± 0,5 LUFS thì chuẩn hóa
+// hai lượt kiểu tuyến tính (cả bản tăng/giảm đều nhau, tỷ lệ SFX / giọng giữ nguyên), trần đỉnh −1,5 dBTP, giữ nguyên hình.
+function loudnormMix(file, I = -14, TP = -1.5) {
+  const measure = (af) => {
+    const err = spawnSync("ffmpeg", ["-hide_banner", "-nostdin", "-i", file, "-af", af, "-f", "null", "-"], { encoding: "utf8" }).stderr;
+    return JSON.parse(err.slice(err.lastIndexOf("{"), err.lastIndexOf("}") + 1));
+  };
+  const m = measure(`loudnorm=I=${I}:TP=${TP}:LRA=11:print_format=json`);
+  if (Math.abs(Number(m.input_i) - I) <= 0.5 && Number(m.input_tp) <= TP) return console.log(`✔ âm lượng ${m.input_i} LUFS, đỉnh ${m.input_tp} dBTP`);
+  const tmp = file.replace(/\.mp4$/, ".loudnorm.mp4");
+  execFileSync("ffmpeg", ["-loglevel", "error", "-nostdin", "-y", "-i", file, "-c:v", "copy", "-af",
+    `loudnorm=I=${I}:TP=${TP}:LRA=11:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:offset=${m.target_offset}:linear=true,aresample=48000`,
+    "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", tmp]);
+  fs.renameSync(tmp, file);
+  const n = measure(`loudnorm=I=${I}:TP=${TP}:LRA=11:print_format=json`);
+  console.log(`✔ âm lượng ${m.input_i} → ${n.input_i} LUFS, đỉnh ${m.input_tp} → ${n.input_tp} dBTP`);
 }

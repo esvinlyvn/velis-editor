@@ -1,3 +1,0 @@
-Đây là dự án mẫu của bộ công cụ.
-Mỗi câu trong kịch bản sẽ thành phụ đề.
-Sửa bản mẫu rồi dựng lại là xong.
