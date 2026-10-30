@@ -3,14 +3,19 @@
 Mỗi video chỉ là **dữ liệu**: `projects/<video>/plan.json` + `transcript.json` (+ `SHOTBOOK.md`, `NOTES.md`, `info/`). Mọi code dựng nằm ở đây và dùng chung. Muốn đổi cách dựng cho mọi video sau thì sửa thư viện; muốn đổi một video thì sửa `plan.json` của nó. Không chép `build.mjs` hay `template.html` của video nào.
 
 ```
-node scripts/new-video.mjs <kenh>-<du-an> --recipe R1 --style S1   # tạo projects/<video>/plan.json + work/<video>/
-# bỏ clip vào work/<video>/footage.mp4 (đã cắt) và voice.wav; transcript.json vào projects/<video>/
-node lib/build.mjs projects/<video> --no-render    # dựng + in bảng khối chữ, tương phản, cảnh báo luật
-npx hyperframes lint build/<video>                  # 0 error
-node scripts/qa/kt-check.cjs build/<video>/index.html <video>   # 100%
-node scripts/qa/density.mjs build/<video>          # không quãng trống > 3 s
-node lib/build.mjs projects/<video>                # render một lần + chuẩn hóa âm lượng
+node scripts/new-video.mjs <kenh>-<du-an> --recipe R1 --style S1   # bước 0: plan.json + cây thư mục work/<video>/
+#   bỏ cảnh quay vào work/<video>/01_footage/{cam_a,cam_b,drone,broll}/, mic rời vào 02_audio/voiceover/
+node lib/ingest.mjs projects/<video>               # bước 1: dò clip (Log? fps?), tạo proxy 1080×1920
+node lib/assemble.mjs projects/<video>             # bước 2–3: đồng bộ mic, A-roll + B-roll + J/L-cut theo plan.edit
+#   nhận diện giọng trên work/<video>/voice.wav → projects/<video>/transcript.json (sửa tay); khách duyệt dựng → --lock
+node lib/build.mjs projects/<video> --no-render    # bước 3–4: âm 4 lớp, màu, chữ, SFX → in bảng khối chữ, tương phản, cảnh báo
+node lib/qc.mjs projects/<video>                   # lint, kt-check, mật độ; xem snapshot
+node lib/build.mjs projects/<video>                # render MỘT lần (master 25 Mbps) + chuẩn hóa −14 LUFS
+node lib/qc.mjs projects/<video> --asr             # bước 5: khung đen, đứng im, độ to, SFX, che lời
+node lib/export.mjs projects/<video> --draft       # bản nháp gửi duyệt → --final khi QC đạt
 ```
+
+Video mẫu đi đủ chuỗi trên: `npm run example`, xem `projects/example/plan.json` và `SHOTBOOK.md`.
 
 Kiểm thư viện sau mỗi lần sửa: `npm run demo` (dựng `tests/demo` bằng media tổng hợp, không render).
 
@@ -18,6 +23,11 @@ Kiểm thư viện sau mỗi lần sửa: `npm run demo` (dựng `tests/demo` b�
 
 | File | Vai trò |
 | --- | --- |
+| `ingest.mjs` | Bước 1: cây thư mục, dò clip (độ phân giải, fps, bit, Log / HLG), proxy 1080×1920 30 fps, LUT kỹ thuật Log → Rec.709 |
+| `assemble.mjs` | Bước 2–3: đồng bộ mic rời (tương quan chéo), A-roll theo đoạn chọn, punch-in, J/L-cut, B-roll (cắt / hòa, đẩy / trôi máy), khóa hình |
+| `audio.mjs` | Lời thoại (lọc, khử ồn, EQ, de-ess, nén, −14 LUFS), tiếng môi trường |
+| `qc.mjs` | Bước 5: bảng kiểm ĐẠT / LỖI, ghi `work/<video>/qc.json` |
+| `export.mjs` | Bước 5: bản nháp (nén nhẹ), bản cuối (master), đánh số phiên bản |
 | `build.mjs` | Lệnh dựng duy nhất: pha màu / LUT, đo tương phản, chữ sau người, nhạc, SFX, font, render, chuẩn hóa âm lượng |
 | `plan.mjs` | Đọc `plan.json` → dòng thời gian khối chữ + SFX; kiểm luật 1, 4, 7, 8, số liệu khớp lời, cụm cao-trao đủ lâu |
 | `template.html` | Template chung: lớp tối theo nền (luật 13, 15, 18, 19), chế độ nền mờ, chữ sau người, ô chữ tự co |
@@ -60,13 +70,19 @@ Nguồn phương pháp: `docs/PHONG-CACH-ME4REAL.md` (mã K, H, C, I, T, A, E, R
 | `blocks[].at` | Số giây, hoặc `"cụm:chữ"` (`"3:sở"`, lần thứ hai `"3:sở#1"`); mốc theo chữ tự lùi `shift` (mặc định −0,1 s) |
 | `blocks[].out` | Bỏ trống = tắt trước khối sau 0,35 s; khối cuối giữ tới hết |
 | `blocks[].color` | Tên nghĩa trong bộ màu (`so`, `an-toan`, `noi-chon`, `thoi-gian`, `phu-dinh`) hoặc tên màu; mặc định `main` (hoặc `mau_nhan` của brand.json) |
-| `blocks[].sfx` | `"auto"` (mặc định: chọn theo vai, không lặp loại trong 30 s), `["tên", vol]` ghi tay, hoặc `null` |
+| `blocks[].sfx` | `"auto"` (mặc định: chọn theo vai, không lặp loại trong 30 s, tiếng phụ tự né âm đầu chữ), `["tên", vol]` ghi tay (vd. khi QC báo tiếng che lời), hoặc `null` |
 | `blocks[].top`, `size`, `p` | Vị trí y (mặc định 250; ≥ 900 = dải dưới), cỡ chữ, preset ghi đè |
 | `blocks[].behind`, `behindFrac` | Chữ sau người: tên cửa sổ trong `plan.behind` (`{ "intro": [0, 4.8] }`); mặt nạ ở `work/<video>/matte/` (TALKING-HEAD 4b) |
 | `o` | Tham số preset (`text-presets/bds/BDS-PRESETS.md`); `cao-trao` dùng `lines` với vai `dem` / `khoa` / `cam` / `chot` |
 | `hook_peak` | Mốc đỉnh hook: tiếng chốt của công thức "bùng mở" rơi đúng đây, tiếng dâng chạy trước 1,6 s |
 | `music` | `{ "file": "work/<video>/music.mp3", "bed_db": -6, "duck_db": -20, "bpm": 120, "montage": [[15, 32]] }`; chỉ khi có nhạc có quyền dùng |
 | `info_numbers` | Số lấy từ `info/` mà lời không nói (để kiểm số liệu không báo nhầm) |
+| `edit` | Dựng: `voice` (mic rời, trong `work/<video>/`), `aroll` `[{ src, in, out, cut, punch }]` (`cut` > 0 J-cut, < 0 L-cut), `broll` `[{ src, at, dur, in, tr: "cut" \| "dissolve", move: "push" \| "drift", sfx }]`, `fit` `{ cam: "crop" \| "blur" }` — chi tiết đầu `assemble.mjs` |
+| `lock` | Mã khóa hình do `assemble.mjs --lock` ghi; đừng sửa tay |
+| `color` | `input_lut` `{ cam: "file.cube" }` (Log → Rec.709), `correct` (bộ lọc ffmpeg sửa màu), `lut` + `strength` (LUT nghệ thuật, 0,5–0,8). `grade` cũ = `correct` |
+| `audio` | `dialogue` `{ denoise, eq, deess, ratio }` ghi đè chuỗi lời thoại; `ambience` `{ file, lufs }` (mặc định −38 LUFS) |
+| `tail` | Giây giữ hình sau lời cuối (mặc định 0,3); `assemble.mjs` kéo đoạn A-roll cuối dài thêm đúng bằng chừng đó |
+| `bitrate` | Bitrate master (mặc định `25M`) |
 | `media` | Ghi đè đường dẫn `footage` / `voice` (mặc định `work/<video>/`) |
 
 ## Thêm vào thư viện

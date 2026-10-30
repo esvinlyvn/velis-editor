@@ -5,7 +5,9 @@
   "scripts": {
     "demo": "node tests/demo/make-media.mjs && node lib/build.mjs tests/demo --no-render",
     "new": "node scripts/new-video.mjs",
-    "example": "node projects/example/build.mjs",
+    "example": "node projects/example/make-media.mjs && node lib/ingest.mjs projects/example && node lib/assemble.mjs projects/example && node lib/build.mjs projects/example",
+    "qc": "node lib/qc.mjs",
+    "export": "node lib/export.mjs",
     "map:data": "node scripts/map/data.mjs",
     "map": "node scripts/map/render.mjs"
   },

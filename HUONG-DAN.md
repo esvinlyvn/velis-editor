@@ -106,7 +106,7 @@ Mỗi phiên chạy trên một máy ảo riêng, lấy repo từ GitHub về, l
 
 > Claude có thể hỏi trước khi chạy lệnh hay sửa file. Đọc lướt rồi cho phép.
 
-**Xong khi:** Claude báo `npm run example` render được (video khoảng 17 giây: dãy nhà, giọng đọc, 9 khối chữ chốt, SFX), gửi file vào khung chat, và báo import được `faster_whisper`, `rembg`. Nếu dòng đầu phiên báo "Script cài đặt thất bại", xem [Lỗi hay gặp](#lỗi-hay-gặp).
+**Xong khi:** Claude báo `npm run example` render được (khoảng 2,5 phút; video 15,5 giây: dãy nhà quay 2 máy + drone, giọng đọc, 8 khối chữ chốt, SFX, nhạc), gửi file vào khung chat, và báo import được `faster_whisper`, `rembg`. Nếu dòng đầu phiên báo "Script cài đặt thất bại", xem [Lỗi hay gặp](#lỗi-hay-gặp).
 
 ---
 
@@ -137,15 +137,12 @@ Claude cần biết ba điều, thiếu thì nó hỏi **một lần**:
 
 ### 6c. Claude làm gì
 
-Không cần nhớ, chỉ để biết đang tới đâu:
-1. Đọc luật (`docs/VAN-HANH.md`, bảng luật ở `TALKING-HEAD.md`, `docs/TRINH-BAY.md`).
-2. Tải clip, nhận diện lời nói có giờ từng chữ. Mỗi phiên mới phải tải model khoảng 3 GB, mất vài phút.
-3. Soi clip, cắt chỗ im, chỗ vấp, câu hỏng.
-4. Chọn hook 3 giây đầu.
-5. Viết `SHOTBOOK.md`: kế hoạch từng đoạn gồm chữ chốt, minh họa, bản đồ, SFX.
-6. Dựng chữ, minh họa, SFX, chỉnh màu.
-7. Tự kiểm (lint, `kt-check`, chụp khung hình), rồi **render một lần**.
-8. Gửi bản xem trước vào khung chat, kèm danh sách khối chữ.
+Không cần nhớ, chỉ để biết đang tới đâu. Claude đi đúng 5 bước hậu kỳ chuyên nghiệp (`docs/VAN-HANH.md` mục 3):
+1. **Tiếp nhận:** đọc luật, tải clip về đúng cây thư mục (A-roll người nói, B-roll cảnh dự án, mic rời, nhạc), kiểm từng clip (độ phân giải, Log hay không), tạo bản dựng nhẹ.
+2. **Dựng thô:** đồng bộ tiếng mic rời với máy quay, nhận diện lời nói, chọn lượt nói tốt nhất, cắt chỗ vấp, chỗ im.
+3. **Dựng tinh:** đổi máy, phóng cận, chèn B-roll che điểm cắt, J-cut / L-cut cho êm tai; xử lý âm 4 lớp (giọng, tiếng môi trường, SFX, nhạc hạ dưới giọng). Mỗi phiên mới phải tải model nhận diện giọng khoảng 3 GB, mất vài phút.
+4. **Màu và chữ:** sửa màu, phối màu bằng LUT; hook 3 giây đầu; chữ chốt, minh họa, bản đồ. Kế hoạch ghi ở `SHOTBOOK.md`.
+5. **Kiểm và xuất:** tự kiểm (chữ, khung đen, hình đứng im, độ to, SFX có che lời không), render **một lần**, gửi bản nháp nhẹ vào khung chat kèm danh sách khối chữ.
 
 Mất khoảng 40–60 phút. Không cần ngồi canh: đóng tab rồi quay lại sau, phiên vẫn chạy.
 
@@ -157,7 +154,7 @@ Mất khoảng 40–60 phút. Không cần ngồi canh: đóng tab rồi quay l�
    - "Chữ GIÁ 3 TỶ 2 màu vàng khó đọc trên nền trời, đổi màu hoặc thêm nền."
    - "Hook đầu chưa đủ gắt, thử câu 'Căn này rẻ hơn thị trường 400 triệu'."
 3. Ưng rồi thì nói: **"Duyệt. Gửi bản cuối, rồi commit và push."** Claude sẽ:
-   - gửi file MP4 bản cuối. **Tải về ngay**, vì máy ảo sẽ bị xóa;
+   - xuất và gửi file MP4 bản cuối (H.264 25 Mbps, đã qua kiểm định). **Tải về ngay**, vì máy ảo sẽ bị xóa;
    - commit dữ liệu dựng (không commit clip và file render);
    - ghi lịch sử phong cách vào `brand.json` của khách, để video sau của khách này tự đổi kiểu;
    - thêm một dòng vào bảng 4c của `TALKING-HEAD.md`;
@@ -298,9 +295,9 @@ uv venv ~/.asr && VIRTUAL_ENV=~/.asr uv pip install faster-whisper numpy imageio
 npm run example
 ```
 
-Có `build/example/output.mp4` khoảng 17 giây là xong.
+Có `build/example/output.mp4` khoảng 15,5 giây là xong.
 
-**Làm việc:** chép clip vào `work/<ten-video>/`, rồi `cd ~/bds-editor && git pull && claude` và giao việc như bước 6b (thay link bằng đường dẫn `work/...`). Bản xem trước và bản cuối nằm ở `build/<video>/output.mp4`. Xong thì bảo Claude "commit và push".
+**Làm việc:** chép clip vào `work/<ten-video>/01_footage/cam_a/` (máy chính), `cam_b/` (máy phụ), `drone/` hoặc `broll/` (cảnh phụ), mic rời vào `02_audio/voiceover/`, rồi `cd ~/bds-editor && git pull && claude` và giao việc như bước 6b (thay link bằng đường dẫn thư mục). Bản nháp và bản cuối nằm ở `work/<ten-video>/05_exports/`. Xong thì bảo Claude "commit và push".
 
 ---
 

@@ -6,7 +6,7 @@ Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là d�
 - `lib/plan.mjs`: mốc theo chữ (`"3:sở"`), màu theo nghĩa, SFX theo vai (không lặp loại trong 30 s), kiểm luật 1, 4, 7, 8, số liệu khớp lời.
 - `lib/template.html`: lớp tối `#scrim` / `#scrim-low` theo nền, nền mờ, ô chữ `kt-slot`, chờ font tiếng Việt, tự co chữ, chữ sau người.
 - Tổ hợp phong cách S1–S5: `lib/styles.json`; công thức khung R1–R7: `lib/recipes.json`; nguồn phương pháp: `docs/PHONG-CACH-ME4REAL.md`.
-- `projects/example/` là bản dựng tay cũ (`build.mjs` riêng), giữ để đối chiếu `SHOTBOOK.md`, `hook.json`, `text-plan.json`; không chép làm mẫu.
+- `projects/example/`: video mẫu đi đủ 5 bước hậu kỳ (`docs/VAN-HANH.md` mục 3) bằng `lib/`, từ cảnh quay thô 2 máy + drone + mic rời tới bản xuất. Xem `plan.json` của nó để biết cách ghi `edit`, `color`, `audio`, `blocks`; **không chép thư mục**, tạo video mới bằng `scripts/new-video.mjs`.
 
 ## Luật người dùng đã chốt (đọc trước, các mục sau chi tiết hơn)
 
@@ -156,7 +156,7 @@ Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là d�
 - Hai tiếng cách nhau ít nhất 0,6 s (`minGap`).
 - **Khối trước tắt trước khối sau 0,35 s** (`out = at khối sau − 0,35`): khối mờ ra mất 0,3 s, tắt muộn hơn thì hai khối cùng hiện trong lúc chuyển. `kt-check` chỉ đo lúc khối đứng yên nên không bắt được lỗi này; soi bằng snapshot lúc chuyển (mục 6 bước 4).
 - SFX: `lib/plan.mjs` chọn theo vai (`sfx: "auto"`) hoặc ghi tay `["tên", vol]` trong từng khối; lớp 2 ở `plan.sfx_layer`. Không sinh vòng lặp gắn cùng một tiếng.
-- **SFX không được đè lời:** tiếng rơi đúng lúc nói một từ khóa (tên, số, tiếng nước ngoài) làm từ đó nghe sai. Sau render chạy nhận diện giọng trên `output.mp4`: từ nào đúng ở `voice.wav` mà sai ở bản dựng là bị SFX che, dời tiếng sau từ đó hoặc đổi sang tiếng gọn (click, snap) thay cho whoosh.
+- **SFX không được đè lời:** tiếng rơi đúng âm đầu một từ (tên, số, tiếng nước ngoài) làm từ đó nghe mờ. `lib/plan.mjs` tự dời tiếng phụ vào khe sau chữ và cảnh báo tiếng chính; sau render `node lib/qc.mjs projects/<video> --asr` so theo đoạn ±1,5 s: chữ nghe được trên giọng mà mất trên bản dựng thì ghi tay tiếng ngắn hơn (`sfx: ["tên", vol]`) hoặc dời khối. So cả bài một lần dễ báo nhầm (ASR giải mã khác theo ngữ cảnh dài), đừng dựa vào đó.
 
 ## 4b. Chữ nằm sau đối tượng (hiệu ứng điện ảnh)
 

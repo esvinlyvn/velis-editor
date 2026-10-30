@@ -19,7 +19,7 @@ Cần Node.js 22+, FFmpeg, Python 3.
 ```
 npm install
 npm run demo             # kiểm thư viện: dựng tests/demo (media tổng hợp), không render
-npm run example          # dựng thử projects/example (bản dựng tay cũ) → build/example/output.mp4
+npm run example          # video mẫu đủ 5 bước (tạo nguồn → tiếp nhận → dựng → render) → build/example/output.mp4
 ```
 
 ## Dùng

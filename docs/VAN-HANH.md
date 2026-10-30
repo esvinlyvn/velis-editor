@@ -39,6 +39,10 @@ Hai chỗ nói khác nhau thì chỗ đứng trên thắng:
 | Nhạc, montage (M5) | ME4REAL: một bài xuyên suốt, montage cắt mỗi ô nhịp | Chỉ khi có nhạc có quyền; ducking −18 đến −24 dB (`lib/music.mjs`); được một đoạn montage theo phách |
 | Chuyển cảnh lớn (M6) | ME4REAL: flash mỗi 1,9 s trong montage | Giữ ~4 lần mỗi 150 s; cả đoạn montage tính 1 lần |
 | Cách dựng | Chép `build.mjs` / `template.html` của một video mẫu | **Thư viện `lib/`**: mỗi video chỉ là `plan.json` + transcript (`lib/README.md`) |
+| Phụ đề | Khung hậu kỳ chuẩn: video ngắn cần phụ đề có hiệu ứng | **Luật 1 thắng: không phụ đề chạy.** Chữ chốt 2–5 chữ có hiệu ứng làm việc của phụ đề (M7) |
+| Proxy | Khung chuẩn: ProRes Proxy / DNxHR để dựng mượt trên timeline | Không có timeline kéo tay: `lib/ingest.mjs` tạo bản dựng H.264 1080×1920 30 fps (đủ nhẹ để dựng, đủ nét để render). Cảnh 4K/6K, 10-bit chỉ đọc một lần lúc tạo proxy |
+| Foley | Khung chuẩn: tự thu lại tiếng đời thực | Lấy tiếng có sẵn trong kho (vai SFX `foley`: bước chân, cửa, giấy tờ…), đặt tay trong `sfx_layer` khớp hành động trên hình |
+| Bản xuất | Khung chuẩn: ProRes hoặc H.264/H.265 20–50 Mbps | Master H.264 25 Mbps render một lần; bản nháp nén từ master; không ProRes (nền tảng đăng nén lại H.264) |
 
 ## 2. Nhận việc
 
@@ -57,30 +61,35 @@ Thư mục video: `node scripts/new-video.mjs <khach>-<du-an> --recipe R1 --styl
 
 **Không commit clip thô và file render**: chỉ giữ trong `work/` và `build/`, hai thư mục này đã gitignore. Repo chỉ chứa dữ liệu dựng: `plan.json`, transcript, SHOTBOOK, text-plan, hook.json, NOTES. Clip, giọng, mặt nạ để ở `work/<video>/`.
 
-## 3. Quy trình
+## 3. Quy trình: 5 bước hậu kỳ
 
-Làm theo `TALKING-HEAD.md` từ mục 0 đến 6. Phần bổ sung và thứ tự gọn:
+Mỗi bước có một lệnh trong `lib/` (chi tiết định dạng ở `lib/README.md`). Luật của từng khâu nằm ở TALKING-HEAD và các mục sau của file này. Một video = `projects/<video>/` (commit) + `work/<video>/` (không commit).
 
-1. **Chuẩn bị** (2 phút): đọc bảng luật, `brand.json`, mục 4c của TALKING-HEAD, chọn công thức (`lib/recipes.json`) và style (`lib/styles.json`).
-2. **Nhận diện voice** (`scripts/asr/`), cho chạy nền.
-3. **Soi clip, cắt** (HAU-KY mục 0 và mục 3):
-   - không có quãng im quá khoảng 150 ms;
-   - cắt tiếng thở, chỗ ngập ngừng, câu nói hỏng;
-   - cứ 2–4 giây hình đổi một lần: punch-in, đổi góc, minh họa, hoặc thêm chữ;
-   - giọng không bao giờ đứt khi hình minh họa đè lên.
-4. **`transcript.json` theo giờ thật** của bản đã cắt.
-5. **Hook 3 giây đầu** theo `docs/TRINH-BAY.md` mục 1: viết `hook.json` với ít nhất 3 phương án, chạy `node scripts/hook-pick.mjs`.
-6. **SHOTBOOK.md** viết trước template, theo phương pháp `docs/SHOTS.md`. Gồm:
-   - từng đoạn: ý, hình chính (người nói / minh họa / bản đồ), chữ chốt, SFX;
-   - chỗ có chữ sau người (luật 11);
-   - chỗ dùng bản đồ (`MAP.md`);
-   - chỗ chuyển cảnh lớn (flash hoặc light leak, tối đa khoảng 4 lần mỗi 150 giây);
-   - minh họa cho từng ý theo bảng "nói gì vẽ nấy" ở TRINH-BAY mục 2, vị trí đồ họa theo luật bố cục ở cùng mục.
-7. **Chữ chốt** theo mục 4.
-8. **SFX** theo mục 5.
-9. **Màu** theo mục 7.
-10. **Tự kiểm** theo TALKING-HEAD mục 6 (`lint` 0 error, `kt-check` 100%, snapshot khối đứng yên và khối đang chạy), cộng thêm phần kiểm ở mục 8 file này. **Render một lần** ở cuối.
-11. **Giao** theo mục 9 và TRINH-BAY mục 4.
+**Bước 0 · Chuẩn bị** (2 phút): đọc bảng luật TALKING-HEAD, `brand.json`, mục 4c (phong cách đã dùng); chọn công thức (`lib/recipes.json`) và style (`lib/styles.json`). `node scripts/new-video.mjs <kenh>-<du-an>` tạo `plan.json` và cây thư mục.
+
+**Bước 1 · Tiếp nhận & sắp xếp dữ liệu** — `node lib/ingest.mjs projects/<video>`
+- Cây thư mục `work/<video>/`: `01_footage/{cam_a, cam_b, drone, broll}` · `02_audio/{voiceover, music, ambience, sfx}` · `03_assets` (logo, ảnh) · `05_exports/{draft, final}`. Phần "04 project" chính là `projects/<video>/` trong repo.
+- A-roll (người nói, nội dung chính) để ở `cam_a` / `cam_b`; B-roll (cảnh dự án, drone, đặc tả, minh họa) ở `drone` / `broll`. B-roll dùng để che điểm cắt của A-roll và giữ nhịp đổi hình.
+- Lệnh dò từng clip (độ phân giải, fps, độ sâu màu, Log / HLG) và tạo **proxy** 1080×1920 30 fps. Clip Log phải khai LUT kỹ thuật (mục 7) trước, không thì màu bạc.
+
+**Bước 2 · Đồng bộ âm, dựng thô** — `plan.edit` + `node lib/assemble.mjs projects/<video>`
+- **Đồng bộ âm:** mic thu rời (`edit.voice`) tự khớp với tiếng máy bằng tương quan chéo, báo độ lệch và độ tin cậy (dưới 0,5 thì kiểm tay).
+- **Chọn đoạn (selects):** nghe hết bản thu, chọn lượt nói tốt nhất của mỗi câu, ghi vào `edit.aroll` theo thứ tự kịch bản (assembly). Cắt: câu vấp, câu nói lại, tiếng thở, chỗ ngập ngừng; chừa đệm khoảng 0,1 s quanh câu, không quãng im quá ~150 ms (HAU-KY mục 0, 3).
+- Kết quả: bản dựng thô đúng mạch nội dung (`work/<video>/footage.mp4` + `voice.wav`), chưa cần chữ, màu.
+
+**Bước 3 · Dựng tinh, khóa hình, âm thanh**
+- **Dựng tinh:** cứ 2–4 s đổi hình một lần: đổi máy, punch-in (`punch`), B-roll (`edit.broll`: cắt thẳng hoặc hòa 0,2 s, đẩy / trôi máy), minh họa, chữ. **J-cut** (nghe câu sau trước khi thấy hình, `cut` > 0) và **L-cut** (thấy hình sau, tiếng câu trước còn chạy, `cut` < 0) để chỗ nối êm tai. Chuyển cảnh ưu tiên cắt giấu vết (theo chuyển động máy, vật đi ngang) và match cut; chuyển cảnh lớn (flash, light leak) tối đa ~4 lần / 150 s (M6).
+- **Khóa hình (picture lock):** khách duyệt bản dựng thì `lib/assemble.mjs --lock`. Sau đó không đổi thứ tự, thời lượng; muốn đổi phải `--unlock` và làm lại transcript, chữ, SFX.
+- **Transcript** theo giờ thật của bản đã dựng (`scripts/asr/`, sửa tay tên riêng, lỗi nghe), rồi **hook** (`hook.json` ≥ 3 phương án, `scripts/hook-pick.mjs`) và **SHOTBOOK.md** theo `docs/SHOTS.md`: từng đoạn ý, hình chính, chữ chốt, SFX, chỗ chữ sau người, bản đồ, minh họa "nói gì vẽ nấy" (TRINH-BAY mục 2).
+- **Âm thanh 4 lớp** theo mục 5.
+
+**Bước 4 · Màu, chữ, đồ họa** — `plan.color`, `plan.blocks` + `node lib/build.mjs projects/<video> --no-render`
+- Màu theo mục 7 (sửa màu trước, LUT sau). Chữ chốt theo mục 4, chữ sau người theo TALKING-HEAD 4b, bản đồ theo `MAP.md`, CTA theo `brand.json`. Không phụ đề (luật 1).
+
+**Bước 5 · Kiểm định, duyệt, xuất** — `lib/qc.mjs`, `lib/export.mjs`
+- Trước render: `node lib/qc.mjs projects/<video>` (lint, kt-check, mật độ) + snapshot khối đứng yên và đang chạy (TALKING-HEAD mục 6). **Render một lần**: `node lib/build.mjs projects/<video>`.
+- Sau render: `node lib/qc.mjs projects/<video> --asr` phải đạt hết (mục 8).
+- Xuất và giao theo mục 9.
 
 ## 4. Chữ chốt
 
@@ -97,18 +106,28 @@ Làm theo `TALKING-HEAD.md` từ mục 0 đến 6. Phần bổ sung và thứ t�
 - **Đọc được (luật 15):** đo nền sau từng khối bằng `scripts/bg-sample.py` và `contrastPlan`. Chữ chính phải đạt tương phản ≥ 3:1, chữ dẫn trắng ≥ 4,5:1. Phủ tối tối đa mà vẫn chưa đủ thì thêm viền tối sát chữ.
 - **Vị trí (luật 2, 3):** không che người, đầu người nằm dưới khối chữ. Chữ dẫn ôm sát chữ chính, chỉ chừa đủ để không đè dấu.
 
-## 5. Âm thanh
+## 5. Âm thanh: 4 lớp
 
-- **Voice** theo HAU-KY mục 7: chuẩn −14 LUFS, LRA 3–4,5 LU, highpass 80 Hz, de-ess nhẹ, nén ratio 3–4.
-- **SFX:**
-  - mỗi khối chữ một tiếng, hai khối liền nhau không trùng loại tiếng (luật 10);
-  - không để quá ít, không lặp một tiếng;
-  - dùng rộng kho SFX, thêm lớp tiếng nhỏ cho chuyển động phụ: chữ quay vòng, số chốt, nét gạch, chuyển cảnh (luật 17);
-  - chữ gõ đi với tiếng gõ phím đúng nhịp từng ký tự (luật 16).
-- **Độ to bản trộn:** SFX dày làm bản trộn to hơn giọng 1–3 dB. Sau render, `scripts/build-video.mjs` tự đo và chuẩn hóa bản trộn về −14 LUFS, đỉnh ≤ −1,5 dBTP (tuyến tính: tỷ lệ SFX / giọng giữ nguyên), in dòng `✔ âm lượng`.
-- **Kiểm âm:** `python3 -I scripts/qa/sfx-levels.py`: đỉnh ≤ −1,5 dBFS, không có tiếng lúc nhỏ lúc to; SFX không vượt đỉnh voice. Rồi chạy nhận diện giọng trên `output.mp4` để chắc SFX không che lời (TALKING-HEAD 4a).
-- **Nhạc nền:** chỉ dùng khi khách gửi hoặc trong `brand.json` có, và phải có quyền sử dụng. `plan.music`: hạ dưới giọng theo giờ lời nói (`bed_db` −6, `duck_db` −20, khoảng −18 đến −24); một đoạn montage theo phách được phép (`montage`, cần `bpm`).
-- **Độ to sau render ở `lib/build.mjs`:** gọi cùng hàm chuẩn hóa bản trộn (`loudnormMix`).
+Âm thanh quyết định nửa chất lượng video. Bốn lớp, mỗi lớp một chỗ trong code:
+
+| Lớp | Việc | Ở đâu |
+|---|---|---|
+| **1. Lời thoại** | rõ, đều, không tạp âm: lọc dưới 80 Hz → khử ồn nhẹ (10 dB) → EQ bớt "bùn" 300 Hz, thêm độ rõ 3 kHz → de-ess → nén 3:1 → −14 LUFS, đỉnh −1,5 dBTP | `lib/audio.mjs` `dialogue()`; ghi đè ở `plan.audio.dialogue` (`denoise`, `eq`, `deess`, `ratio`) |
+| **2a. Tiếng môi trường** (ambience) | không gian thật: gió, phố, quán; mức nền cố định −38 LUFS (thấp hơn giọng ~24 dB), vuốt vào/ra | `plan.audio.ambience` `{ file, lufs }` |
+| **2b. SFX điểm** (spot) | mỗi khối chữ một tiếng theo vai; lớp tiếng phụ cho chuyển động; foley khớp hành động | `lib/plan.mjs` + `lib/sfx-roles.json` (luật bên dưới) |
+| **3. Nhạc nền** | hạ dưới giọng theo giờ lời nói (ducking): −20 dB khi nói (khoảng −18 đến −24), −6 dB khi không nói; cắt montage theo phách | `plan.music` (`lib/music.mjs`); chỉ khi khách gửi hoặc `brand.json` có, và phải có quyền dùng |
+
+**Luật SFX:**
+- mỗi khối chữ một tiếng, hai khối liền nhau không trùng loại tiếng (luật 10); cùng loại cách nhau ≥ 30 s;
+- không để quá ít, không lặp một tiếng; thêm lớp tiếng nhỏ cho chuyển động phụ: chữ quay vòng, số chốt, nét gạch, chuyển cảnh (luật 17);
+- chữ gõ đi với tiếng gõ phím đúng nhịp từng ký tự, kể cả câu mời (luật 16);
+- cú cắt thường không tiếng; B-roll vào có whoosh khi ghi `sfx` (M1);
+- **không đè lời:** tiếng phụ tự dời vào khe sau chữ; tiếng chính bắt đầu đúng âm đầu một chữ thì `lib/build.mjs` cảnh báo. Kiểm thật bằng `lib/qc.mjs --asr` (so theo đoạn): chữ nghe được trên giọng mà mất trên bản dựng thì ghi tay tiếng ngắn hơn (`sfx: ["tên", vol]`) hoặc dời khối;
+- tiếng khởi đầu chậm (`reveal`, `riser`) đo ra nhỏ, không dùng làm tiếng chính.
+
+**Mức và độ to:**
+- `scripts/qa/sfx-levels.py` (trong `lib/qc.mjs`): đỉnh SFX trong khoảng −4 đến +6 dB so với RMS giọng tại chỗ đó (đích ≈ +2 dB), không tiếng NHỎ / TO.
+- Bản trộn sau render tự chuẩn hóa về −14 LUFS, đỉnh ≤ −1,5 dBTP, kiểu tuyến tính (tỷ lệ các lớp giữ nguyên) — `loudnormMix` trong `scripts/build-video.mjs`.
 
 ## 6. Phong cách và lịch sử theo khách
 
@@ -119,34 +138,52 @@ Mỗi khách (sale, kênh, dự án) có `clients/<khach>/brand.json`, mẫu ở
 
 Video mới phải khác video trước **của cùng khách** ở ít nhất 3 trong 5 "gen": preset chính, font chữ chính, font chữ dẫn, cách hiện chữ, kiểu lớp tối. Bảng 4c của TALKING-HEAD ghi các video thật đã giao để nhìn toàn cục.
 
-## 7. Màu và LUT
+## 7. Màu: sửa màu rồi mới phối màu
 
-Hiện repo chưa có LUT. Khi thêm, theo các luật sau (chi tiết trong `luts/README.md`):
-1. Áp LUT lên **clip quay** trước khi dựng, bằng ffmpeg `lut3d`. Không áp lên chữ và đồ họa.
-2. Một video dùng một LUT, cường độ 50–80%. Da người phải trông tự nhiên: soi ít nhất 3 khung có mặt người trước khi render.
-3. LUT mặc định của khách ghi trong `brand.json`. Khách chưa có thì chỉ cân màu nhẹ (cân trắng, tương phản, làm nét nhẹ) theo HAU-KY mục 6, không ép tông tím vàng.
-4. Chỉ dùng file `.cube` có quyền sử dụng. Ghi nguồn vào `luts/SOURCES.md`.
+Thứ tự cố định, mỗi bước một chỗ khai trong `plan.json`:
 
-## 8. Kiểm bổ sung
+1. **Log → Rec.709** (chỉ footage Log: S-Log, D-Log, C-Log…): LUT kỹ thuật của hãng máy, khai theo thư mục máy `plan.color.input_lut: { "cam_a": "slog3-709.cube" }`, áp khi tạo proxy (`lib/ingest.mjs` tự nhận clip Log và báo nếu thiếu).
+2. **Sửa màu (color correction)**: đưa về chuẩn và đồng bộ các máy: cân trắng (`colortemperature`, `colorbalance`), khôi phục vùng tối / sáng, tương phản, bão hòa (`eq`) — `plan.color.correct` là chuỗi bộ lọc ffmpeg. Clip điện thoại nhạt: `eq=contrast=1.06…1.08:saturation=1.08…1.12` (luật 19). Hai máy lệch màu thì sửa máy phụ cho khớp máy chính trước khi phối.
+3. **Phối màu (color grading)**: LUT nghệ thuật tạo mood & tone, trộn 50–80% (`plan.color.lut` + `strength`; mặc định LUT của khách trong `brand.json`). Có sẵn `am-nhe` (ấm, nhà ở) và `mat-sang` (sáng lạnh, căn hộ cao cấp) — `luts/README.md`.
+4. Chữ và đồ họa nằm trên cùng, **không bao giờ** áp LUT lên chữ.
 
-- **Mật độ:** `node scripts/qa/density.mjs build/<video>`: không quãng nào quá 3 s mà không có chữ, tiếng hay cú cắt (PHONG-CACH-ME4REAL K).
+Luật:
+- Một video một LUT nghệ thuật. Da người phải trông tự nhiên: soi ít nhất 3 khung có mặt người trước khi render. BĐS ưa trung tính, không grade mạnh (PHONG-CACH-ME4REAL mục M).
+- Chỉ dùng `.cube` có quyền dùng, ghi nguồn ở `luts/SOURCES.md`.
 
-Ngoài TALKING-HEAD mục 6:
-- **Hình đứng im:** `python3 scripts/qa/motion_check.py build/<video>/output.mp4`, phần 静止 phải PASS. Kiểm nhanh không cần Python: `ffmpeg -i build/<video>/output.mp4 -vf freezedetect=n=0.003:d=0.8 -f null -`.
-- **Các mục kiểm phần hình** ở TRINH-BAY mục 3: quét vùng chữ, chuyển cảnh, miệng, hook, % minh họa, loudnorm, SFX.
+## 8. Kiểm định (QC)
+
+`node lib/qc.mjs projects/<video> [--asr]` gom các mục máy kiểm được, ghi `work/<video>/qc.json`; `lib/export.mjs --final` chỉ chạy khi QC đạt:
+
+| Mục | Ngưỡng |
+|---|---|
+| `npx hyperframes lint` | 0 error |
+| `kt-check` | 100% khối |
+| mật độ sự kiện (`scripts/qa/density.mjs`) | không quãng nào quá 3 s không có chữ, tiếng hay cú cắt |
+| khung đen (`blackdetect`) | không có |
+| hình đứng im (`freezedetect`, `motion_check.py` so với footage gốc) | không đoạn nào ≥ 0,8 s; nhiễu có sẵn trong clip không tính |
+| độ to | −14 ± 0,5 LUFS, đỉnh ≤ −1,4 dBTP |
+| mức SFX | không tiếng NHỎ / TO so với giọng |
+| `--asr`: SFX không che lời | chữ nghe được trên giọng thì còn nghe được trên bản dựng (so theo đoạn ±1,5 s) |
+
+Người kiểm thêm (máy không thấy được), xem ở toàn màn hình:
+- **Các mục kiểm phần hình** ở TRINH-BAY mục 3: quét vùng chữ, chuyển cảnh, miệng, hook, % minh họa.
 - **Dấu tiếng Việt:** ở mọi khối có hộp, viền hoặc gradient, chụp lúc đứng yên và soi dấu (Ắ, Ầ, Ữ, Ạ, Ặ).
 - **Bản đồ:** đúng vị trí; nhãn địa danh đúng chính tả.
 - **Số liệu và tên riêng** trên chữ khớp lời nói. Không tự thêm số không có nguồn.
+- **Màu:** da người tự nhiên, các máy đồng màu, B-roll không lệch tông A-roll.
 
-## 9. Giao
+## 9. Duyệt và giao
 
-1. Nén bản xem trước (`-crf 22 -preset veryfast`), gửi kèm danh sách khối chữ (thời điểm, chữ, preset).
-2. Người dùng duyệt xong thì:
-   - commit dữ liệu dựng;
+1. **Bản nháp gửi duyệt:** `node lib/export.mjs projects/<video> --draft` → `work/<video>/05_exports/draft/<video>_draft_v<N>.mp4` (1080p ~1–4 Mbps, nhẹ để gửi Drive / Zalo). Gửi kèm danh sách khối chữ (thời điểm, chữ, preset).
+2. Khách góp ý thứ tự / thời lượng cảnh → mở khóa hình, sửa `plan.edit`, làm lại từ bước 2. Góp ý chữ, màu, âm → sửa `plan.json`, render lại một lần.
+3. **Bản cuối:** QC đạt thì `node lib/export.mjs projects/<video> --final` → `05_exports/final/<video>_final_v<N>.mp4`: chính master H.264 25 Mbps đã render (khung 20–50 Mbps), âm −14 LUFS, không mã hóa lại.
+4. Người dùng duyệt xong thì:
+   - commit dữ liệu dựng (`projects/<video>/`);
    - thêm một dòng vào bảng 4c của TALKING-HEAD;
    - ghi lịch sử vào `brand.json` của khách;
    - chạy `pick-text.mjs --commit`.
-3. Người dùng sửa gì mà đó là ý muốn chung (không chỉ riêng video này) thì thêm thành luật (mục 1).
+5. Người dùng sửa gì mà đó là ý muốn chung (không chỉ riêng video này) thì thêm thành luật (mục 1).
 
 ## 10. Giữ repo sẵn sàng phát hành
 

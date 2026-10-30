@@ -11,8 +11,8 @@ Repo này chỉ làm một việc: nhận clip quay thật về bất động s�
 
 Luật nền:
 - Mỗi video là **dữ liệu** `projects/<khach>-<du-an>/plan.json` + `transcript.json`, tạo bằng `node scripts/new-video.mjs`. Không chép `build.mjs` / `template.html` của video nào; cách dựng chung nằm ở `lib/`. Cấu hình riêng của khách nằm ở `clients/<khach>/brand.json`.
-- Build: `node lib/build.mjs projects/<video> [--no-render]`. Kết quả ở `build/<video>/`. Render **một lần** ở cuối. Sửa `lib/` thì chạy `npm run demo` để kiểm.
-- Trước render: `npx hyperframes lint` 0 error, `kt-check` 100%, `scripts/qa/density.mjs` đạt, đã xem snapshot. Sau render: đo âm theo VAN-HANH mục 5, chạy `scripts/qa/motion_check.py` và các mục kiểm của TRINH-BAY mục 3.
+- Quy trình 5 bước hậu kỳ (`docs/VAN-HANH.md` mục 3): `lib/ingest.mjs` → `lib/assemble.mjs` (+ transcript) → `lib/build.mjs` → `lib/qc.mjs` → `lib/export.mjs`. Nguồn ở `work/<video>/` theo cây thư mục chuẩn, kết quả ở `build/<video>/` và `work/<video>/05_exports/`. Render **một lần** ở cuối. Sửa `lib/` thì chạy `npm run demo` và `npm run example` để kiểm.
+- Trước render: `node lib/qc.mjs projects/<video>` đạt, đã xem snapshot. Sau render: `node lib/qc.mjs projects/<video> --asr` đạt hết (VAN-HANH mục 8) và các mục kiểm của TRINH-BAY mục 3. Bản cuối chỉ xuất khi QC đạt.
 - Mọi bước chạy trên máy, không gọi API ngoài, không commit khóa. Không commit clip thô và file render (`work/`, `build/`). Không dùng video AI.
 - Không dùng SFX scribble-2.
 - Lõi dựng (`scripts/`, `sfx/`, `text-presets/`) có chung gốc với repo `edit-bds`. Sửa lõi thì commit riêng, message bắt đầu bằng `core:`, để repo kia lấy về được (`docs/VAN-HANH.md` mục 11).
