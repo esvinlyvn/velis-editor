@@ -16,7 +16,6 @@ Luật gốc nằm ở bảng **luật đã chốt** của `TALKING-HEAD.md` (lu
 3. Chạy `node text-presets/pick-text.mjs projects/<video>/text-plan.json`. Ở `mode: "bds"` script:
    - **giữ cố định preset theo vai** trong cả video (luật 8);
    - loại preset người dùng đã duyệt "không dùng" (`lib/presets-duyet.json` nếu repo có, luật 20 của velis-editor);
-   - trừ điểm preset có vạch gạch hai bên (luật 9);
    - so lịch sử **chỉ với video trước của cùng khách**;
    - không có ứng viên hợp vai thì dùng preset chính.
 4. Duyệt gợi ý. Đổi được khi có lý do (bố cục, độ dài chữ, đầu người, tương phản); ghi lý do vào SHOTBOOK.
