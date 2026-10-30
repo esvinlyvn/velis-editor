@@ -57,8 +57,8 @@ Montage mẫu: 8 cú cắt mỗi ~1,9 s (4 phách ở ~126 BPM), mỗi cú = fla
 
 ## A. Âm thanh
 
-- Đo: −14,0 đến −16,7 LUFS, LRA 3,9–5,0 LU; true peak +1 đến +2,2 dBTP ở 4/6 video (**lỗi, không chép**: velis giữ ≤ −1,5 dBTP).
-- Một bài nhạc xuyên suốt, ducking dưới giọng (velis: −18 đến −24 dB, `lib/music.mjs`).
+- Đo: −14,0 đến −16,7 LUFS, LRA 3,9–5,0 LU; true peak +1 đến +2,2 dBTP ở 4/6 video (**lỗi, không chép**: repo này giữ ≤ −1,5 dBTP).
+- Một bài nhạc xuyên suốt, ducking dưới giọng (repo này: −18 đến −24 dB, `lib/music.mjs`).
 - Vai SFX: chữ vào · chuyển cảnh · dâng · chốt · bản đồ · tiền · số chạy · phủ định · giấy tờ · CTA → `lib/sfx-roles.json`.
 - Công thức A4: `bung-mo` (riser → impact → lấp lánh) · `cum-chu` (mỗi dòng một tiếng nhỏ) · `con-so` (số chạy → tiếng tiền) · `ban-do` (ghim → whoosh) · `montage` · `cta`.
 
