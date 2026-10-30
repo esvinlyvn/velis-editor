@@ -9,5 +9,6 @@ Giữ file này khi đóng gói hoặc phát hành velis-editor. Mỗi mục c�
 | SFX "Motion Design Sound Effects" | `sfx/` (các tên open, thock, meter, text-tick, error-soft, bản thêm của click, pop, notify) | gói thương mại, nhập qua repo master-video | Đã mua, được phép dùng | (điền: hóa đơn, điều khoản) |
 | Phương pháp hook, minh họa, house rules | `docs/TRINH-BAY.md` | AI MASTER (repo master-video), chủ sở hữu là người dùng | Nội bộ | — |
 | Font | `@fontsource/*` | Google Fonts | SIL OFL, phân phối lại được | — |
+| Giọng đọc của project mẫu | `projects/example/voice.wav` | Piper TTS, giọng `vi_VN-vais1000-medium` (huggingface.co/rhasspy/piper-voices), tạo trên máy | Dữ liệu VAIS-1000 theo CC BY 4.0 (ghi nguồn). Giọng được tinh chỉnh từ giọng tiếng Anh "lessac" của Piper, nên chỉ dùng làm tiếng cho project mẫu, không dùng trong video giao khách | model card trên huggingface.co |
 
 Required Notice (video-talkcraft): Copyright (c) 2026 Vincent Wei (https://github.com/Vincentwei1021/video-talkcraft)

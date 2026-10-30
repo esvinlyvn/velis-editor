@@ -30,7 +30,7 @@
 
       <!-- Cảnh 1 -->
       <div class="clip scene" id="s1" data-start="0" data-duration="2.5" data-track-index="1"><div class="in" id="s1-in">
-        <div class="h" id="h1"><span class="blk">Project mẫu</span><span class="blk a">của bộ công cụ</span></div>
+        <div class="h" id="h1"><span class="blk">Dự án mẫu</span><span class="blk a">của bộ công cụ</span></div>
         <div class="box" id="box"></div>
       </div></div>
 
@@ -42,7 +42,7 @@
 
       <!-- Cảnh 3 -->
       <div class="clip scene" id="s3" data-start="5.0" data-duration="{{END_DUR}}" data-track-index="1"><div class="in" id="s3-in">
-        <div class="h"><span class="blk">Sửa template</span><span class="blk a">rồi build</span></div>
+        <div class="h"><span class="blk">Sửa bản mẫu</span><span class="blk a">rồi dựng lại</span></div>
         <div class="box" id="box2"></div>
         <div class="tap" id="tap"></div>
       </div></div>
@@ -72,6 +72,9 @@
       pop("#box2", 5.4, 0.5);
       tap("#tap", 6.4);
       tl.fromTo("#box2", { scale: 1 }, { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1, immediateRender: false }, 6.4);
+      // Cảnh cuối không đứng im sau cú chạm: khối xoay chậm, tiêu đề trôi nhẹ tới hết video
+      tl.to("#box2", { rotation: 60, duration: {{END_DUR}} - 1.7, ease: "sine.inOut" }, 6.7);
+      tl.to("#s3-in .h", { y: -24, duration: {{END_DUR}} - 0.6, ease: "sine.inOut" }, 5.4);
 
       // Phụ đề do build.mjs sinh: hiện đúng mốc data-start
       document.querySelectorAll(".cap").forEach((el) =>

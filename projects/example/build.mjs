@@ -92,7 +92,7 @@ for (const [pkg, weights] of [["montserrat", [700, 800]], ["be-vietnam-pro", [50
 }
 fs.copyFileSync(path.join(ROOT, "node_modules/gsap/dist/gsap.min.js"), path.join(out, "assets/vendor/gsap.min.js"));
 // Voice: chuẩn hóa -14 LUFS (chuẩn mạng xã hội)
-execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", path.join(HERE, "voice.wav"), "-af", "loudnorm=I=-14:TP=-1.5:LRA=9", "-ar", "48000", path.join(out, "assets/voice.wav")]);
+execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", path.join(HERE, "voice.wav"), "-af", "loudnorm=I=-14:TP=-2:LRA=9", "-ar", "48000", path.join(out, "assets/voice.wav")]);
 
 const html = fs
   .readFileSync(path.join(HERE, "template.html"), "utf8")
@@ -101,7 +101,7 @@ const html = fs
   .replaceAll("{{DURATION}}", String(DURATION))
   .replace("{{SFX}}", fs.existsSync(path.join(HERE, "sfx.json")) ? ((j) => (Array.isArray(j) ? sfxHtml(j, out) : sfxHtml(j.cues, out, j)))(JSON.parse(fs.readFileSync(path.join(HERE, "sfx.json"), "utf8"))) : "")
   .replace("{{VOICE_DUR}}", String(r2(VOICE_DUR)))
-  .replace("{{END_DUR}}", String(r2(DURATION - 5.0))) // độ dài cảnh cuối = DURATION − mốc bắt đầu cảnh cuối
+  .replaceAll("{{END_DUR}}", String(r2(DURATION - 5.0))) // độ dài cảnh cuối = DURATION − mốc bắt đầu cảnh cuối
   // SVG riêng: đặt trong art/ rồi nhúng, vd .replace("{{ICON}}", fs.readFileSync(path.join(HERE, "art/icon.svg"), "utf8"))
   ;
 fs.writeFileSync(path.join(out, "index.html"), html);

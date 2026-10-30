@@ -1,26 +1,26 @@
 {
- "source": "align.mjs (local)",
+ "source": "Piper vi_VN-vais1000-medium (offline), mốc đo từ file ghép",
  "chunks": [
   {
    "i": 0,
    "start": 0.3,
-   "end": 2.1,
+   "end": 2.07,
    "speaker": "B",
-   "text": "Đây là project mẫu của bộ công cụ."
+   "text": "Đây là dự án mẫu của bộ công cụ."
   },
   {
    "i": 1,
    "start": 2.6,
-   "end": 4.8,
+   "end": 4.49,
    "speaker": "B",
    "text": "Mỗi câu trong kịch bản sẽ thành phụ đề."
   },
   {
    "i": 2,
    "start": 5.3,
-   "end": 7.3,
+   "end": 6.99,
    "speaker": "B",
-   "text": "Sửa template rồi build để ra video."
+   "text": "Sửa bản mẫu rồi dựng lại là xong."
   }
  ]
 }
