@@ -144,7 +144,7 @@ Giữ các điều sau ngay từ bây giờ để sau này tách ra dễ:
 - Đường dẫn trong code đều tương đối với gốc repo. Không phụ thuộc thư mục ngoài repo.
 - Lõi dùng chung với repo `edit-bds` (Vis) sửa theo luật `core:` ở mục 11.
 - **Tài nguyên bên ngoài đã có quyền dùng.** Chứng từ ghi ở `docs/SOURCES.md`; khi phát hành bản đóng gói phải giữ file này:
-  - thẻ chuyển động và script lấy từ video-talkcraft (`docs/shots/`, `scripts/qa/motion_check.py`, `frame_signature.py`): đã được tác giả cho phép;
+  - thẻ chuyển động và script lấy từ video-talkcraft (`docs/shots/`, `scripts/qa/motion_check.py`, `frame_signature.py`): đang dùng nội bộ thử nghiệm; phải có thư cho phép của tác giả trước khi dùng thương mại (`docs/SOURCES.md`);
   - gói SFX "Motion Design Sound Effects": đã mua và được phép dùng.
 
   Trước khi phát hành cho người khác, đọc lại điều khoản để chắc quyền đó bao gồm việc phân phối lại cho người dùng thứ ba. Nếu không, mỗi người tự nhập SFX bằng `sfx-import.mjs`.

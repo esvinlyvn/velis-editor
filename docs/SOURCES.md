@@ -4,7 +4,7 @@ Giữ file này khi đóng gói hoặc phát hành velis-editor. Mỗi mục c�
 
 | Tài nguyên | Nằm ở | Nguồn | Quyền | Chứng từ |
 |---|---|---|---|---|
-| Thẻ chuyển động, demo, phương pháp SHOTBOOK | `docs/shots/`, `docs/SHOTS.md` | video-talkcraft · Vincent Wei · github.com/Vincentwei1021/video-talkcraft | Tác giả đã cho phép dùng (giấy phép gốc PolyForm Noncommercial 1.0.0) | (điền: ngày, link email) |
+| Thẻ chuyển động, demo, phương pháp SHOTBOOK | `docs/shots/`, `docs/SHOTS.md` | video-talkcraft · Vincent Wei · github.com/Vincentwei1021/video-talkcraft | Giấy phép gốc PolyForm Noncommercial 1.0.0. Đang dùng nội bộ thử nghiệm, chưa thương mại; xin phép tác giả trước khi giao video cho khách | (chưa có: điền ngày, link email khi xin được) |
 | Script kiểm chuyển động | `scripts/qa/motion_check.py`, `scripts/qa/frame_signature.py` | như trên | như trên | như trên |
 | SFX "Motion Design Sound Effects" | `sfx/` (các tên open, thock, meter, text-tick, error-soft, bản thêm của click, pop, notify) | gói thương mại, nhập qua repo master-video | Đã mua, được phép dùng | (điền: hóa đơn, điều khoản) |
 | Phương pháp hook, minh họa, house rules | `docs/TRINH-BAY.md` | AI MASTER (repo master-video), chủ sở hữu là người dùng | Nội bộ | — |

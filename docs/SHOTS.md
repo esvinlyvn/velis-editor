@@ -173,4 +173,4 @@ Thư mục `docs/shots/` và `scripts/qa/motion_check.py`, `scripts/qa/frame_sig
 
 > Required Notice: Copyright (c) 2026 Vincent Wei (https://github.com/Vincentwei1021/video-talkcraft)
 
-Giấy phép gốc PolyForm Noncommercial 1.0.0 (toàn văn ở `docs/shots/LICENSE-video-talkcraft.txt`): dùng không thương mại thì miễn phí; dùng thương mại phải xin phép tác giả. Video dựng cho khách là dùng thương mại, nên chỉ dùng thư mục này khi đã có thư cho phép của tác giả, ghi ngày và link vào `docs/SOURCES.md`. Chưa có thì gỡ thư mục này ra.
+Giấy phép gốc PolyForm Noncommercial 1.0.0 (toàn văn ở `docs/shots/LICENSE-video-talkcraft.txt`): dùng không thương mại thì miễn phí; dùng thương mại phải xin phép tác giả. Hiện repo chỉ dùng nội bộ để thử nghiệm, chưa dùng thương mại. Trước khi giao video có dùng thư mục này cho khách (có thu tiền), phải có thư cho phép của tác giả, ghi ngày và link vào `docs/SOURCES.md`; không xin được thì gỡ thư mục này ra.
