@@ -1,0 +1,738 @@
+{
+ "video": "kiem-chu-1",
+ "kenh": null,
+ "style": {
+  "base": "S1"
+ },
+ "info_numbers": [],
+ "blocks": [
+  {
+   "p": "tieu-de-kep",
+   "at": 0.1,
+   "o": {
+    "k": "Quỹ đất gốc",
+    "m": "GIÁ GỐC ĐẸP"
+   }
+  },
+  {
+   "p": "nhan-neon",
+   "at": 2.7,
+   "o": {
+    "m": "Sổ hồng riêng"
+   }
+  },
+  {
+   "p": "canh-bao",
+   "at": 5.3,
+   "o": {
+    "m": "Giá ảo"
+   }
+  },
+  {
+   "p": "dia-danh",
+   "at": 7.9,
+   "o": {
+    "m": "Phú Mỹ Hưng"
+   }
+  },
+  {
+   "p": "go-chu",
+   "at": 10.5,
+   "o": {
+    "m": "Giá gốc hay giá ảo?",
+    "sub": "gần chợ, quy hoạch rõ"
+   }
+  },
+  {
+   "p": "noi-bat",
+   "at": 13.1,
+   "o": {
+    "m": "Góp 0%"
+   }
+  },
+  {
+   "p": "chuyen-dong",
+   "at": 15.7,
+   "o": {
+    "m": "GỬI",
+    "m2": "hay MUA"
+   }
+  },
+  {
+   "p": "ky-thuat",
+   "at": 18.3,
+   "o": {
+    "m": "quy hoạch",
+    "sub": "gần chợ, quy hoạch rõ"
+   }
+  },
+  {
+   "p": "chu-bac",
+   "at": 20.9,
+   "o": {
+    "k": "Quỹ đất gốc",
+    "m": "hạng sang"
+   }
+  },
+  {
+   "p": "tang-truong",
+   "at": 23.5,
+   "o": {
+    "k": "Quỹ đất gốc",
+    "m": "tăng gấp đôi"
+   }
+  },
+  {
+   "p": "toc-do",
+   "at": 26.1,
+   "o": {
+    "m": "15 phút"
+   }
+  },
+  {
+   "p": "quay-vong",
+   "at": 28.7,
+   "o": {
+    "k": "Quỹ đất gốc",
+    "words": [
+     "quy hoạch",
+     "giấy tờ",
+     "pháp lý"
+    ],
+    "step": 0.7
+   }
+  },
+  {
+   "p": "khoi-noi",
+   "at": 32.13,
+   "o": {
+    "k": "Quỹ đất gốc",
+    "m": "GIÁ GỐC ĐẸP",
+    "hl": "ĐẸP"
+   }
+  },
+  {
+   "p": "dien-anh",
+   "at": 34.73,
+   "o": {
+    "k": "Gò Vấp",
+    "m": "GIÁ GỐC"
+   }
+  },
+  {
+   "p": "tap-chi",
+   "at": 37.33,
+   "o": {
+    "k": "Phú Mỹ Hưng",
+    "m": "NHÀ PHỐ GÓC",
+    "hl": "GÓC"
+   }
+  },
+  {
+   "p": "tung-chu",
+   "at": 39.93,
+   "o": {
+    "k": "Quỹ đất gốc",
+    "m": "giá gốc đẹp"
+   }
+  },
+  {
+   "p": "top-list",
+   "at": 42.53,
+   "o": {
+    "k": "TOP",
+    "m": "9 KHU",
+    "sub": "giá gốc"
+   }
+  },
+  {
+   "p": "ky-niem",
+   "at": 45.13,
+   "o": {
+    "m": "Năm 2019"
+   }
+  },
+  {
+   "p": "chuong-moi",
+   "at": 47.73,
+   "o": {
+    "k": "Phần 3",
+    "m": "quy hoạch"
+   }
+  },
+  {
+   "p": "song",
+   "at": 50.33,
+   "o": {
+    "m": "ven sông"
+   }
+  },
+  {
+   "p": "gia-chot",
+   "at": 52.93,
+   "o": {
+    "k": "GIÁ GỐC",
+    "value": 1.25,
+    "suffix": " tỷ"
+   }
+  },
+  {
+   "p": "cao-trao",
+   "at": 55.53,
+   "o": {
+    "lines": [
+     {
+      "parts": [
+       {
+        "t": "không chỉ",
+        "v": "dem"
+       },
+       {
+        "t": "giá gốc",
+        "v": "khoa"
+       }
+      ]
+     },
+     {
+      "t": "mà còn",
+      "v": "dem"
+     },
+     {
+      "t": "Quý giá",
+      "v": "cam"
+     },
+     {
+      "t": "đáng sống",
+      "v": "chot"
+     }
+    ]
+   }
+  },
+  {
+   "p": "kim-loai",
+   "at": 58.93,
+   "o": {
+    "m": "GIÁ GỐC",
+    "s": "Quý giá",
+    "tone": "vang"
+   }
+  },
+  {
+   "p": "so-khong-lo",
+   "at": 61.53,
+   "o": {
+    "k": "TRIỆU ĐỒNG",
+    "value": 250,
+    "s": "quỹ đất gốc"
+   }
+  },
+  {
+   "p": "so-dem",
+   "at": 64.13,
+   "o": {
+    "rows": [
+     {
+      "n": 12,
+      "u": "tầng"
+     },
+     {
+      "n": 250,
+      "u": "phòng ngủ"
+     }
+    ]
+   }
+  },
+  {
+   "p": "cap-dong",
+   "at": 66.73,
+   "o": {
+    "rows": [
+     {
+      "hoa": "GIÁ GỐC",
+      "viet": "Quý giá"
+     },
+     {
+      "hoa": "QUY HOẠCH",
+      "viet": "Rõ ràng"
+     }
+    ]
+   }
+  },
+  {
+   "p": "phoi-canh",
+   "at": 69.33,
+   "o": {
+    "lines": [
+     {
+      "t": "GIÁ GỐC"
+     },
+     {
+      "parts": [
+       {
+        "t": "chỉ từ",
+        "v": "nho"
+       },
+       {
+        "t": "1,25 TỶ",
+        "v": "so"
+       }
+      ]
+     }
+    ],
+    "goc": -16
+   }
+  },
+  {
+   "p": "noi-khoi",
+   "at": 71.93,
+   "o": {
+    "m": "QUỸ ĐẤT GỐC",
+    "tone": "vang"
+   }
+  },
+  {
+   "p": "so-chen",
+   "at": 74.53,
+   "o": {
+    "truoc": "Góp|gốc",
+    "so": "0",
+    "sau": "%"
+   }
+  },
+  {
+   "p": "pill-xep",
+   "at": 77.13,
+   "o": {
+    "items": [
+     {
+      "t": "QUỸ ĐẤT GỐC"
+     },
+     {
+      "t": "GẦN CHỢ"
+     }
+    ]
+   }
+  },
+  {
+   "p": "nhan-ban-do",
+   "at": 79.73,
+   "o": {
+    "m": "PHÚ MỸ HƯNG"
+   }
+  },
+  {
+   "p": "chu-gian",
+   "at": 82.33,
+   "o": {
+    "m": "GIÁ GỐC",
+    "s": "quỹ đất gốc"
+   }
+  },
+  {
+   "p": "logo-ghep",
+   "at": 84.93,
+   "o": {
+    "m": "Sun",
+    "s": "Quý giá",
+    "so": "9",
+    "sub": "Gò Vấp"
+   }
+  },
+  {
+   "p": "so-thu-tu",
+   "at": 87.53,
+   "o": {
+    "rows": [
+     {
+      "n": "1",
+      "nho": "quỹ đất",
+      "lon": "GIÁ GỐC"
+     },
+     {
+      "n": "2",
+      "nho": "luồng",
+      "lon": "Quý giá",
+      "viet": true
+     }
+    ]
+   }
+  },
+  {
+   "p": "khung-sdt",
+   "at": 90.13,
+   "o": {
+    "m": "0909.123.456"
+   },
+   "top": 1260
+  },
+  {
+   "p": "chung:bds-dang-song",
+   "at": 92.73,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:am-thuc-4-mua",
+   "at": 95.33,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "1,25 TỶ"
+    ]
+   }
+  },
+  {
+   "p": "chung:capcut-mobile",
+   "at": 97.93,
+   "o": {
+    "texts": [
+     "GIÁ GỐC ĐẸP",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:khoa-hoc",
+   "at": 100.53,
+   "o": {
+    "texts": [
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:danh-thuc",
+   "at": 103.13,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "giá gốc đẹp",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:tiet-kiem-50",
+   "at": 105.73,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "1,25 TỶ"
+    ]
+   }
+  },
+  {
+   "p": "chung:tang-cao",
+   "at": 108.33,
+   "o": {
+    "texts": [
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:capcut-split",
+   "at": 110.93,
+   "o": {
+    "texts": [
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:dang-ky",
+   "at": 113.53,
+   "o": {
+    "texts": [
+     "giá gốc đẹp",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:thay-doi",
+   "at": 116.13,
+   "o": {
+    "texts": [
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:bi-quyet",
+   "at": 118.73,
+   "o": {
+    "texts": [
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:tim-dung-can-ho",
+   "at": 121.33,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "GIÁ GỐC ĐẸP",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:co-hoi-dau-tu",
+   "at": 123.93,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "giá gốc đẹp",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:ban-than",
+   "at": 126.53,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:hien-dai",
+   "at": 129.13,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "giá gốc đẹp",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:noi-bat",
+   "at": 131.73,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:edit-video",
+   "at": 134.33,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "giá gốc đẹp",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:comment-khoa-hoc",
+   "at": 136.93,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:comment-bao-gia",
+   "at": 139.53,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:tham-quan-can-ho",
+   "at": 142.13,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:co-hoi-ngay",
+   "at": 144.73,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "giá gốc đẹp",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:chinh-sua",
+   "at": 147.33,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:an-toan",
+   "at": 149.93,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:100-trieu",
+   "at": 152.53,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "1,25 TỶ",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:5-hieu-ung",
+   "at": 155.13,
+   "o": {
+    "texts": [
+     "1,25 TỶ",
+     "Quỹ đất gốc",
+     "giá gốc đẹp"
+    ]
+   }
+  },
+  {
+   "p": "chung:dong-xe-suv",
+   "at": 157.73,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "giá gốc đẹp",
+     "gần chợ, quy hoạch rõ",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:1-can-ho",
+   "at": 160.33,
+   "o": {
+    "texts": [
+     "giá gốc đẹp",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:a-hook",
+   "at": 162.93,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "GIÁ GỐC ĐẸP",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:a-compare",
+   "at": 165.53,
+   "o": {
+    "texts": [
+     "Quý giá",
+     "1,25 TỶ",
+     "GIÁ GỐC ĐẸP"
+    ]
+   }
+  },
+  {
+   "p": "chung:b-location",
+   "at": 168.13,
+   "o": {
+    "texts": [
+     "QUỸ ĐẤT GỐC",
+     "Quý giá"
+    ]
+   }
+  },
+  {
+   "p": "chung:b-list",
+   "at": 170.73,
+   "o": {
+    "texts": [
+     "giá gốc đẹp",
+     "gần chợ, quy hoạch rõ",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:c-hook",
+   "at": 173.33,
+   "o": {
+    "texts": [
+     "GIÁ GỐC ĐẸP",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:c-marker",
+   "at": 175.93,
+   "o": {
+    "texts": [
+     "Quỹ đất gốc",
+     "1,25 TỶ"
+    ]
+   }
+  },
+  {
+   "p": "chung:c-step",
+   "at": 178.53,
+   "o": {
+    "texts": [
+     "01 XEM QUY HOẠCH",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:c-alert",
+   "at": 181.13,
+   "o": {
+    "texts": [
+     "QUỸ ĐẤT GỐC",
+     "giá gốc đẹp",
+     "gần chợ, quy hoạch rõ"
+    ]
+   }
+  },
+  {
+   "p": "chung:d-counter",
+   "at": 183.73,
+   "o": {
+    "texts": [
+     "1.250",
+     "GẦN CHỢ, QUY HOẠCH RÕ"
+    ]
+   }
+  }
+ ]
+}

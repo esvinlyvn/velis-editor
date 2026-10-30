@@ -49,14 +49,14 @@
       .bds-khoi-noi .k.pill { box-shadow: none; }
       .bds-gia-chot .bg { display: none; } /* số mờ phía sau lệch với font serif → ẩn  */
       /* đáy chỉ nhạt bớt (mặt nạ gốc mờ hẳn về 0 làm mất dấu nặng: "THỰ" đọc thành "THU") */
-      .bds-tang-truong .m { line-height: 1.05; -webkit-mask-image: linear-gradient(180deg, #000 72%, #000c 100%); mask-image: linear-gradient(180deg, #000 72%, #000c 100%); }
-      .bds-ky-thuat .m.grad .ch { padding: .22em .16em .3em .12em; margin: -.22em -.16em -.3em -.12em; } /* chữ nghiêng tô gradient: đệm 2 bên rộng, không xén mép (luật 12) */
+      .bds-tang-truong .m { line-height: 1.05; padding-bottom: .28em; margin-bottom: -.28em; -webkit-mask-image: linear-gradient(180deg, #000 60%, #000c 85%); mask-image: linear-gradient(180deg, #000 60%, #000c 85%); } /* mặt nạ phủ cả nét móc (g, y) dưới dòng */
+      .bds-ky-thuat .m.grad .ch { padding: .3em .16em .3em .12em; margin: -.3em -.16em -.3em -.12em; } /* chữ nghiêng tô gradient: đệm 2 bên rộng, không xén mép (luật 12) */
       /* màu chữ ưu tiên gradient: nhãn neon và chữ gõ cũng tô gradient (không quầng) */
       .bds-nhan-neon .m.neon { background: linear-gradient(180deg, color-mix(in srgb, var(--c) 35%, #fff) 20%, var(--c) 60%, var(--c2) 100%);
         -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; padding: .24em .1em .08em; filter: none; }
       .bds-go-chu .typer { background: linear-gradient(180deg, #fff 20%, color-mix(in srgb, var(--c) 45%, #fff) 60%, var(--c) 100%);
         -webkit-background-clip: text; background-clip: text; color: transparent; padding: .2em .02em .06em; }
-      .bds-cao-trao .v-chot .ch { padding: .22em .06em .08em; margin: -.22em -.06em -.08em; }
+      .bds-cao-trao .v-chot .ch { padding: .3em .2em .24em; margin: -.3em -.2em -.24em; } /* chóp dấu chồng (Ấ, Ố) nhô ngang: vùng tô rộng */
     </style>
   </head>
   <body>
@@ -106,7 +106,9 @@
           host.appendChild(slot);
           let o = { size: 160, display: q(ST.display), sans: q(ST.sans), ...c.o }, h;
           // bộ chung: căn giữa ô, giới hạn bề rộng theo ô, runtime presets.mjs thu nhỏ khối nếu rộng quá
-          const place = () => { const pos = slot.querySelector(".tp-pos"); pos.style.left = slot.clientWidth / 2 + "px"; pos.dataset.maxw = Math.round(slot.clientWidth * 0.96); window.__tpLay?.(); };
+          // phần chữ nhô lên trên mép ô (dấu, số lớn treo trên) thì đẩy cả khối xuống cho đỉnh chữ thật nằm đúng mép ô
+          const place = () => { const pos = slot.querySelector(".tp-pos"); pos.style.left = slot.clientWidth / 2 + "px"; pos.style.top = "0px"; pos.dataset.maxw = Math.round(slot.clientWidth * 0.96); window.__tpLay?.();
+            const over = slot.getBoundingClientRect().top - window.__tpInk(pos.firstElementChild)[2]; if (over > 0) pos.style.top = Math.ceil(over) + "px"; };
           if (chung) { place(); h = { r: slot.querySelector(".tp"), parts: {}, p: {}, o }; }
           else { h = BDS.make(c.p, slot, o); [o, h] = fit(slot, c, o, h); }
           // Chữ sau người (luật 11): phần dưới dòng chữ chính nằm sau đỉnh đầu (objTop), behindFrac 0,3 (người giữa) – 0,4 (người lệch)
@@ -115,8 +117,9 @@
             slot.style.top = Math.max(250, Math.round(c.objTop - (m.bottom - s0.top) + (c.behindFrac ?? 0.35) * m.height)) + "px";
           }
           // khối xuống dưới y 700 → ô hẹp x 60–940 (né cột nút bên phải), co lại nếu cần
-          if (!low && !slot.classList.contains("narrow") && h.r.getBoundingClientRect().bottom > 700) { slot.classList.add("narrow"); if (chung) place(); else [o, h] = fit(slot, c, o, h); }
-          const rb = h.r.getBoundingClientRect();
+          const rectOf = () => { if (!chung) return h.r.getBoundingClientRect(); const [l, r, t, b] = window.__tpInk(h.r); return { left: l, right: r, top: t, bottom: b }; }; // bộ chung: theo nét chữ thật
+          if (!low && !slot.classList.contains("narrow") && rectOf().bottom > 700) { slot.classList.add("narrow"); if (chung) place(); else [o, h] = fit(slot, c, o, h); }
+          const rb = rectOf();
           c.zone = c.objTop != null ? "none" : low ? "low" : "top"; c.cy = (rb.top + rb.bottom) / 2;
           if (c.zone === "low") { lowTop = Math.min(lowTop, rb.top); lowBottom = Math.max(lowBottom, rb.bottom); }
           else if (c.zone === "top") scrimBottom = Math.max(scrimBottom, rb.bottom);
@@ -129,6 +132,16 @@
           (window.__kt = window.__kt || []).push({ ...c, h });
         });
         window.__tpLay?.(); window.__tpLock = true; chungIn.forEach((f) => f());
+        // bộ chung: tua tới lúc khối đã đứng yên, đo nét chữ thật rồi chỉnh lần cuối (hiệu ứng như zoomCh làm nét lúc đứng yên khác lúc đo bố cục)
+        for (const c of window.__kt) {
+          if (!c.p.startsWith("chung:")) continue;
+          tl.seek(Math.min(c.at + 1.6, c.out - 0.05, tl.duration() - 0.05), false);
+          const slot = c.h.r.closest(".kt-slot"), pos = c.h.r.parentElement, sr = slot.getBoundingClientRect(), [l, r, t] = window.__tpInk(c.h.r);
+          const dx = (sr.left + sr.right) / 2 - (l + r) / 2, dy = Math.max(0, sr.top - t);
+          if (Math.abs(dx) > 0.5) pos.style.left = parseFloat(pos.style.left) + dx + "px";
+          if (dy > 0.5) pos.style.top = parseFloat(pos.style.top || 0) + dy + "px";
+        }
+        tl.seek(0, false);
         // ---------- lớp phủ: kích thước theo khối, độ đậm theo nền, chỉ hiện khi có chữ ----------
         const sc = { top: document.getElementById("scrim"), low: document.getElementById("scrim-low") }, blur = document.getElementById("blur");
         const geo = { top: [0, Math.round(scrimBottom + 160)], low: [Math.round(lowTop - 260), Math.round(lowBottom - lowTop + 520)] };

@@ -89,7 +89,7 @@ Mỗi bước có một lệnh trong `lib/` (chi tiết định dạng ở `lib/
 - Màu theo mục 7 (sửa màu trước, LUT sau). Chữ chốt theo mục 4, chữ sau người theo TALKING-HEAD 4b, bản đồ theo `MAP.md`, CTA theo `brand.json`. Không phụ đề (luật 1).
 
 **Bước 5 · Kiểm định, duyệt, xuất** — `lib/qc.mjs`, `lib/export.mjs`
-- Trước render: `node lib/qc.mjs projects/<video>` (lint, kt-check, mật độ) + snapshot khối đứng yên và đang chạy (TALKING-HEAD mục 6). **Render một lần**: `node lib/build.mjs projects/<video>`.
+- Trước render: `node lib/qc.mjs projects/<video>` (lint, kt-check, text-ink: nét chữ bị xén / đè dấu, mật độ) + snapshot khối đứng yên và đang chạy (TALKING-HEAD mục 6). **Render một lần**: `node lib/build.mjs projects/<video>`.
 - Sau render: `node lib/qc.mjs projects/<video> --asr` phải đạt hết (mục 8).
 - Xuất và giao theo mục 9.
 
@@ -161,6 +161,7 @@ Luật:
 |---|---|
 | `npx hyperframes lint` | 0 error |
 | `kt-check` | 100% khối |
+| `text-ink` (`scripts/qa/text-ink.cjs`) | 0 khối xén nét, 0 khối đè dấu / nét móc (luật 12, 21) |
 | mật độ sự kiện (`scripts/qa/density.mjs`) | không quãng nào quá 3 s không có chữ, tiếng hay cú cắt |
 | khung đen (`blackdetect`) | không có |
 | hình đứng im (`freezedetect`, `motion_check.py` so với footage gốc) | không đoạn nào ≥ 0,8 s; nhiễu có sẵn trong clip không tính |

@@ -11,7 +11,8 @@
     "export": "node lib/export.mjs",
     "map:data": "node scripts/map/data.mjs",
     "map": "node scripts/map/render.mjs",
-    "test:chung": "node tests/chung/make-media.mjs && node lib/build.mjs tests/chung --no-render"
+    "test:chung": "node tests/chung/make-media.mjs && node lib/build.mjs tests/chung --no-render",
+    "test:kiem-chu": "node tests/kiem-chu/run.mjs"
   },
   "repository": {
     "type": "git",

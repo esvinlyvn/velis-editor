@@ -9,7 +9,7 @@ node lib/ingest.mjs projects/<video>               # bước 1: dò clip (Log? f
 node lib/assemble.mjs projects/<video>             # bước 2–3: đồng bộ mic, A-roll + B-roll + J/L-cut theo plan.edit
 #   nhận diện giọng trên work/<video>/voice.wav → projects/<video>/transcript.json (sửa tay); khách duyệt dựng → --lock
 node lib/build.mjs projects/<video> --no-render    # bước 3–4: âm 4 lớp, màu, chữ, SFX → in bảng khối chữ, tương phản, cảnh báo
-node lib/qc.mjs projects/<video>                   # lint, kt-check, mật độ; xem snapshot
+node lib/qc.mjs projects/<video>                   # lint, kt-check, text-ink, mật độ; xem snapshot
 node lib/build.mjs projects/<video>                # render MỘT lần (master 25 Mbps) + chuẩn hóa −14 LUFS
 node lib/qc.mjs projects/<video> --asr             # bước 5: khung đen, đứng im, độ to, SFX, che lời
 node lib/export.mjs projects/<video> --draft       # bản nháp gửi duyệt → --final khi QC đạt
@@ -17,7 +17,7 @@ node lib/export.mjs projects/<video> --draft       # bản nháp gửi duyệt �
 
 Video mẫu đi đủ chuỗi trên: `npm run example`, xem `projects/example/plan.json` và `SHOTBOOK.md`.
 
-Kiểm thư viện sau mỗi lần sửa: `npm run demo` (dựng `tests/demo` bằng media tổng hợp, không render). Sửa preset chữ thì chạy thêm `npm run test:me4real` rồi `kt-check` trên `build/me4real/index.html` (21 khối).
+Kiểm thư viện sau mỗi lần sửa: `npm run demo` (dựng `tests/demo` bằng media tổng hợp, không render). Sửa preset chữ thì chạy thêm `npm run test:me4real` rồi `kt-check` trên `build/me4real/index.html` (21 khối). Sửa preset chữ, `lib/template.html` hay runtime chữ thì chạy `npm run test:kiem-chu` (mọi preset đã duyệt × 3 bộ câu chữ: dấu nặng / nét móc, câu dài, chữ rất ngắn × 3 cặp font; kt-check + text-ink).
 
 ## Thành phần
 
