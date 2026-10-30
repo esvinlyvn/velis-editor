@@ -367,7 +367,7 @@ function fillVars(l, th, rc) {
  *  bg "light": nền sáng (trời, tường trắng, nội thất sáng) → quầng tối + bóng thay cho glow sáng (contrastPlan() chọn hộ).
  *  hand: true thay chữ ký Great Vibes bằng Dancing Script 700 (móc ư/ơ rõ — dùng khi chữ ký là chữ phụ cỡ nhỏ).
  *  maxWidth: presetRuntime() tự thu nhỏ cả khối nếu rộng hơn (mặc định 940 px). edge: lề tối thiểu tới mép khung (mặc định 24 px; 60 = vùng an toàn DAC-TA-CHU). */
-export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale = 1, anchor = "center", maxWidth = 940, edge = 24, bg = "dark", footage, theme, recolor, hand = false } = {}) {
+export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale = 1, anchor = "center", maxWidth = 940, edge = 24, bg = "dark", footage, theme, recolor, hand = false, center, wrap = true } = {}) {
   const p = PRESET[pid];
   if (!p) throw new Error(`Không có preset: ${pid}`);
   const th = theme ?? THEMES.coral;
@@ -419,7 +419,8 @@ export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale =
       }).join("");
     }
     let big = "";
-    if (l.big) {
+    // chữ thật không mở đầu bằng số ("12.500 M²", "35%") → không treo số mẫu, không xóa ký tự nào của chữ thật
+    if (l.big && !(texts[k] != null && !/^(\d+)\s+(.+)$/.test(t))) {
       // số treo lấy từ chữ thật: "02 KÝ HỢP ĐỒNG" → số "02" treo trái, phần còn lại là dòng chữ
       const lead = texts[k] != null && t.match(/^(\d+)\s+(.+)$/);
       const bigT = lead ? lead[1] : l.big.t;
@@ -435,7 +436,7 @@ export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale =
   }).join("");
   // vị trí/căn/thu phóng ở lớp ngoài .tp-pos; lớp .tp (id) để GSAP diễn hoạt tự do
   const tf = anchor === "left" ? `transform:scale(${scale});transform-origin:0 0` : `transform:translateX(-50%) scale(${scale});transform-origin:50% 0`;
-  return `<div class="tp-pos" data-maxw="${maxWidth}" data-edge="${edge}" data-anchor="${anchor}" data-scale="${scale}" style="left:${left}px;top:${top}px;${tf}"><div class="tp tp-${pid}${mode}" id="${id}" style="--nhanbd:${th.c1};${p.align ? `--tp-align:${p.align}` : ""}">${p.vbar ? `<i class="tp-vbar" style="--vbar:${solid(p.vbar)}"></i>` : ""}${lines}</div></div>`;
+  return `<div class="tp-pos" data-maxw="${maxWidth}" data-edge="${edge}" data-anchor="${anchor}" data-scale="${scale}"${center ? ` data-center="${center}"` : ""}${wrap ? "" : ` data-wrap="0"`} style="left:${left}px;top:${top}px;${tf}"><div class="tp tp-${pid}${mode}" id="${id}" style="--nhanbd:${th.c1};${p.align ? `--tp-align:${p.align}` : ""}">${p.vbar ? `<i class="tp-vbar" style="--vbar:${solid(p.vbar)}"></i>` : ""}${lines}</div></div>`;
 }
 
 /** Script chạy một lần trong trang (đặt cuối body), đo bằng bố cục thật sau khi font tải xong:
@@ -446,11 +447,34 @@ export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale =
 export function presetRuntime() {
   return `<script>(function(){
 function box(pos){ var x0=1e9,x1=-1e9; pos.firstElementChild.querySelectorAll(".ch,.tp-deco,.big,.in,.tp-nhan").forEach(function(e){ var r=e.getBoundingClientRect(); if(!r.width) return; x0=Math.min(x0,r.left); x1=Math.max(x1,r.right); }); return [x0,x1]; }
+function inkBox(root){ var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9, add=function(q){ if(!q.width||!q.height) return; x0=Math.min(x0,q.left); y0=Math.min(y0,q.top); x1=Math.max(x1,q.right); y1=Math.max(y1,q.bottom); };
+  var tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT), n, rg=document.createRange();
+  while((n=tw.nextNode())){ if(!n.data.trim()) continue; var st=getComputedStyle(n.parentElement); if(st.visibility==="hidden"||+st.opacity===0) continue; rg.selectNodeContents(n); add(rg.getBoundingClientRect()); }
+  root.querySelectorAll(".tp-deco,.boxed .in,.outlined .in,.tagged .in,.tp-pill").forEach(function(e){ add(e.getBoundingClientRect()); });
+  return [x0,x1,y0,y1]; }
+window.__tpInk=inkBox;
+// Luật 21: dòng TRÊN có dấu dưới / nét móc (g, j, p, q, y…) thì dòng dưới không được chạm — đo nét thật, chạm thì đẩy xuống
+var HG=new RegExp("[gjpqyQ,;"+String.fromCharCode(0x323)+"]"), CV=document.createElement("canvas").getContext("2d");
+function inkChars(line,sc){ var out=[], tw=document.createTreeWalker(line,NodeFilter.SHOW_TEXT), n, rg=document.createRange();
+  while((n=tw.nextNode())){ if(!n.data.trim()) continue; var st=getComputedStyle(n.parentElement); if(st.visibility==="hidden") continue;
+    CV.font=st.fontStyle+" "+st.fontWeight+" "+st.fontSize+" "+st.fontFamily; var fm=CV.measureText("H"), fa=fm.fontBoundingBoxAscent;
+    for(var i=0;i<n.data.length;i++){ var ch=n.data[i]; if(!ch.trim()) continue; var j=i+1; while(j<n.data.length && /[\u0300-\u036f]/.test(n.data[j])) j++;
+      rg.setStart(n,i); rg.setEnd(n,j); var b=rg.getBoundingClientRect(), m=CV.measureText(n.data.slice(i,j)); i=j-1;
+      out.push({ l:b.left, r:b.right, top:b.top+(fa-m.actualBoundingBoxAscent)*sc, bot:b.top+(fa+m.actualBoundingBoxDescent)*sc }); } }
+  return out; }
+function unhang(tp){ var sc=tp.getBoundingClientRect().width/(tp.offsetWidth||1)||1;
+  var L=[].slice.call(tp.querySelectorAll(".tp-line")).filter(function(l){ return l.textContent.trim(); });
+  L.forEach(function(l){ if(l.dataset.uh==null) l.dataset.uh=l.style.marginTop; l.style.marginTop=l.dataset.uh; });
+  for(var k=1;k<L.length;k++){ var up=L[k-1], lo=L[k];
+    if(!HG.test(up.textContent.normalize("NFD"))) continue;
+    var A=inkChars(up,sc), B=inkChars(lo,sc), gap=0.05*parseFloat(getComputedStyle(lo).fontSize)*sc, need=0;
+    A.forEach(function(a){ B.forEach(function(b){ if(b.r<=a.l||b.l>=a.r) return; var d=a.bot+gap-b.top; if(d>need) need=d; }); });
+    if(need>0.5) lo.style.marginTop=(parseFloat(getComputedStyle(lo).marginTop)||0)+need/sc+"px"; } }
 function lay(force){
   if(window.__tpLock && !force) return; // trang đã tự đặt bố cục xong và gắn chuyển động (lib/template.html): không đo lại trên trạng thái đang diễn hoạt
   // 1) chữ thật quá dài (khối phải thu dưới 72 %): xuống dòng dòng rộng nhất tại khoảng trắng gần giữa nhất, thay vì thu nhỏ
   document.querySelectorAll(".tp-pos[data-maxw]").forEach(function(pos){
-    if(pos._wrapped || (document.fonts && document.fonts.status!=="loaded")) return; // đo bằng font thật, không đo font dự phòng
+    if(pos._wrapped || pos.dataset.wrap==="0" || (document.fonts && document.fonts.status!=="loaded")) return; // đo bằng font thật, không đo font dự phòng
     var s0=+pos.dataset.scale||1, cur=pos._s||s0, b=box(pos), w=(b[1]-b[0])/cur;
     if(w*s0 <= +pos.dataset.maxw/0.72) return;
     var best=null, bw=0;
@@ -498,6 +522,8 @@ function lay(force){
       if(ok===null){ ok=Math.max(0,W-nw); y=Math.max.apply(null,info.map(function(c){return c.bot;}))+gap; } else y=base-gap; }
     n.style.left=Math.round(ok)+"px"; n.style.top=Math.round(y)+"px";
   });
+  // 1c) luật 21: gỡ đè dấu / nét móc giữa hai dòng liền nhau
+  document.querySelectorAll(".tp-pos .tp").forEach(unhang);
   // 2) gradient ngang liền dòng: vị trí từng ký tự (--x) và bề rộng dòng (--lw)
   document.querySelectorAll(".tp-line .in, .tp-line .big").forEach(function(bx){
     bx.style.setProperty("--lw", bx.scrollWidth+"px");
@@ -517,6 +543,8 @@ function lay(force){
     // so trong hệ tọa độ của khung chứa (khối có thể nằm trong một ô lệch khỏi mép trang, như kt-slot của lib/)
     var op=pos.offsetParent||document.body, ox=op.getBoundingClientRect().left; b=[b[0]-ox, b[1]-ox];
     var W=op.clientWidth||1080, sh=0;
+    // center "ink": căn giữa theo nét chữ thật (preset có dòng lệch ngang dx), không theo khung bố cục
+    if(pos.dataset.center==="ink"){ var ib=inkBox(pos.firstElementChild), want=W/2-(ib[0]+ib[1])/2+ox; if(Math.abs(want)>0.5){ pos._dx=(pos._dx||0)+want; tf(pos._dx); b=[b[0]+want,b[1]+want]; } }
     var E=pos.dataset.edge!=null&&pos.dataset.edge!==""?+pos.dataset.edge:24; if(b[1]>W-E) sh=W-E-b[1]; if(b[0]+sh<E) sh=E-b[0];
     if(sh){ pos._dx=(pos._dx||0)+sh; tf(pos._dx); }
   });

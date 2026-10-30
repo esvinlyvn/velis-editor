@@ -108,3 +108,5 @@
 /* khung-sdt */
 .bds-khung-sdt { font-family: var(--display); font-weight: 900; align-items: center; }
 .bds-khung-sdt .box { font-size: .5em; color: var(--c); border: .07em solid var(--c); border-radius: .3em; padding: .2em .55em .14em; letter-spacing: .03em; font-variant-numeric: tabular-nums; }
+/* vùng tô rộng hơn nét (dấu chồng, chân số font có chân, nét viết tay): đệm rồi bù bằng lề âm, vị trí chữ không đổi. Đặt cuối file để thắng quy tắc riêng của từng preset */
+.bds .metal, .bds-kim-loai .m .ch, .bds-so-khong-lo .num .st, .bds.bds-noi-khoi .ex-f, .bds-logo-ghep .lg-m .ch, .bds-so-dem .num .st { padding: .32em .08em .24em !important; margin: -.32em -.08em -.24em !important; }

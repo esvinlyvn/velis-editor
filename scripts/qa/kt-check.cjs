@@ -27,14 +27,16 @@ const OPT = "/opt/pw-browsers/chromium";
     }
     for (const [i, c, t] of jobs) {
       tl.seek(t, false);
-      const r = c.h.r.getBoundingClientRect(), low = c.zone === "low";
+      const ink = (el) => { const [left, right, top, bottom] = window.__tpInk(el); return { left, top, right, bottom }; }; // vùng chữ thật (presetRuntime)
+      // bộ chung (chung:<id>): đo theo nét chữ thật (dòng lệch ngang dx nằm ngoài khung bố cục)
+      const r = c.p.startsWith("chung:") ? ink(c.h.r) : c.h.r.getBoundingClientRect(), low = c.zone === "low";
       // vùng an toàn TikTok: y 250–1440; cột nút bên phải chiếm x > 940 từ y 700 → khối chạm y > 700 thì giới hạn ngang 60–940
       // ô hẹp (class narrow do template đặt) → kiểm theo khung 60–940; còn lại khung theo vị trí thật
-      const narrow = c.h.r.parentElement?.classList.contains("narrow");
+      const narrow = c.h.r.closest(".kt-slot")?.classList.contains("narrow");
       const box = low ? { l: 140, r: 940, t: 1240, b: 1440 } : narrow ? { l: 60, r: 940, t: 250, b: 1440 } : r.bottom > 700 ? { l: 60, r: 940, t: 250, b: 1440 } : { l: 60, r: 1020, t: 250, b: 700 };
       const errs = [];
       const cx = (r.left + r.right) / 2, want = (box.l + box.r) / 2;
-      const left = /\b(left|right)\b/.test(c.h.r.parentElement?.className ?? ""); // khối căn trái/phải có chủ đích (cao-trao, pill-xep): không kiểm tâm
+      const left = /\b(left|right)\b/.test(c.h.r.closest(".kt-slot")?.className ?? ""); // khối căn trái/phải có chủ đích (cao-trao, pill-xep): không kiểm tâm
       if (!left && Math.abs(cx - want) > 8) errs.push(`lệch tâm ${Math.round(cx - want)}px`);
       if (r.left < box.l - 1 || r.right > box.r + 1) errs.push(`tràn ngang ${Math.round(r.left)}–${Math.round(r.right)}`);
       if (r.top < box.t - 1 || r.bottom > box.b + 1) errs.push(`tràn dọc ${Math.round(r.top)}–${Math.round(r.bottom)}`);

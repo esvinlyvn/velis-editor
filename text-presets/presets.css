@@ -15,17 +15,19 @@
   /* glow 2 lớp như mẫu: sát (rõ viền sáng) + loang nhạt (55%) — không loang đặc, chữ vẫn sắc */
   filter: drop-shadow(0 0 calc(var(--gw, 1) * var(--gk, 1) * 3px) var(--glow, transparent)) drop-shadow(0 0 calc(var(--gw, 1) * var(--gk, 1) * 12px) color-mix(in srgb, var(--glow, transparent) 55%, transparent)) var(--shade, drop-shadow(0 0 0 transparent)); }
 .tp-line .in { display: inline-block; position: relative; isolation: isolate; }
-.tp-line .ch { display: inline-block; padding: .36em .03em .32em; margin: -.36em -.03em -.32em;
+.tp-line .ch { display: inline-block; padding: .36em .2em .32em; margin: -.36em -.2em -.32em; /* vùng tô rộng: chóp dấu chồng (Ấ, Ố) nhô ngang */
   color: transparent; -webkit-background-clip: text; background-clip: text; background-repeat: no-repeat;
   /* lớp 1: vệt sáng quét (--sx), lớp 2: màu dòng. presetRuntime() đặt --lw (bề rộng dòng) và --x (vị trí ký tự)
      để gradient ngang trải liền cả dòng; thiếu runtime thì mỗi ký tự tự tô riêng (vẫn đúng màu) */
   background-image: linear-gradient(100deg, transparent 0%, rgba(255,255,255,.95) 50%, transparent 100%), var(--fill, linear-gradient(#fff, #fff));
-  background-size: 260px 100%, var(--lw, 100%) 100%;
-  background-position: calc(var(--sx, -9999px) - var(--x, 0px)) 0, calc(0px - var(--x, 0px)) 0; }
+  background-size: 260px 100%, calc(var(--lw, 100%) + 2em) 100%; /* trải dư 1 em mỗi đầu dòng: nét nhô ra mép dòng vẫn có màu */
+  background-position: calc(var(--sx, -9999px) - var(--x, 0px)) 0, calc(-1em - var(--x, 0px)) 0; }
 .tp-line .ch.sp { width: .26em; }
 /* chữ nghiêng / viết tay nhô ra ngoài hộp ký tự: nới vùng tô gradient hai bên để nét không bị xén */
 .tp-line .f-black-i .ch, .tp-line.f-black-i .ch, .tp-line .f-cond-i .ch, .tp-line.f-cond-i .ch, .tp-line .f-serif-i .ch, .tp-line.f-serif-i .ch {
   padding-left: .16em; padding-right: .2em; margin-left: -.16em; margin-right: -.2em; }
+/* chữ viết tay: nét đầu / đuôi (Q, g, y) vươn xa hơn chữ nghiêng */
+.tp-line.f-script .ch, .tp-line.f-hand .ch, .tp-line .f-script .ch, .tp-line .f-hand .ch { padding-left: .34em; padding-right: .34em; margin-left: -.34em; margin-right: -.34em; }
 .tp-line .ch.nv { display: inline-grid; justify-items: center; }
 .tp-line .nvs { grid-area: 1 / 1; }
 /* gõ chữ có con trỏ */

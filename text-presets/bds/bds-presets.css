@@ -14,7 +14,7 @@
 .bds .sub { font-family: var(--sans, "Be Vietnam Pro", "Montserrat", sans-serif); font-weight: 700; font-size: .36em; letter-spacing: .02em; }
 .bds .ghost { position: absolute; left: 0; top: 0; opacity: 0; pointer-events: none; }
 /* Chữ gradient: mỗi ký tự tự cắt nền, có đệm trên/dưới để dấu tiếng Việt (Ố, Ẫ, Ệ…) không bị cắt mất. */
-.bds .grad .ch { background: linear-gradient(180deg, var(--c) 18%, var(--c2) 92%); -webkit-background-clip: text; background-clip: text; color: transparent; padding: .22em .01em .08em; margin: -.22em -.01em -.08em; }
+.bds .grad .ch { background: linear-gradient(180deg, var(--c) 18%, var(--c2) 92%); -webkit-background-clip: text; background-clip: text; color: transparent; padding: .3em .06em .24em; margin: -.3em -.06em -.24em; } /* vùng tô rộng hơn nét: dấu, nét móc, chân chữ có chân không bị xén */
 .bds .neon { color: var(--c); text-shadow: 0 0 .06em #fff6, 0 0 .18em var(--glow), 0 0 .45em var(--glow); }
 
 /* 1 tieu-de-kep: kicker màu lệch trái + tiêu đề trắng lệch phải */
@@ -52,7 +52,7 @@
 .bds-ky-thuat .m { font-style: italic; padding-right: .14em; filter: drop-shadow(0 0 .22em color-mix(in srgb, var(--c) 70%, transparent)); }
 .bds-ky-thuat .sub { margin-top: -.25em; color: #fff; font-style: normal; }
 /* chữ nghiêng nhô ra ngoài hộp ký tự: nới vùng tô gradient để nét móc (g, y) và đỉnh nghiêng không bị xén */
-.bds-ky-thuat .grad .ch { padding: .22em .16em .3em .12em; margin: -.22em -.16em -.3em -.12em; }
+.bds-ky-thuat .grad .ch { padding: .3em .16em .3em .12em; margin: -.3em -.16em -.3em -.12em; }
 
 /* 9 chu-bac: kim loại bạc có vệt sáng quét */
 .bds-chu-bac { align-items: flex-start; }

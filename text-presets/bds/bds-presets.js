@@ -30,6 +30,11 @@
     const cs = split ? chars(l, text) : (l.textContent = text, []);
     return { l, cs };
   }
+  // nhịp hiện từng ký tự có trần tổng: câu dài không kéo phần vào quá ~0,45 s (người dùng duyệt 30/10/2026: chữ phải vào xong kịp)
+  const stg = (n, s, total = 0.45) => Math.min(s, total / Math.max(1, n - 1));
+  const goStep = (n) => Math.min(0.06, 1.0 / Math.max(1, n)); // nhịp gõ go-chu (giây / ký tự)
+  // số chữ số thập phân đúng như giá trị ghi (1,25 tỷ hiện 1,25 — không làm tròn thành 1,3)
+  const decOf = (v) => { const s = String(v); return s.includes(".") ? s.split(".")[1].length : 0; };
   const fmtVi = (v, dec) => v.toLocaleString("vi-VN", { minimumFractionDigits: dec, maximumFractionDigits: dec });
   const SCRAMBLE = "ABCDEGHIKLMNOPQRSTUVXY0123456789";
   // Chữ đổi theo thời gian (số đếm, giải mã) KHÔNG dùng onUpdate: khi HyperFrames tua khung để xuất, callback bị bỏ qua.
@@ -120,7 +125,7 @@
       return { m, typer, caret, sub, n: graphemes(o.m).length };
     },
     in(tl, x, at, o, fs) {
-      const d = x.n * 0.06, W = x.typer.offsetWidth;
+      const d = x.n * goStep(x.n), W = x.typer.offsetWidth; // câu dài gõ nhanh hơn: tối đa ~1 s (lib/plan.mjs dùng cùng nhịp cho tiếng phím)
       x.caret.style.left = x.typer.offsetLeft + "px";
       tl.fromTo(x.typer, { clipPath: "inset(-0.3em 100% -0.3em 0%)" }, { clipPath: "inset(-0.3em 0% -0.3em 0%)", duration: d, ease: `steps(${x.n})` }, at);
       tl.fromTo(x.caret, { opacity: 1, x: 0 }, { opacity: 1, x: W + 0.04 * fs, duration: d, ease: `steps(${x.n})` }, at);
@@ -170,9 +175,9 @@
     build(r, o) { return { m: line(r, "m grad", o.m), sub: o.sub ? line(r, "sub", o.sub) : null }; },
     in(tl, x, at, o, fs) {
       const n = x.m.cs.length;
-      tl.fromTo(x.m.cs, { opacity: 0, x: -0.2 * fs, filter: B(8) }, { opacity: 1, x: 0, filter: B(0), duration: 0.35, ease: "power2.out", stagger: 0.045 }, at);
-      let end = at + 0.35 + 0.045 * n;
-      if (x.sub) { tl.fromTo(x.sub.cs, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.03 }, end - 0.15); end += 0.03 * x.sub.cs.length; }
+      tl.fromTo(x.m.cs, { opacity: 0, x: -0.2 * fs, filter: B(8) }, { opacity: 1, x: 0, filter: B(0), duration: 0.35, ease: "power2.out", stagger: stg(x.m.cs.length, 0.045) }, at);
+      let end = at + 0.35 + stg(n, 0.045) * n;
+      if (x.sub) { const s = stg(x.sub.cs.length, 0.03, 0.4); tl.fromTo(x.sub.cs, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: s }, end - 0.15); end += s * x.sub.cs.length; }
       return end;
     },
   };
@@ -231,7 +236,7 @@
     },
     in(tl, x, at, o) {
       const step = o.step || 0.65;
-      tl.fromTo(x.k.cs, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", stagger: 0.025 }, at);
+      tl.fromTo(x.k.cs, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", stagger: stg(x.k.cs.length, 0.025, 0.2) }, at);
       // Chữ mới dâng lên từ dưới (mờ → nét), chữ cũ bay lên tan đi. Không dùng khung cắt nên dấu tiếng Việt không bị xén.
       x.ws.forEach((w, i) => {
         const t = at + 0.15 + i * step;
@@ -353,10 +358,10 @@
     sample: { k: "TOP", m: "5 KHU", sub: "đáng sống", c: "#ff4f6d" },
     build(r, o) { return { k: line(r, "k", o.k), m: line(r, "m", o.m), sub: o.sub ? line(r, "sub", o.sub) : null }; },
     in(tl, x, at, o, fs) {
-      tl.fromTo(x.m.cs, { opacity: 0, y: -0.6 * fs, filter: B(6) }, { opacity: 1, y: 0, filter: B(0), duration: 0.4, ease: "back.out(1.6)", stagger: 0.04 }, at);
+      tl.fromTo(x.m.cs, { opacity: 0, y: -0.6 * fs, filter: B(6) }, { opacity: 1, y: 0, filter: B(0), duration: 0.4, ease: "back.out(1.6)", stagger: stg(x.m.cs.length, 0.04) }, at);
       tl.fromTo(x.k.l, { opacity: 0, x: -0.2 * fs }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, at + 0.1);
-      let end = at + 0.4 + 0.04 * x.m.cs.length;
-      if (x.sub) { tl.fromTo(x.sub.cs, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 0.04 }, end - 0.1); end += 0.04 * x.sub.cs.length; }
+      let end = at + 0.4 + stg(x.m.cs.length, 0.04) * x.m.cs.length;
+      if (x.sub) { const s = stg(x.sub.cs.length, 0.04, 0.4); tl.fromTo(x.sub.cs, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: s }, end - 0.1); end += s * x.sub.cs.length; }
       return end;
     },
   };
@@ -416,7 +421,7 @@
     sample: { k: "GIÁ CHỐT", value: 2.5, suffix: " tỷ", c: "#ffd23f" },
     build(r, o) {
       const k = line(r, "k", o.k || "");
-      const dec = o.decimals ?? (Number.isInteger(o.value) ? 0 : 1);
+      const dec = o.decimals ?? decOf(o.value);
       const txt = (v) => (o.prefix || "") + fmtVi(v, dec) + (o.suffix || "");
       const E = gsap.parseEase("power3.out"), N = 14, vals = [];
       for (let i = 0; i <= N; i++) vals.push(i === N ? o.value : Math.round(o.value * E(i / N) * 10 ** dec) / 10 ** dec);
@@ -508,7 +513,8 @@
   }
   function snug(h) {
     const k = h.parts.k?.l ?? h.parts.kl, m = k?.nextElementSibling; // kl: chữ dẫn giải mã của chuong-moi
-    if (!CTX || h.o.snug === false || (!m && !(h.p.snugSub && (h.parts.sub || h.parts.s)))) return;
+    if (!CTX) return;
+    if (h.o.snug === false || (!m && !(h.p.snugSub && (h.parts.sub || h.parts.s)))) { withFlat(h, () => unhang(h)); return; }
     if (k) k.style.marginBottom = ""; // đo lại từ giãn cách gốc của CSS
     // Đo lại sau khi timeline đã đặt transform (y, scale…) thì gỡ tạm transform, đo xong trả lại
     const els = [h.r, ...h.r.querySelectorAll("*")], saved = els.map((e) => e.style.transform);
@@ -518,7 +524,13 @@
       // dòng phụ dưới cụm chính (preset có snugSub): kéo sát lên nhưng không chạm dấu / nét móc của dòng trên
       const sub = (h.parts.sub ?? h.parts.s)?.l, up = sub?.previousElementSibling;
       if (h.p.snugSub && up && h.o.snugSub !== false) { up.style.marginBottom = ""; measure(h, up, sub); }
+      unhang(h);
     } finally { els.forEach((e, i) => (e.style.transform = saved[i])); }
+  }
+  function withFlat(h, f) { // đo khi chưa có transform của timeline
+    const els = [h.r, ...h.r.querySelectorAll("*")], saved = els.map((e) => e.style.transform);
+    els.forEach((e) => (e.style.transform = "none"));
+    try { f(); } finally { els.forEach((e, i) => (e.style.transform = saved[i])); }
   }
   function measure(h, k, m) {
     const sc = h.r.getBoundingClientRect().width / (h.r.offsetWidth || 1) || 1; // bù scale của khung cha (.stage…)
@@ -541,6 +553,45 @@
     k.style.marginBottom = (parseFloat(getComputedStyle(k).marginBottom) + delta) / kfs + "em";
   }
 
+  // Luật 21 (người dùng duyệt 30/10/2026): hai cụm chữ chỉ được chồng nhau khi cụm TRÊN không có dấu dưới (dấu nặng) hay
+  // nét móc xuống (g, j, p, q, y…). Có thì đo nét thật, cụm dưới chạm thì đẩy xuống vừa đủ (cụm trong luồng: margin-top;
+  // cụm xếp chồng trong lưới / vị trí tuyệt đối: top tương đối). Áp cho mọi preset, sau snug.
+  const HANGS = /[gjpqyQ,;]|\u0323/;
+  function unhang(h) {
+    if (!CTX || h.o.unhang === false) return;
+    const sc = h.r.getBoundingClientRect().width / (h.r.offsetWidth || 1) || 1;
+    const units = [...new Set([...h.r.querySelectorAll(".ch, .ln, .lg-s, .lg-m, .lg-so, .sub")].map((e) => e.closest(".row, .lg-m, .lg-s, .lg-so, .sub, .ln")).filter(Boolean))]
+      .filter((u, i, a) => !a.some((v) => v !== u && v.contains(u)) && u.textContent.trim());
+    // chạy lại (font nạp xong, co cỡ) phải ra cùng kết quả: trả về giá trị gốc trước khi đo
+    for (const u of units) {
+      if (u.dataset.uh == null) u.dataset.uh = JSON.stringify([u.style.marginTop, u.style.top, u.style.position]);
+      [u.style.marginTop, u.style.top, u.style.position] = JSON.parse(u.dataset.uh);
+    }
+    const moved = new Set(); // cụm đã dời: chỗ chạm mới do nó gây ra cũng phải gỡ (không còn là chồng có chủ đích)
+    for (let pass = 0; pass < 2 * units.length; pass++) {
+      const box = units.map((u) => { const K = inkBoxes(u); return { u, K, top: Math.min(...K.map((c) => c.base + (c.fasc - c.asc) * sc)), fs: parseFloat(getComputedStyle(u).fontSize) }; }).filter((b) => b.K.length).sort((a, b) => a.top - b.top);
+      let changed = false;
+      for (let i = 0; i < box.length && !changed; i++) for (let j = i + 1; j < box.length && !changed; j++) {
+        const A = box[i], Bx = box[j];
+        if (!HANGS.test(A.u.textContent.normalize("NFD")) && !moved.has(A.u)) continue;
+        const gap = 0.05 * Bx.fs * sc;
+        let need = 0;
+        for (const a of A.K) for (const b of Bx.K) {
+          if (b.r <= a.l || b.l >= a.r) continue;
+          const d = a.base + (a.fasc + a.desc) * sc + gap - (b.base + (b.fasc - b.asc) * sc);
+          if (d > need) need = d;
+        }
+        if (need > 0.5) {
+          const u = Bx.u, cs = getComputedStyle(u), flow = cs.position === "static" && getComputedStyle(u.parentElement).display !== "grid";
+          if (flow) u.style.marginTop = (parseFloat(cs.marginTop) || 0) + need / sc + "px";
+          else { u.style.position = cs.position === "static" ? "relative" : cs.position; u.style.top = (parseFloat(cs.top) || 0) + need / sc + "px"; }
+          moved.add(u); changed = true;
+        }
+      }
+      if (!changed) break;
+    }
+  }
+
   let seq = 0;
   function make(key, target, o = {}) {
     const p = P[key]; if (!p) throw new Error("BDS: không có preset " + key);
@@ -560,7 +611,7 @@
     // Weight của preset chỉ bắt đầu tải khi khối chữ được tạo, nên document.fonts.ready lúc trước chưa tính nó:
     // chưa nạp thì tải rồi đo lại (renderer HyperFrames chờ fonts.ready trước khi chụp).
     const fonts = [...new Set([r, ...r.querySelectorAll(".ln")].map((e) => { const cs = getComputedStyle(e); return `${cs.fontStyle} ${cs.fontWeight} 1em ${cs.fontFamily}`; }))];
-    if ((h.parts.k || h.parts.kl || (p.snugSub && (h.parts.sub || h.parts.s))) && fonts.some((f) => !document.fonts.check(f))) Promise.all(fonts.map((f) => document.fonts.load(f))).then(() => snug(h));
+    if (fonts.some((f) => !document.fonts.check(f))) Promise.all(fonts.map((f) => document.fonts.load(f))).then(() => snug(h));
     return h;
   }
   function enter(tl, h, at) {
@@ -575,5 +626,5 @@
     return at + d;
   }
   // u: hàm phụ cho bộ preset bổ sung (me4real.js) dùng chung quy ước dựng sẵn từng bước, không onUpdate
-  g.BDS = { presets: P, make, in: enter, out: exit, list: () => Object.keys(P), u: { el, B, chars, line, steps, playSteps, fmtVi } };
+  g.BDS = { presets: P, make, in: enter, out: exit, list: () => Object.keys(P), u: { el, B, chars, line, steps, playSteps, fmtVi, decOf } };
 })(typeof window !== "undefined" ? window : globalThis);

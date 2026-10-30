@@ -4,7 +4,7 @@
    không quầng sáng sau chữ (luật 18): chất kim loại bằng gradient trong lòng chữ; khối nổi 3D là các lớp đặc không nhòe.
    Thời gian đo từng khung 0,15 s trên bản gốc; ghi ở dòng "đo:" của mỗi preset. */
 (function (g) {
-  const { el, B, chars, line, steps, playSteps, fmtVi } = g.BDS.u;
+  const { el, B, chars, line, steps, playSteps, fmtVi, decOf } = g.BDS.u;
   const P = g.BDS.presets;
   const ME = "ME4REAL (docs/PHONG-CACH-ME4REAL.md)";
   // khối nổi: lớp sau là chữ đặc màu `sau` đẩy lệch từng px (không nhòe), lớp trước là mặt chữ
@@ -66,7 +66,7 @@
       r.classList.add("tone-" + (o.tone || "vang"));
       const k = o.k ? line(r, "k", o.k) : null;
       const m = el("span", "ln m"); r.appendChild(m);
-      const dec = o.decimals ?? (Number.isInteger(o.value) ? 0 : 1);
+      const dec = o.decimals ?? decOf(o.value);
       const txt = (v) => (o.prefix || "") + fmtVi(v, dec);
       const num = el("span", "num"); m.appendChild(num);
       const ns = o.dem === false ? [num.appendChild(el("span", "st", txt(o.value)))] : steps(num, countVals(o.value, o.from ?? 0, dec).map(txt));
@@ -83,7 +83,7 @@
       }
       const land = at + (o.dem === false ? 0.12 : o.dur ?? 0.75);
       if (x.u) tl.fromTo(x.u, { opacity: 0, x: -0.4 * fs }, { opacity: 1, x: 0, duration: 0.25, ease: "power3.out" }, at + 0.15);
-      if (x.s) tl.fromTo(x.s.l, { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "power1.inOut" }, land);
+      if (x.s) tl.fromTo(x.s.l, { opacity: 0, clipPath: "inset(-0.6em 100% -0.6em -0.3em)" }, { opacity: 1, clipPath: "inset(-0.6em -0.3em -0.6em -0.3em)", duration: 0.45, ease: "power1.inOut" }, land);
       return land + 0.45;
     },
   };
@@ -99,7 +99,7 @@
         const num = el("span", "num grad"); row.appendChild(num);
         const cs = i % 2 ? [o.c3 ?? "#7ef0c8", o.c4 ?? "#20a676"] : [o.c ?? "#ffd166", o.c2 ?? "#e8a01a"];
         num.style.setProperty("--c", R.c ?? cs[0]); num.style.setProperty("--c2", R.c2 ?? cs[1]);
-        const dec = Number.isInteger(R.n) ? 0 : 1;
+        const dec = decOf(R.n);
         const ns = steps(num, countVals(R.n, R.from ?? Math.max(0, Math.round(R.n * 0.8)), dec, 8).map((v) => fmtVi(v, dec)));
         const u = el("span", "u", R.u || ""); row.appendChild(u);
         return { row, num, ns, u, at: R.at };
@@ -280,7 +280,7 @@
     },
     in(tl, x, at, o, fs) {
       tl.fromTo(x.m, { opacity: 0, scale: 1.1, filter: B(10) }, { opacity: 1, scale: 1, filter: B(0), duration: 0.25, ease: "power2.out" }, at);
-      tl.fromTo(x.s, { opacity: 1, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "power1.inOut" }, at + 0.15);
+      tl.fromTo(x.s, { opacity: 1, clipPath: "inset(-0.6em 100% -0.6em -0.3em)" }, { opacity: 1, clipPath: "inset(-0.6em -0.3em -0.6em -0.3em)", duration: 0.5, ease: "power1.inOut" }, at + 0.15); // chỉ mở theo chiều ngang: dấu, nét móc trên dưới không bị cắt
       if (x.so) tl.fromTo(x.so, { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, at + 0.6);
       if (x.sub) tl.fromTo(x.sub.l, { opacity: 0, y: 0.12 * fs }, { opacity: 1, y: 0, duration: 0.25 }, at + 0.8);
       return at + 1.05;
@@ -300,7 +300,7 @@
     },
     in(tl, x, at, o, fs) {
       tl.fromTo(x.m.l, { opacity: 0, y: 0.25 * fs }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, at);
-      if (x.s) tl.fromTo(x.s.l, { opacity: 1, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "power1.inOut" }, at + 0.25);
+      if (x.s) tl.fromTo(x.s.l, { opacity: 1, clipPath: "inset(-0.6em 100% -0.6em -0.3em)" }, { opacity: 1, clipPath: "inset(-0.6em -0.3em -0.6em -0.3em)", duration: 0.5, ease: "power1.inOut" }, at + 0.25);
       if (x.sub) tl.fromTo(x.sub.l, { opacity: 0, letterSpacing: "0.5em" }, { opacity: 1, letterSpacing: "0.22em", duration: 0.5, ease: "power2.out" }, at + 0.5);
       return at + 1;
     },
