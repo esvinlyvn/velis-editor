@@ -47,9 +47,9 @@ const OPT = "/opt/pw-browsers/chromium";
       const op = (e) => { let o = 1; for (let n = e; n && n !== c.h.r.parentElement; n = n.parentElement) o *= parseFloat(getComputedStyle(n).opacity); return o; };
       const dim = vis.filter((e) => e.textContent.trim() && op(e) < 0.99);
       if (dim.length) errs.push(`${dim.length} ký tự mờ: "${dim.map((e) => e.textContent).join("")}"`);
-      const others = window.__kt.filter((o, j) => j !== i && parseFloat(getComputedStyle(o.h.r).opacity) > 0.05).map((o) => o.o.m || o.o.k);
+      const others = window.__kt.filter((o, j) => j !== i && parseFloat(getComputedStyle(o.h.r).opacity) > 0.05).map((o) => o.o.m || o.o.k || o.o.texts?.filter(Boolean).join(" "));
       if (others.length) errs.push(`chồng với: ${others.join(", ")}`);
-      out.push({ i, t: +t.toFixed(2), p: c.p, txt: c.o.lines ? c.o.lines.map((L) => L.t ?? L.parts.map((x) => x.t).join(" ")).join(" / ") : `${c.o.k ?? ""} / ${c.o.m ?? c.o.words ?? c.o.value ?? c.o.so ?? (c.o.rows ?? c.o.items)?.map((x) => Object.values(x).join(" ")).join(" / ")}`, size: c.h.o.size, rect: [r.left, r.top, r.right, r.bottom].map(Math.round), errs });
+      out.push({ i, t: +t.toFixed(2), p: c.p, txt: c.o.texts ? c.o.texts.filter(Boolean).join(" / ") : c.o.lines ? c.o.lines.map((L) => L.t ?? L.parts.map((x) => x.t).join(" ")).join(" / ") : `${c.o.k ?? ""} / ${c.o.m ?? c.o.words ?? c.o.value ?? c.o.so ?? (c.o.rows ?? c.o.items)?.map((x) => Object.values(x).join(" ")).join(" / ")}`, size: c.h.o.size, rect: [r.left, r.top, r.right, r.bottom].map(Math.round), errs });
     }
     return out;
   }, comp);

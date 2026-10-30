@@ -76,7 +76,7 @@ if (MODE === "bds" && da) sticky["chot-y"] = da; // preset chính giữ vai ch�
 const count = {}; let prev = null; const out = []; let highUsed = 0, cardsRuns = 0;
 for (const m of plan.moments) {
   // mode bds: lib/build.mjs chỉ dựng preset bộ BĐS (B18 + M4) → chỉ gợi ý hai bộ này; vai không có B18 thì dùng preset chính
-  const cands = MODE === "bds" ? (ROLES[m.role] || []).filter((c) => c.src === "B18" || c.src === "M4") : ROLES[m.role]; // M4 = bộ ME4REAL (bds/me4real.js)
+  const cands = MODE === "bds" ? (ROLES[m.role] || []).filter((c) => c.src === "B18" || c.src === "M4" || (c.src === "L60" && DUYET?.chung.dung.includes(c.id))) : ROLES[m.role]; // L60 đã duyệt: lib/ dựng được dạng "chung:<id>" // M4 = bộ ME4REAL (bds/me4real.js)
   if (MODE === "bds" && ROLES[m.role] && !cands.length && da) { sticky[m.role] = da; out.push({ ...m, pick: da, score: null, why: "vai chưa có preset B18 → preset chính" }); continue; }
   if (!cands || !cands.length) { out.push({ ...m, pick: null, why: `role "${m.role}" không có trong bảng — xem QUY-TAC mục 2` }); continue; }
   if (MODE === "bds" && sticky[m.role]) {
@@ -123,6 +123,9 @@ if (MODE !== "bds" && total >= 4 && (distinct < 3 || distinct > 6)) warn.push(`�
 for (const [k, n] of Object.entries(count)) if (MODE !== "bds" && n / total > 0.5 && total >= 4) warn.push(`${k} chiếm ${n}/${total} — quá 1/2`);
 if (MODE !== "bds" && !Object.values(count).some((n) => n / total >= 0.3) && total >= 5) warn.push("Không có preset 'da' nào ≥ 30 % — video dễ rời rạc; chọn 1 preset làm da chính cho chữ chốt thường");
 
+// mode bds: ghi đúng tên lib/plan.json nhận — bộ BĐS / ME4REAL ghi tên trần, bộ chung ghi "chung:<id>"
+const asLib = (k) => (MODE === "bds" && typeof k === "string" ? k.replace(/^L60:/, "chung:").replace(/^(B18|M4):/, "") : k);
+for (const o of out) { o.pick = asLib(o.pick); if (o.alt) o.alt = o.alt.map(asLib); }
 for (const o of out) console.log(`${o.id.padEnd(5)} ${o.role.padEnd(12)} → ${String(o.pick).padEnd(26)} ${o.score ?? ""}  | ${o.why}${o.alt ? "  | dự phòng: " + o.alt.join(", ") : ""}`);
 console.log(`\nPreset da: ${da || "(chưa có chữ chốt vai chot-y)"}`);
 if (warn.length) console.log("\nCẢNH BÁO:\n- " + warn.join("\n- "));

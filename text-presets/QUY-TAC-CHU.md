@@ -13,7 +13,7 @@ Luật gốc nằm ở bảng **luật đã chốt** của `TALKING-HEAD.md` (lu
    ```
    - `main`: preset chính cho khối chữ thường. Phải khác preset chính của video trước cùng khách (`brand.json`, bảng 4c).
    - `family`: bộ font của bộ 60 nếu cặp font video trùng một bộ A–E; không trùng thì ghi `rieng`.
-3. Chạy `node text-presets/pick-text.mjs projects/<video>/text-plan.json`. Ở `mode: "bds"` script:
+3. Chạy `node text-presets/pick-text.mjs projects/<video>/text-plan.json`. Ở `mode: "bds"` script gợi ý bộ BĐS, bộ ME4REAL và preset bộ chung đã duyệt (in sẵn đúng tên `plan.json` nhận: tên trần hoặc `chung:<id>`), và:
    - **giữ cố định preset theo vai** trong cả video (luật 8);
    - loại preset người dùng đã duyệt "không dùng" (`lib/presets-duyet.json` nếu repo có, luật 20 của velis-editor);
    - so lịch sử **chỉ với video trước của cùng khách**;

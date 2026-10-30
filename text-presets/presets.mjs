@@ -446,7 +446,8 @@ export function presetHtml(pid, texts = [], { id, left = 540, top = 400, scale =
 export function presetRuntime() {
   return `<script>(function(){
 function box(pos){ var x0=1e9,x1=-1e9; pos.firstElementChild.querySelectorAll(".ch,.tp-deco,.big,.in,.tp-nhan").forEach(function(e){ var r=e.getBoundingClientRect(); if(!r.width) return; x0=Math.min(x0,r.left); x1=Math.max(x1,r.right); }); return [x0,x1]; }
-function lay(){
+function lay(force){
+  if(window.__tpLock && !force) return; // trang đã tự đặt bố cục xong và gắn chuyển động (lib/template.html): không đo lại trên trạng thái đang diễn hoạt
   // 1) chữ thật quá dài (khối phải thu dưới 72 %): xuống dòng dòng rộng nhất tại khoảng trắng gần giữa nhất, thay vì thu nhỏ
   document.querySelectorAll(".tp-pos[data-maxw]").forEach(function(pos){
     if(pos._wrapped || (document.fonts && document.fonts.status!=="loaded")) return; // đo bằng font thật, không đo font dự phòng
@@ -513,11 +514,14 @@ function lay(){
     var s=Math.min(s0, max/w); if(Math.abs(s-cur)>1e-3){ pos._s=s; }
     var tf=function(dx){ pos.style.transform=(pos.dataset.anchor==="left"?"":"translateX(-50%) ")+"translateX("+dx+"px) scale("+(pos._s||s0)+")"; };
     tf(pos._dx||0); b=box(pos);
-    var W=(pos.offsetParent||document.body).clientWidth||1080, sh=0;
-    var E=+pos.dataset.edge||24; if(b[1]>W-E) sh=W-E-b[1]; if(b[0]+sh<E) sh=E-b[0];
+    // so trong hệ tọa độ của khung chứa (khối có thể nằm trong một ô lệch khỏi mép trang, như kt-slot của lib/)
+    var op=pos.offsetParent||document.body, ox=op.getBoundingClientRect().left; b=[b[0]-ox, b[1]-ox];
+    var W=op.clientWidth||1080, sh=0;
+    var E=pos.dataset.edge!=null&&pos.dataset.edge!==""?+pos.dataset.edge:24; if(b[1]>W-E) sh=W-E-b[1]; if(b[0]+sh<E) sh=E-b[0];
     if(sh){ pos._dx=(pos._dx||0)+sh; tf(pos._dx); }
   });
 }
+window.__tpLay=function(){ lay(true); }; // gọi lại khi khối được dời chỗ / đổi bề rộng sau lúc tải (lib/template.html)
 lay(); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(lay);
 })();</script>`;
 }
