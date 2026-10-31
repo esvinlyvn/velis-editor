@@ -261,27 +261,15 @@ git config --global user.name "Nguyễn Văn A" && git config --global user.emai
 gh auth login && gh auth setup-git
 ```
 
-**Lấy repo về và cài thư viện:**
+**Lấy repo về và mở Claude** (lần đầu chờ vài phút: repo tự cài thư viện Node, Python `~/.asr`, Chromium; thiếu `ffmpeg` thì nó nhắc lệnh cài):
 
 ```bash
-git clone https://github.com/<ten-ban>/bds-editor.git ~/bds-editor && cd ~/bds-editor && npm install
+git clone https://github.com/<ten-ban>/bds-editor.git ~/bds-editor && cd ~/bds-editor && claude
 ```
 
-```bash
-npx hyperframes doctor && npx playwright install --with-deps chromium
-```
+Muốn chắc mọi thứ chạy được thì gõ trong Claude: `chạy npm run example` (có `build/example/output.mp4` khoảng 15,5 giây là xong).
 
-```bash
-uv venv ~/.asr && VIRTUAL_ENV=~/.asr uv pip install faster-whisper numpy imageio pillow "rembg[cpu]" opencv-python-headless
-```
-
-```bash
-npm run example
-```
-
-Có `build/example/output.mp4` khoảng 15,5 giây là xong.
-
-**Làm việc:** chép clip vào `work/<ten-video>/01_footage/cam_a/` (máy chính), `cam_b/` (máy phụ), `drone/` hoặc `broll/` (cảnh phụ), mic rời vào `02_audio/voiceover/`, rồi `cd ~/bds-editor && git pull && claude` và giao việc như bước 6b (thay link bằng đường dẫn thư mục). Bản nháp và bản cuối nằm ở `work/<ten-video>/05_exports/`. Xong thì bảo Claude "commit và push".
+**Làm việc:** chép clip vào `work/<ten-video>/01_footage/cam_a/` (máy chính), `cam_b/` (máy phụ), `drone/` hoặc `broll/` (cảnh phụ), mic rời vào `02_audio/voiceover/`, rồi `cd ~/bds-editor && git pull && claude` và giao việc như bước 5b (thay link bằng đường dẫn thư mục). Bản nháp và bản cuối nằm ở `work/<ten-video>/05_exports/`. Xong thì bảo Claude "commit và push".
 
 ---
 
