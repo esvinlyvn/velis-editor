@@ -225,6 +225,22 @@ Cái gì trái luật thì liệt kê cho tôi quyết. Không copy nguyên thi�
 
 ---
 
+## Bước 8. Nhận bản cập nhật từ repo mẫu
+
+Repo mẫu được cập nhật khi có quy tắc, kỹ năng mới đã chốt. Repo của anh/chị **không tự đổi**; muốn lấy bản mới thì làm bước này. Luật, kỹ năng anh/chị tự dạy (bước 7) và các video đã làm vẫn giữ nguyên.
+
+1. Báo người giao để được mời lại vào repo mẫu (quyền Read), chấp nhận lời mời.
+2. Mở phiên trên repo **của mình**, dán (thay `<link repo mẫu>` bằng link người giao gửi):
+   ```
+   Cập nhật từ repo mẫu <link repo mẫu>: thêm remote "mau" nếu chưa có, fetch nhánh main của nó rồi gộp vào main của mình
+   (lần đầu thêm --allow-unrelated-histories). Chỗ trùng: lấy bản của repo mẫu cho lib/, scripts/, text-presets/, sfx/, docs/;
+   giữ của mình cho projects/, clients/ và các dòng luật mình đã thêm trong bảng TALKING-HEAD.md (gộp cả hai bảng, đánh số tiếp).
+   Chạy npm install, npm run demo, npm run test:chung, npm run example; đạt hết mới commit và push. Báo lại có gì mới.
+   ```
+3. Báo người giao là xong để họ gỡ quyền vào repo mẫu.
+
+---
+
 ## Chạy trên máy của mình
 
 Không bắt buộc. Khi đã quen cloud, chạy trên máy giúp clip dài nhanh hơn và clip không phải lên mạng. Cùng một repo, cùng luật: làm ở đâu cũng được, miễn là **pull trước khi làm, push sau khi xong**.

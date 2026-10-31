@@ -17,3 +17,4 @@ Luật nền:
 - Không dùng SFX scribble-2.
 - Lõi dựng (`scripts/`, `sfx/`, `text-presets/`) có chung gốc với repo `edit-bds`. Sửa lõi thì commit riêng, message bắt đầu bằng `core:`, để repo kia lấy về được (`docs/VAN-HANH.md` mục 11).
 - Người dùng chốt luật mới thì ghi vào bảng của `TALKING-HEAD.md` kèm nguồn.
+- Repo này là nơi brief, học, thử nghiệm. Quy tắc / kỹ năng đã chốt mới đưa lên repo mẫu chuẩn `velis-editor-master` bằng `node phat-hanh/cap-nhat-mau.mjs`; repo con cập nhật từ master (luật 24, `phat-hanh/GIAO-NGUOI-MOI.md` mục E, F).

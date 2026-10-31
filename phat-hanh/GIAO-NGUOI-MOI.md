@@ -68,16 +68,28 @@ Chào anh/chị, để dùng bộ dựng video BĐS:
 
 ---
 
-## E. Cập nhật repo mẫu
+## E. Cập nhật repo mẫu (velis-editor → velis-editor-master)
 
-Khi velis-editor có luật hay công cụ mới muốn người mới **sau này** được hưởng.
+Ba tầng (luật 24 `TALKING-HEAD.md`): **velis-editor** brief, học, thử nghiệm → chốt quy tắc / kỹ năng → đẩy lên **velis-editor-master** (bản mẫu chuẩn) → các **repo con** tạo và cập nhật từ master.
 
-1. Có khách hay dự án mới kể từ lần trước: thêm tên người, tên dự án, slug vào `phat-hanh/an-danh.json` (các mảng `thay`, `cam`, `dong_4c`). Bỏ qua bước này thì script vẫn chặn được tên đã có trong `cam`, nhưng tên mới thì không.
+1. Có khách hay dự án mới kể từ lần trước: thêm tên người, tên dự án, slug vào `phat-hanh/an-danh.json` (`thay`, `cam`, `dong_4c`). Bỏ qua thì script vẫn chặn tên đã có trong `cam` và mọi slug ngoài `projects/example` (`cam_regex`), nhưng tên mới viết thường trong câu thì không.
 2. Mở phiên claude.ai/code trên velis-editor và nói:
    ```
-   Chạy node phat-hanh/goi-sach.mjs. Nếu sạch, cập nhật repo esvinlyvn/velis-editor-master: thay toàn bộ nội dung nhánh main
-   bằng thư mục build/goi-sach/bds-editor (giữ lịch sử của repo mẫu, không mang lịch sử velis-editor), commit và push.
+   Cập nhật repo mẫu: node phat-hanh/cap-nhat-mau.mjs
    ```
-3. Script báo "Còn N chỗ sót" thì chưa cập nhật gì. Đọc danh sách sót, thêm cặp thay vào `an-danh.json`, chạy lại.
+   Script đóng gói sạch (`goi-sach.mjs`), so với master, commit **nối tiếp** lịch sử master rồi push. Muốn xem trước khác biệt: thêm `--thu`.
+3. Gói báo "Còn N chỗ sót" thì master chưa bị đụng tới. Đọc danh sách, thêm cặp thay hoặc sửa tận nguồn ở velis-editor (ví dụ slug nháp trong chú thích code), chạy lại.
 
-Người đã tạo repo từ bản cũ không bị ảnh hưởng. Chi tiết gói sạch bỏ và sửa những gì: `phat-hanh/README.md`.
+Không ghi đè lịch sử master (repo con gộp bản mới nhờ lịch sử nối tiếp). `--lam-moi` (xoá lịch sử, một commit mới) chỉ dùng khi lịch sử cũ đã lọt thứ không được có, và trước khi có repo con nào gộp từ master.
+
+## F. Cập nhật một repo con từ master
+
+Repo con là repo riêng của người khác (tạo từ master bằng "Use this template"), mình không push vào được. Khi master có bản mới:
+
+1. Master → **Settings → Collaborators** → mời lại người đó, quyền **Read** (như B 2a).
+2. Người đó mở phiên trên repo của họ và dán câu ở `HUONG-DAN.md` **bước 8** (Claude gộp bản mới, giữ luật và dự án riêng của họ, chạy kiểm rồi push).
+3. Họ báo xong thì **Remove** người đó khỏi Collaborators (như B 2c).
+
+Luật / kỹ năng người con tự dạy chỉ ở repo của họ. Muốn đưa lên master cho mọi người: họ gửi nội dung luật, mình dạy lại ở velis-editor (thử, chốt) rồi làm mục E.
+
+Chi tiết gói sạch bỏ và sửa những gì: `phat-hanh/README.md`.

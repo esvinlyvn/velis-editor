@@ -34,10 +34,10 @@ const files = walk(OUT).filter((f) => TEXT.test(f));
 const edit = (rel, fn) => { const f = path.join(OUT, rel); fs.writeFileSync(f, fn(fs.readFileSync(f, "utf8"))); };
 
 // Sửa riêng từng file trước khi thay chữ hàng loạt
-edit("CLAUDE.md", (s) => s.replace(/ Content tự động cho kênh Vis[^\n]*/, "").replace(/\n- Lõi dựng \(`scripts\/`[^\n]*/, "")
+edit("CLAUDE.md", (s) => s.replace(/ Content tự động cho kênh Vis[^\n]*/, "").replace(/\n- Lõi dựng \(`scripts\/`[^\n]*/, "").replace(/\n- Repo này là nơi brief, học, thử nghiệm[^\n]*/, "")
   .replace(/(\n- Không dùng SFX scribble-2\.)/, "$1\n- Python chạy bằng `~/.asr/bin/python` (cài theo `HUONG-DAN.md` mục 4b hoặc 7c)."));
 edit("docs/VAN-HANH.md", (s) => s.replace(/\n## 11\. Lõi chung[\s\S]*$/, "\n").replace(/\n- Lõi dùng chung với repo `edit-bds`[^\n]*/, ""));
-edit("TALKING-HEAD.md", (s) => s.split("\n").filter((l) => !CFG.dong_4c.some((slug) => l.startsWith(`| \`${slug}\``))).join("\n")
+edit("TALKING-HEAD.md", (s) => s.split("\n").filter((l) => !CFG.dong_4c.some((slug) => l.startsWith(`| \`${slug}\``)) && !l.includes("velis-editor-master")).join("\n")
   .replace("\n", "\n\n> Bản mẫu này không kèm video thật của khách nào. Mẫu chép đủ luật là `projects/example/`; phần chữ sau người (mục 4b) chưa có trong mẫu, dựng theo mô tả trong file này.\n"));
 // nhật ký thực hành (bản dựng cũ, dự án thử): chỉ ở velis-editor, master giữ quy tắc đã chốt
 edit("docs/HAU-KY.md", (s) => s.replace(/\n### Bản v7 [\s\S]*?(?=\n## )/, "\n").replace(/\n\| Dự án mẫu theo kiểu "nói trên bản đồ" \|[^\n]*/, ""));

@@ -35,6 +35,7 @@ Cách dựng: **thư viện `lib/`** (`lib/README.md`). Mỗi video chỉ là d�
 | 21 | Hai dòng chữ được chồng lên nhau **chỉ khi dòng trên không có dấu dưới (dấu nặng) hay nét móc xuống** (g, j, p, q, y…); có thì dòng dưới đứng sát ngay dưới. Dòng phụ kéo sát dòng chính nhưng không chạm dấu hay nét móc | Duyệt preset 30/10/2026 |
 | 22 | Chữ viết tay dùng font **nét dày** (mặc định Lobster); không dùng font viết tay nét mảnh (Dancing Script, SVN-Nickainley) ở cỡ nhỏ | Duyệt preset 30/10/2026 |
 | 23 | Dòng key (chữ nhấn lớn) giữ **một hàng**; dài thì thu nhỏ cả khối, không ngắt xuống dòng | Duyệt preset 30/10/2026 |
+| 24 | **Ba tầng repo.** `velis-editor` là nơi brief, học, thử nghiệm. Quy tắc / kỹ năng đã chốt mới đưa lên **`velis-editor-master`** (bản mẫu chuẩn, `node phat-hanh/cap-nhat-mau.mjs`). Các repo con (người mới, khách) tạo và cập nhật **từ master**, không từ velis-editor. Master không chứa slug mẫu, nháp, cũ hay thử nghiệm nào (chỉ `projects/example`), không tên khách thật, không nhật ký thực hành; `goi-sach.mjs` chặn và dừng nếu còn sót | Người dùng chốt 31/10/2026 |
 
 **Mục tiêu: 40–60 phút một video.** Chỉ render một lần ở cuối. Mỗi lần render clip 90 s mất khoảng 10 phút. Tất cả khâu kiểm khác làm trên snapshot và script, không cần render.
 
