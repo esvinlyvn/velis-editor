@@ -102,8 +102,8 @@ for (let pg = 0; pg < Math.ceil(PRESETS.length / 10); pg++) {
     settled(PRESETS.slice(pg * 10, pg * 10 + 10).map((p, k) => [p.id, `#c${k}`])));
   await page.screenshot({ path: path.join(OUT, `catalog-${pg + 1}.png`) });
 }
-// 4 bộ mới trên khung hình thật (nếu có ảnh nền mẫu): mỗi bộ 1 hook + 1 số, màu thương hiệu, bật footage
-const STILL = path.join(ROOT, "projects/xuan-cat-lo/media/last-w.jpg");
+// 4 bộ mới trên khung hình thật (nếu có ảnh nền thử ở work/nen-thu/, không commit): mỗi bộ 1 hook + 1 số, màu thương hiệu, bật footage
+const STILL = fs.existsSync(path.join(ROOT, "work/nen-thu")) ? fs.readdirSync(path.join(ROOT, "work/nen-thu")).filter((f) => /\.jpe?g$/i.test(f)).map((f) => path.join(ROOT, "work/nen-thu", f))[0] ?? "" : "";
 if (fs.existsSync(STILL)) {
   fs.copyFileSync(STILL, path.join(OUT, "still.jpg"));
   const { THEMES } = await import("./presets.mjs");

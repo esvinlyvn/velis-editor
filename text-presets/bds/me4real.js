@@ -231,9 +231,9 @@
   };
 
   P["nhan-ban-do"] = {
-    vi: "Nhãn bản đồ", use: "Tên dự án / điểm trên bản đồ, ảnh vệ tinh (CAPITAL SQUARE): thẻ vàng chữ đen nghiêng nhẹ + ghim đỏ nhún bên dưới. Đặt đúng chỗ bằng top; MAP.md lo phần bản đồ.", from: ME,
+    vi: "Nhãn bản đồ", use: "Tên dự án / điểm trên bản đồ, ảnh vệ tinh (TÊN DỰ ÁN): thẻ vàng chữ đen nghiêng nhẹ + ghim đỏ nhún bên dưới. Đặt đúng chỗ bằng top; MAP.md lo phần bản đồ.", from: ME,
     // đo: thẻ bật 0,6→1 (back.out) 0,25 s · ghim rơi + nhún 0,35 s · cả cụm nghiêng −6°
-    sample: { m: "CAPITAL SQUARE" },
+    sample: { m: "TÊN DỰ ÁN" },
     build(r, o) {
       const tag = el("span", "ln tag", o.m); r.appendChild(tag);
       const pin = el("span", "pin"); r.appendChild(pin);
@@ -249,9 +249,9 @@
   };
 
   P["chu-gian"] = {
-    vi: "Chữ giãn", use: "Tên dự án / loại sản phẩm / hạng mục (THE LEGEND, PENTHOUSE, LÀM VIỆC · HỌC TẬP · GIẢI TRÍ): chữ hoa co khoảng cách từ rất rộng về chuẩn trong lúc nhòe→nét, rồi một vệt sáng quét ngang. Màu theo c (trắng mặc định).", from: ME,
+    vi: "Chữ giãn", use: "Tên dự án / loại sản phẩm / hạng mục (SKY VILLA, PENTHOUSE, LÀM VIỆC · HỌC TẬP · GIẢI TRÍ): chữ hoa co khoảng cách từ rất rộng về chuẩn trong lúc nhòe→nét, rồi một vệt sáng quét ngang. Màu theo c (trắng mặc định).", from: ME,
     // đo: khoảng cách chữ 0,6em→0,06em + nhòe 10→0 trong 0,3 s · vệt sáng quét 0,45 s sau 0,5 s
-    sample: { m: "THE LEGEND" },
+    sample: { m: "SKY VILLA" },
     build(r, o) {
       if (o.mau) r.classList.add("mau");
       const m = line(r, "m", o.m, false);
@@ -269,9 +269,9 @@
   };
 
   P["logo-ghep"] = {
-    vi: "Logo ghép", use: "Tên dự án dạng logo (Sun Symphony 5 · Second Home): chữ tròn đậm sáng + chữ viết tay vắt ngang nửa dưới + số vàng + dòng phụ màu. Dùng 2–3 lần mỗi video, giữ lâu qua nhiều cảnh.", from: ME,
+    vi: "Logo ghép", use: "Tên dự án dạng logo (Lumi Riverside 5 · Second Home): chữ tròn đậm sáng + chữ viết tay vắt ngang nửa dưới + số vàng + dòng phụ màu. Dùng 2–3 lần mỗi video, giữ lâu qua nhiều cảnh.", from: ME,
     // đo: chữ chính nhòe→nét 0,25 s · viết tay mở dần trái→phải 0,5 s · số bật +0,6 s · dòng phụ +0,8 s
-    sample: { m: "Sun", s: "Symphony", so: "5", sub: "Second Home" },
+    sample: { m: "Lumi", s: "Riverside", so: "5", sub: "Second Home" },
     build(r, o) {
       const box = el("span", "lg"); r.appendChild(box);
       const m = el("span", "lg-m grad"); box.appendChild(m); chars(m, o.m);
@@ -339,7 +339,7 @@
   P["khung-sdt"] = {
     vi: "Khung số điện thoại", use: "CTA cuối video: số điện thoại vàng đậm trong khung viền vàng bo góc, khung kẻ ra từ giữa rồi từng nhóm số hiện. Đặt 1/3 dưới (top ≈ 1150).", from: ME,
     // đo: khung mở ngang từ giữa 0,3 s · các nhóm số hiện lần lượt 0,08 s/nhóm
-    sample: { m: "0935.991.948" },
+    sample: { m: "0900.000.000" },
     build(r, o) {
       const box = el("span", "ln box"); r.appendChild(box);
       const gs = (o.m || "").split(/([.\s])/).filter(Boolean).map((t) => { const s = el("span", "g", t); box.appendChild(s); return s; });

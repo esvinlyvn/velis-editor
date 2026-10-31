@@ -3,10 +3,10 @@
 // Không thay phán đoán của agent: in ra lựa chọn + 2 phương án dự phòng + lý do, agent được đổi nếu có lý do tốt
 // (ghi lý do vào SHOTBOOK). Quy tắc đầy đủ: text-presets/QUY-TAC-CHU.md
 //
-//   node text-presets/pick-text.mjs projects/p34-x/text-plan.json            # in gợi ý
-//   node text-presets/pick-text.mjs projects/p34-x/text-plan.json --commit   # ghi kết quả + lưu lịch sử
+//   node text-presets/pick-text.mjs projects/<video>/text-plan.json            # in gợi ý
+//   node text-presets/pick-text.mjs projects/<video>/text-plan.json --commit   # ghi kết quả + lưu lịch sử
 //
-// text-plan.json: { "video": "p34", "family": "E", "moments": [
+// text-plan.json: { "video": "<video>", "family": "E", "moments": [
 //   { "id": "k1", "role": "mo-dau", "text": "20 PHÚT VÔ TRUNG TÂM", "energy": "cao" }, ... ] }
 // family: A | B | C | D | E (bộ 60 preset) | "rieng" (chỉ dùng preset BĐS + thẻ bám lời theo font của video)
 // mode: "vis" (mặc định: chữ chốt thưa, xoay vòng trong video) | "bds" (velis-editor: chỉ preset B18; luật 8 — mỗi vai một preset cố định

@@ -71,8 +71,8 @@ Dựng lại từ 6 video của editor BĐS ME4REAL (`docs/PHONG-CACH-ME4REAL.md
 | `so-chen` | Ưu đãi một con số: Miễn phí quản lí **1** năm | `truoc` ("dòng1\|dòng2"), `so`, `sau`, `goc` | V2 30 s |
 | `pill-xep` | Thông số dán cạnh công trình: 31 TẦNG NỔI / 3 TẦNG HẦM (dải dưới, căn trái) | `items: [{ t, at? }]` | V3 47 s |
 | `nhan-ban-do` | Điểm trên bản đồ: thẻ vàng + ghim đỏ | `m`, `goc` | V2 43 s |
-| `chu-gian` | Tên dự án / hạng mục: THE LEGEND, LÀM VIỆC | `m`, `s`, `mau` (chữ màu cỡ vừa), `gian` | V5 15 s, V4 32 s |
-| `logo-ghep` | Tên dự án dạng logo: Sun *Symphony* 5 · Second Home | `m`, `s`, `so`, `sub` | V3 78 s |
+| `chu-gian` | Tên dự án / hạng mục: SKY VILLA, LÀM VIỆC | `m`, `s`, `mau` (chữ màu cỡ vừa), `gian` | V5 15 s, V4 32 s |
+| `logo-ghep` | Tên dự án dạng logo: Lumi *Riverside* 5 · Second Home | `m`, `s`, `so`, `sub` | V3 78 s |
 | `poster-serif` | Tiện ích sang trọng **trên nền sáng**: TIỆN ÍCH *xa hoa* | `m`, `s`, `sub`, `c` (màu mực) | V5 35 s |
 | `so-thu-tu` | Lợi thế đánh số: **1** mặt bằng THƯƠNG MẠI | `rows: [{ n, nho, lon, viet?, at? }]` | V6 19 s |
 | `khung-sdt` | CTA: số điện thoại trong khung viền | `m` | V3 118 s |

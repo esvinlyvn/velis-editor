@@ -28,12 +28,10 @@ fs.copyFileSync(path.join(ROOT, "node_modules/gsap/dist/gsap.min.js"), path.join
 const FONTS = fontCss(OUT);
 const CSS = fs.readFileSync(path.join(HERE, "presets.css"), "utf8");
 
-// nền thử: ảnh dọc có sẵn trong dự án mẫu (đủ loại sáng/tối/bão hòa)
-const MEDIA = path.join(ROOT, "projects/xuan-cat-lo/media");
-const BGS = ["fit/v3-river.jpg", "fit/v4-living.jpg", "fit/view-cv-v.jpg", "fit/v3-bed.jpg", "fit/v3-map.jpg", "last-w.jpg",
-  "fit/pk-1.jpg", "fit/mo-ban-full.jpg", "fit/pn-1.jpg", "fit/v3-catnoc.jpg", "fit/pctt-v.jpg", "fit/v3-event.jpg"]
-  .filter((f) => fs.existsSync(path.join(MEDIA, f)));
-if (!BGS.length) { console.error("Không có ảnh nền thử trong projects/xuan-cat-lo/media"); process.exit(1); }
+// nền thử: ảnh dọc 1080×1920 đặt ở work/nen-thu/ (không commit; nên đủ loại sáng / tối / bão hòa — cảnh sông, phòng, bản đồ, sự kiện)
+const MEDIA = path.join(ROOT, "work/nen-thu");
+const BGS = fs.existsSync(MEDIA) ? fs.readdirSync(MEDIA).filter((f) => /\.jpe?g$/i.test(f)).sort().slice(0, 12) : [];
+if (!BGS.length) { console.error("Không có ảnh nền thử: đặt vài ảnh dọc .jpg vào work/nen-thu/"); process.exit(1); }
 BGS.forEach((f, i) => fs.copyFileSync(path.join(MEDIA, f), path.join(OUT, "bg", `${i}.jpg`)));
 // preset đặt ở phần dưới khung (giới thiệu người nói, cuộc gọi) — còn lại ở dải trên đầu người nói
 const LOW = new Set(["d-lower", "dang-goi", "d-call"]);
