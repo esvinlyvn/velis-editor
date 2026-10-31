@@ -1,216 +1,250 @@
 {
-  "_ghi_chu": "Dùng bởi goi-sach.mjs, không đi theo gói. thay: [từ, thành] theo thứ tự (cụm dài trước). cam: còn thấy chữ nào (không phân biệt hoa thường) thì gói hỏng. dong_4c: slug video khách, bỏ dòng tương ứng ở bảng 4c.",
-  "thay": [
-    [
-      "\"THE PRIVÉ\"",
-      "\"SKY GARDEN\""
-    ],
-    [
-      "NHẮN XUÂN",
-      "NHẮN LAN"
-    ],
-    [
-      "(MIK Group: Imperia Sensa Park, The Sensa; The Privé…)",
-      "(nhiều dự án căn hộ, biệt thự)"
-    ],
-    [
-      "\"Imperia Sensa Park\" ra \"IPHERIA CENTFAK\", \"The Privé\" ra \"RI VE\"/\"ZV\"",
-      "tên dự án tiếng Anh ra chuỗi chữ vô nghĩa, tên ngắn bị cụt còn 1–2 âm"
-    ],
-    [
-      "\"The Privé cắt lỗ?\" (Xuân, 10/2026)",
-      "\"cắt lỗ?\" (10/2026)"
-    ],
-    [
-      "(The Privé: san hô",
-      "(ví dụ san hô"
-    ],
-    [
-      "The Privé v1",
-      "video-mau-7"
-    ],
-    [
-      "Blanca City, Casa Villa, Sun Group",
-      "Sunrise Riverside, Green City, Chủ đầu tư ABC"
-    ],
-    [
-      "CASA VILLA · PALM RIVER",
-      "SUNRISE · GREEN CITY"
-    ],
-    [
-      "\"PALM RIVER\"",
-      "\"GREEN CITY\""
-    ],
-    [
-      "\"Palm River\", \"Casa Villa\"",
-      "\"Green City\", \"Sunrise Riverside\""
-    ],
-    [
-      "k: \"Palm River\"",
-      "k: \"Green City\""
-    ],
-    [
-      "k: \"Blanca City\"",
-      "k: \"Sunrise Villa\""
-    ],
-    [
-      "\"làm như video Casa Villa\"",
-      "\"làm như video trước\""
-    ],
-    [
-      "`projects/huy-tran-casa-villa/`",
-      "`projects/example/`"
-    ],
-    [
-      "qq-casa-villa",
-      "video-mau-1"
-    ],
-    [
-      "tu-casa-villa",
-      "video-mau-2"
-    ],
-    [
-      "palm-river-2",
-      "video-mau-3b"
-    ],
-    [
-      "palm-river",
-      "video-mau-3"
-    ],
-    [
-      "huy-tran-casa-villa",
-      "video-mau-4"
-    ],
-    [
-      "casa-villa-kim-tham",
-      "video-mau-5"
-    ],
-    [
-      "imperia-sensa-park",
-      "video-mau-6"
-    ],
-    [
-      "Imperia Sensa Park v1",
-      "video-mau-6"
-    ],
-    [
-      "quynh-quynh",
-      "khach-1"
-    ],
-    [
-      "tu-phan",
-      "khach-3"
-    ],
-    [
-      "huy-tran",
-      "khach-4"
-    ],
-    [
-      "kim-tham",
-      "khach-5"
-    ],
-    [
-      "Quỳnh Quỳnh",
-      "Khách 1"
-    ],
-    [
-      "Tú Phan",
-      "Khách 3"
-    ],
-    [
-      "Tú Casa Villa",
-      "Khách 2"
-    ],
-    [
-      "Tú · Casa Villa",
-      "Khách 2"
-    ],
-    [
-      "(Tú)",
-      "(Khách 2)"
-    ],
-    [
-      "Huy Trần",
-      "Khách 4"
-    ],
-    [
-      "em Thắm",
-      "em Lan"
-    ],
-    [
-      "Kim Thắm",
-      "Khách 5"
-    ],
-    [
-      "anh Huy, dự án Casa Villa",
-      "anh Minh, dự án Sunrise"
-    ],
-    [
-      "| Palm River |",
-      "| Khách 3 |"
-    ],
-    [
-      "| Palm River + Khách 4 |",
-      "| Khách 3 + Khách 4 |"
-    ],
-    [
-      "Palm River:",
-      "Khách 3:"
-    ],
-    [
-      "đã thử ở Palm River",
-      "đã thử ở một video trước"
-    ],
-    [
-      "edit-bds:region",
-      "bds-editor:region"
-    ],
-    [
-      "velis-editor",
-      "bds-editor"
-    ],
-    [
-      "esvinlyvn",
-      "<ten-ban>"
-    ]
+ "_ghi_chu": "Dùng bởi goi-sach.mjs, không đi theo gói. thay: [từ, thành] theo thứ tự (cụm dài trước). cam: còn thấy chữ nào (không phân biệt hoa thường) thì gói hỏng. dong_4c: slug video khách, bỏ dòng tương ứng ở bảng 4c.",
+ "thay": [
+  [
+   "Vinhomes Cần Giờ",
+   "dự án ven biển"
   ],
-  "cam": [
-    "huy-tran",
-    "huy trần",
-    "kim-tham",
-    "kim thắm",
-    "thắm",
-    "quỳnh quỳnh",
-    "quynh-quynh",
-    "tú phan",
-    "tu-phan",
-    "qq-casa",
-    "tu-casa",
-    "velis",
-    "edit-bds",
-    "esvinlyvn",
-    "claude/lucid",
-    "claude/eager",
-    "casa villa",
-    "palm river",
-    "blanca",
-    "imperia",
-    "privé",
-    "xuân",
-    "mik group"
+  [
+   "Vinhomes, VietinBank",
+   "chủ đầu tư, ngân hàng"
   ],
-  "dong_4c": [
-    "video-mau-1",
-    "video-mau-2",
-    "video-mau-3",
-    "video-mau-4",
-    "video-mau-5",
-    "video-mau-6",
-    "qq-casa-villa",
-    "tu-casa-villa",
-    "palm-river",
-    "huy-tran-casa-villa",
-    "casa-villa-kim-tham",
-    "imperia-sensa-park"
+  [
+   "Vinhomes",
+   "chủ đầu tư"
+  ],
+  [
+   "VietinBank",
+   "ngân hàng"
+  ],
+  [
+   "namrealty",
+   "một kênh BĐS"
+  ],
+  [
+   "\"THE PRIVÉ\"",
+   "\"SKY GARDEN\""
+  ],
+  [
+   "NHẮN XUÂN",
+   "NHẮN LAN"
+  ],
+  [
+   "(MIK Group: Imperia Sensa Park, The Sensa; The Privé…)",
+   "(nhiều dự án căn hộ, biệt thự)"
+  ],
+  [
+   "\"Imperia Sensa Park\" ra \"IPHERIA CENTFAK\", \"The Privé\" ra \"RI VE\"/\"ZV\"",
+   "tên dự án tiếng Anh ra chuỗi chữ vô nghĩa, tên ngắn bị cụt còn 1–2 âm"
+  ],
+  [
+   "\"The Privé cắt lỗ?\" (Xuân, 10/2026)",
+   "\"cắt lỗ?\" (10/2026)"
+  ],
+  [
+   "(The Privé: san hô",
+   "(ví dụ san hô"
+  ],
+  [
+   "The Privé v1",
+   "bản dựng cũ"
+  ],
+  [
+   "Blanca City, Casa Villa, Sun Group",
+   "Sunrise Riverside, Green City, Chủ đầu tư ABC"
+  ],
+  [
+   "CASA VILLA · PALM RIVER",
+   "SUNRISE · GREEN CITY"
+  ],
+  [
+   "\"PALM RIVER\"",
+   "\"GREEN CITY\""
+  ],
+  [
+   "\"Palm River\", \"Casa Villa\"",
+   "\"Green City\", \"Sunrise Riverside\""
+  ],
+  [
+   "k: \"Palm River\"",
+   "k: \"Green City\""
+  ],
+  [
+   "k: \"Blanca City\"",
+   "k: \"Sunrise Villa\""
+  ],
+  [
+   "\"làm như video Casa Villa\"",
+   "\"làm như video trước\""
+  ],
+  [
+   "`projects/huy-tran-casa-villa/`",
+   "`projects/example/`"
+  ],
+  [
+   "qq-casa-villa",
+   "video-mau-1"
+  ],
+  [
+   "tu-casa-villa",
+   "video-mau-2"
+  ],
+  [
+   "palm-river-2",
+   "video-mau-3b"
+  ],
+  [
+   "palm-river",
+   "video-mau-3"
+  ],
+  [
+   "huy-tran-casa-villa",
+   "video-mau-4"
+  ],
+  [
+   "casa-villa-kim-tham",
+   "video-mau-5"
+  ],
+  [
+   "imperia-sensa-park",
+   "video-mau-6"
+  ],
+  [
+   "Imperia Sensa Park v1",
+   "bản dựng cũ"
+  ],
+  [
+   "quynh-quynh",
+   "khach-1"
+  ],
+  [
+   "tu-phan",
+   "khach-3"
+  ],
+  [
+   "huy-tran",
+   "khach-4"
+  ],
+  [
+   "kim-tham",
+   "khach-5"
+  ],
+  [
+   "Quỳnh Quỳnh",
+   "Khách 1"
+  ],
+  [
+   "Tú Phan",
+   "Khách 3"
+  ],
+  [
+   "Tú Casa Villa",
+   "Khách 2"
+  ],
+  [
+   "Tú · Casa Villa",
+   "Khách 2"
+  ],
+  [
+   "(Tú)",
+   "(Khách 2)"
+  ],
+  [
+   "Huy Trần",
+   "Khách 4"
+  ],
+  [
+   "em Thắm",
+   "em Lan"
+  ],
+  [
+   "Kim Thắm",
+   "Khách 5"
+  ],
+  [
+   "anh Huy, dự án Casa Villa",
+   "anh Minh, dự án Sunrise"
+  ],
+  [
+   "| Palm River |",
+   "| Khách 3 |"
+  ],
+  [
+   "| Palm River + Khách 4 |",
+   "| Khách 3 + Khách 4 |"
+  ],
+  [
+   "Palm River:",
+   "Khách 3:"
+  ],
+  [
+   "đã thử ở Palm River",
+   "đã thử ở một video trước"
+  ],
+  [
+   "edit-bds:region",
+   "bds-editor:region"
+  ],
+  [
+   "velis-editor",
+   "bds-editor"
+  ],
+  [
+   "esvinlyvn",
+   "<ten-ban>"
   ]
+ ],
+ "cam": [
+  "huy-tran",
+  "huy trần",
+  "kim-tham",
+  "kim thắm",
+  "thắm",
+  "quỳnh quỳnh",
+  "quynh-quynh",
+  "tú phan",
+  "tu-phan",
+  "qq-casa",
+  "tu-casa",
+  "velis",
+  "edit-bds",
+  "esvinlyvn",
+  "claude/lucid",
+  "claude/eager",
+  "casa villa",
+  "palm river",
+  "blanca",
+  "imperia",
+  "privé",
+  "xuân",
+  "mik group",
+  "xuan-cat-lo",
+  "thu-thiem-dau-gia",
+  "vinhomes",
+  "namrealty",
+  "video-mau-",
+  "khach-"
+ ],
+ "dong_4c": [
+  "video-mau-1",
+  "video-mau-2",
+  "video-mau-3",
+  "video-mau-4",
+  "video-mau-5",
+  "video-mau-6",
+  "qq-casa-villa",
+  "tu-casa-villa",
+  "palm-river",
+  "huy-tran-casa-villa",
+  "casa-villa-kim-tham",
+  "imperia-sensa-park"
+ ],
+ "cam_regex": {
+  "_ghi_chu": "Mẫu chặn chung: master chỉ được có projects/example; không slug video mẫu / nháp / thử nghiệm nào",
+  "mau": [
+   "projects/(?!example\\b|<)[a-z0-9]",
+   "\\bp34\\b",
+   "kiem-chu/v[0-9]"
+  ]
+ }
 }

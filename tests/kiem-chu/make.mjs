@@ -60,9 +60,9 @@ const B = {
   "pill-xep": (v) => ({ items: [["QUỸ ĐẤT GỐC", "GẦN CHỢ"], ["12 TẦNG NỔI", "3 TẦNG HẦM", "1 TẦNG KỸ THUẬT"], ["3PN"]][v].map((t) => ({ t })) }),
   "nhan-ban-do": (v) => ({ m: ["PHÚ MỸ HƯNG", "GÒ VẤP QUY HOẠCH MỚI", "Q2"][v] }),
   "chu-gian": (v) => ({ m: ["GIÁ GỐC", "PENTHOUSE VĨNH VIỄN", "ĐẸP"][v], s: ["quỹ đất gốc", "trở thành điểm đến", ""][v] || undefined }),
-  "logo-ghep": (v) => [{ m: "Sun", s: "Quý giá", so: "9", sub: "Gò Vấp" }, { m: "Vinhomes", s: "Grand Park", so: "12", sub: "Second Home ven sông" }, { m: "Q", s: "Ổn", so: "1", sub: "Q2" }][v],
+  "logo-ghep": (v) => [{ m: "Mira", s: "Quý giá", so: "9", sub: "Gò Vấp" }, { m: "Lumiere", s: "Riverside", so: "12", sub: "Second Home ven sông" }, { m: "Q", s: "Ổn", so: "1", sub: "Q2" }][v],
   "so-thu-tu": (v) => ({ rows: [[{ n: "1", nho: "quỹ đất", lon: "GIÁ GỐC" }, { n: "2", nho: "luồng", lon: "Quý giá", viet: true }], [{ n: "1", nho: "một mặt bằng", lon: "THƯƠNG MẠI DỊCH VỤ" }, { n: "2", nho: "hai luồng", lon: "Đẳng cấp thượng lưu", viet: true }], [{ n: "3", nho: "", lon: "ĐẸP" }]][v] }),
-  "khung-sdt": (v) => ({ m: ["0909.123.456", "0935.991.948", "1900 6789"][v] }),
+  "khung-sdt": (v) => ({ m: ["0900.000.111", "0900.000.222", "1900 0000"][v] }) // số giả,
 };
 // bộ chung: mỗi dòng của preset nhận chữ theo vai (dòng lớn nhất = chữ chính, viết tay = chữ ký, còn lại chữ dẫn / chữ phụ),
 // số → số; giữ hoa / thường theo chữ mẫu
@@ -89,7 +89,7 @@ function chungTexts(id, v) {
 const ids = [...DUYET.bds.dung, ...DUYET.me4real.dung.filter((p) => !DUYET.bds.dung.includes(p)), ...DUYET.chung.dung.map((p) => "chung:" + p)];
 execFileSync("node", [path.join(ROOT, "tests/demo/make-media.mjs")], { stdio: "ignore" });
 for (let v = 0; v < 3; v++) {
-  const name = `kiem-chu-${v + 1}`, dir = path.join(HERE, `v${v + 1}`), work = path.join(ROOT, "work", name);
+  const name = `kiem-chu-${v + 1}`, dir = path.join(ROOT, "work/kiem-chu", `v${v + 1}`), work = path.join(ROOT, "work", name); // plan sinh ra nằm trong work/ (không commit)
   fs.mkdirSync(dir, { recursive: true }); fs.mkdirSync(work, { recursive: true });
   let t = 0.1;
   const blocks = ids.map((p) => {

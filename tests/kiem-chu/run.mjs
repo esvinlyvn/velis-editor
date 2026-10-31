@@ -9,7 +9,7 @@ const run = (args) => { try { return { ok: true, out: execFileSync("node", args,
 let bad = 0;
 const r0 = run(["tests/kiem-chu/make.mjs"]); process.stdout.write(r0.out); if (!r0.ok) process.exit(1);
 for (const v of [1, 2, 3]) {
-  const b = run(["lib/build.mjs", `tests/kiem-chu/v${v}`, "--no-render"]);
+  const b = run(["lib/build.mjs", `work/kiem-chu/v${v}`, "--no-render"]);
   if (!b.ok) { console.log(b.out); bad++; continue; }
   for (const [name, args] of [["kt-check", ["scripts/qa/kt-check.cjs", `build/kiem-chu-${v}/index.html`, `kiem-chu-${v}`]], ["text-ink", ["scripts/qa/text-ink.cjs", `build/kiem-chu-${v}/index.html`, `kiem-chu-${v}`, `work/kiem-chu-loi/v${v}`]]]) {
     const r = run(args);
