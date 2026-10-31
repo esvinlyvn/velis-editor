@@ -3,7 +3,7 @@
 //   node phat-hanh/cap-nhat-mau.mjs --thu        # chỉ đóng gói + so khác biệt, không commit / push
 //   node phat-hanh/cap-nhat-mau.mjs --lam-moi    # xoá sạch lịch sử master, thay bằng một commit (chỉ khi lịch sử cũ lọt dữ liệu không được có)
 // Gói hỏng (còn tên khách, slug ngoài projects/example, slug thử nghiệm) thì dừng, không đụng tới master.
-// Commit NỐI TIẾP lịch sử master (không ghi đè) để các repo con gộp được bản cập nhật (HUONG-DAN bước 8).
+// Commit NỐI TIẾP lịch sử master (không ghi đè) để các repo con gộp được bản cập nhật (HUONG-DAN bước 7).
 import { execFileSync, execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";

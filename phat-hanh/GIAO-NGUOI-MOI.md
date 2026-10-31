@@ -27,10 +27,9 @@ File này chỉ có ở velis-editor, không đi theo gói. Người mới đọ
 | **2b** | Chờ | Chấp nhận lời mời → **Use this template → Create a new repository** → tài khoản của họ, **Private** → báo mình đã tạo xong |
 | **2c** | Repo mẫu → **Settings → Collaborators** → **Remove** người đó. Repo của họ vẫn còn nguyên | |
 | **3** | | Vào claude.ai/code, kết nối GitHub, cài **Claude GitHub App** cho repo của họ |
-| **4** | | Tạo môi trường: Network **Full**, dán nguyên **setup script** (không sửa chữ nào) |
-| **5** | | Mở phiên trên repo của họ, dán câu kiểm đầu tiên. Xong khi example render được và có file video gửi về |
-| **6** | | Làm video đầu tiên: clip lên Google Drive, gửi link, góp ý, duyệt |
-| **7** | | Dạy luật, kỹ năng mới trong repo của họ. Không ảnh hưởng gì tới mình |
+| **4** | | Môi trường: chỉ chọn Network **Full** (repo tự cài mọi thứ khi mở phiên, không dán script) |
+| **5** | | Làm video đầu tiên: clip lên Google Drive, gửi link, góp ý, duyệt (phiên đầu chờ vài phút để tự cài) |
+| **6** | | Dạy luật, kỹ năng mới trong repo của họ. Không ảnh hưởng gì tới mình |
 
 Chỉ cho quyền **Read**, không cho Write, Maintain hay Admin. Đừng quên bước 2c: người còn trong danh sách Collaborators sẽ thấy mọi bản cập nhật sau của repo mẫu.
 
@@ -44,7 +43,7 @@ Repo của họ là private của họ, mình **không xem được**. Muốn m�
 |---|---|
 | Không thấy nút Use this template | Chưa chấp nhận lời mời, hoặc A1 chưa bật Template repository |
 | Không thấy repo của mình khi tạo phiên | Chưa cài Claude GitHub App cho repo đó (bước 3) |
-| "Script cài đặt thất bại" đầu phiên | Họ chép thiếu hoặc sửa setup script. Dán lại nguyên đoạn ở bước 4, mở phiên mới |
+| Hook cài đặt báo lỗi đầu phiên | Network chưa để **Full** (bước 4). Sửa rồi mở phiên mới |
 | Không tải được model, clip | Network chưa để **Full** |
 | Link Drive tải về file HTML | Chưa để "Bất kỳ ai có đường liên kết" |
 | Mất file video | Máy ảo đã bị xóa. Lần sau tải về ngay khi Claude gửi |
@@ -87,7 +86,7 @@ Không ghi đè lịch sử master (repo con gộp bản mới nhờ lịch sử
 Repo con là repo riêng của người khác (tạo từ master bằng "Use this template"), mình không push vào được. Khi master có bản mới:
 
 1. Master → **Settings → Collaborators** → mời lại người đó, quyền **Read** (như B 2a).
-2. Người đó mở phiên trên repo của họ và dán câu ở `HUONG-DAN.md` **bước 8** (Claude gộp bản mới, giữ luật và dự án riêng của họ, chạy kiểm rồi push).
+2. Người đó mở phiên trên repo của họ và dán câu ở `HUONG-DAN.md` **bước 7** (Claude gộp bản mới, giữ luật và dự án riêng của họ, chạy kiểm rồi push).
 3. Họ báo xong thì **Remove** người đó khỏi Collaborators (như B 2c).
 
 Luật / kỹ năng người con tự dạy chỉ ở repo của họ. Muốn đưa lên master cho mọi người: họ gửi nội dung luật, mình dạy lại ở velis-editor (thử, chốt) rồi làm mục E.
