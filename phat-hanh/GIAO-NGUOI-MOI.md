@@ -48,7 +48,7 @@ Repo của họ là private của họ, mình **không xem được**. Muốn m�
 | Không tải được model, clip | Network chưa để **Full** |
 | Link Drive tải về file HTML | Chưa để "Bất kỳ ai có đường liên kết" |
 | Mất file video | Máy ảo đã bị xóa. Lần sau tải về ngay khi Claude gửi |
-| Muốn bản mới có luật mình vừa thêm | Họ đã tách riêng, không tự nhận được. Hoặc họ tự dạy Claude luật đó, hoặc làm lại bước 2 thành một repo mới (mất những gì họ đã dạy) |
+| Muốn bản mới có luật mình vừa thêm | Mình cập nhật master trước (mục E), rồi làm mục F: mời lại quyền Read, họ làm bước 8 của `HUONG-DAN.md` (gộp bản mới, giữ luật và video riêng của họ), xong thì gỡ quyền |
 
 ---
 
